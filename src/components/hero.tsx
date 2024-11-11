@@ -14,7 +14,7 @@ export function Hero() {
             className={"min-w-[30vw] aspect-[388/575] bg-base-200 shadow-2xl"}
           />
           <p className={"italic py-2 text-center font-body opaity-"}>
-            Available from <b>3rd December, 2024</b>
+            Available from <b>2nd December, 2024</b>
           </p>
         </div>
 
