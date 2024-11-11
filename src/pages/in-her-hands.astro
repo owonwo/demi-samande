@@ -1,0 +1,18 @@
+---
+import { CountdownBanner } from "../components/countdown-banner.tsx";
+import { BookDescription } from "../components/description-section.tsx";
+import { Header } from "../components/header.tsx";
+import { Hero } from "../components/hero.tsx";
+import { PlaceOrder } from "../components/place-order.tsx";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Demi Samande: In Her Hands Book">
+	<main class="font-body">
+		<CountdownBanner client:only="react" />
+		<Header variant="sticky"/>
+		<Hero/>
+		<BookDescription />
+		<PlaceOrder />
+	</main>
+</Layout>

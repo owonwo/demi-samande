@@ -8,10 +8,15 @@ export function Hero() {
           "flex items-start container mx-auto justify-center gap-32 border-black min-h-[300]"
         }
       >
-        <div
-          id={"book-cover"}
-          className={"min-w-[30vw] aspect-[388/575] bg-white shadow-2xl"}
-        />
+        <div>
+          <div
+            id={"book-cover"}
+            className={"min-w-[30vw] aspect-[388/575] bg-base-200 shadow-2xl"}
+          />
+          <p className={"italic py-2 text-center font-body opaity-"}>
+            Available from <b>3rd December, 2024</b>
+          </p>
+        </div>
 
         <div
           className={

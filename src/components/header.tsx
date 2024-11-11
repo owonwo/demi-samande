@@ -11,7 +11,9 @@ export function Header({ variant = "sticky" }) {
           {},
         )}
       >
-        <img {...Logo} className={"w-[150px]"} alt={"Demi Samande"} />
+        <a href={"/"}>
+          <img {...Logo} className={"w-[150px]"} alt={"Demi Samande"} />
+        </a>
       </header>
     </div>
   );
