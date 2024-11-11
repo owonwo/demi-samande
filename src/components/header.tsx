@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../../public/images/assets/Logo.svg";
+import Logo from "../../public/images/assets/logo.svg";
 import { cn } from "../libs/utils.ts";
 
 export function Header({ variant = "sticky" }) {
