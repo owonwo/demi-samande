@@ -1,4 +1,4 @@
-import Logo from "../../public/images/assets/logo-stacked-dark.svg";
+import Logo from "../../public/assets/images/logo-stacked-dark.svg";
 
 export function Footer() {
   return (

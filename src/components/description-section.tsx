@@ -8,7 +8,9 @@ export function BookDescription() {
       className={"relative bg-base-900 text-white py-24 overflow-hidden"}
     >
       <div
-        className={"flex items-start container mx-auto flex-col min-h-screen"}
+        className={
+          "flex items-start container mx-auto px-6 flex-col min-h-screen"
+        }
       >
         <span
           className={

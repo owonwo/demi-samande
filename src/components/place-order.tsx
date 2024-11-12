@@ -1,17 +1,23 @@
+import CoverImage from "../../public/assets/images/in-her-hands-cover.jpg";
 import { BOOK_URL } from "../libs/constants.ts";
 
 export function PlaceOrder() {
   return (
     <section className={"bg-base-100 py-64"}>
-      <div className={"container mx-auto"}>
-        <div className={"flex gap-16 items-center justify-center"}>
-          <div className={"flex flex-col gap-4 justify-between self-stretch"}>
-            <div className={"flex flex-col gap-4"}>
+      <div className={"container mx-auto px-6"}>
+        <div
+          className={"flex flex-row-reverse gap-16 items-center justify-center"}
+        >
+          <div
+            className={
+              "flex flex-1 max-w-[30vw] flex-col gap-4 justify-between self-stretch"
+            }
+          >
+            <div className={"flex flex-col gap-8"}>
               <h1 className={"text-5xl font-heading font-bold text-left"}>
                 Get it <br />
-                in <i className={"text-base-500 z-20 relative"}>your hands</i>
+                <i className={"text-base-500 z-20 relative"}>in your hands</i>
                 <br />
-                today
               </h1>
               <p className={"max-w-xs"}>
                 Pre-order currently available on Amazon.com. You can order the
@@ -35,9 +41,11 @@ export function PlaceOrder() {
           </div>
           <figure
             className={
-              "aspect-[388/573] w-full max-w-[300px] bg-base-200 shadow-xl"
+              "aspect-[388/573] w-full max-w-[400px] bg-base-200 shadow-xl"
             }
-          ></figure>
+          >
+            <img {...CoverImage} alt={"In Her Hands cover"} />
+          </figure>
         </div>
       </div>
     </section>

@@ -1,3 +1,4 @@
+import defaultTheme from "tailwindcss/defaultTheme";
 import { getColors } from "theme-colors";
 
 const values = getColors("#5942ED");
@@ -8,8 +9,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ["Figtree", "sans-serif"],
-        heading: ["Libre Caslon Text", "sans-serif"],
+        heading: ["var(--font-heading)", ...defaultTheme.fontFamily.serif],
+        body: ["var(--font-body)", ...defaultTheme.fontFamily.sans],
       },
       colors: {
         base: values,
