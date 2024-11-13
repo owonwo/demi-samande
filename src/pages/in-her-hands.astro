@@ -15,7 +15,7 @@ import Layout from "../layouts/Layout.astro";
 <Layout title="Demi Samande: In Her Hands Book">
 	<main class="font-body">
 		<CountdownBanner>
-			<div class={"text-[1.4rem]"}
+			<div class={"text-base md:text-[1.4rem]"}
 				 style="--counter-height: 24px;  --counter-duration: 300ms">
 				<BannerCountdown client:only="react"/>
 			</div>
@@ -23,7 +23,7 @@ import Layout from "../layouts/Layout.astro";
 		<Header variant="sticky"/>
 		<Hero/>
 		<BookDescription />
-		<section class="bg-base-100 pt-64">
+		<section class="bg-base-100 pt-12 md:pt-64">
 			<PlaceOrder />
 			 <div
 				class="flex pt-32 pb-16 flex-col items-center gap-4 text-[10svw]"

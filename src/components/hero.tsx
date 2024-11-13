@@ -6,24 +6,32 @@ export function Hero() {
     <div className="pb-32 pt-52 bg-base-500 text-white">
       <section
         className={
-          "flex items-start container mx-auto px-6 justify-center gap-32 border-black min-h-[300]"
+          "flex flex-col md:flex-row items-center md:items-start container mx-auto px-6 justify-center gap-10 sm:gap-32 border-black min-h-[300]"
         }
       >
-        <div className={"-rotate-[12deg]"}>
+        <div className={"md:-rotate-[12deg]"}>
           <div id={"book-cover"} className={"relative bg-base-200 shadow-2xl"}>
             <img
               {...CoverImage}
-              className={"w-[30vw] max-w-lg aspect-[388/575]"}
+              className={"w-full md:w-[30vw] max-w-lg aspect-[388/575]"}
               alt={"In Her Hands cover"}
             />
           </div>
-          <p className={"opacity-75 italic py-2 text-center font-body"}>
-            Available from <b>2nd December, 2024</b>
+          <p
+            className={
+              "opacity-75 italic text-sm md:text-base py-2 text-center font-body"
+            }
+          >
+            Available from 2nd December, 2024
           </p>
         </div>
 
-        <div className={"flex self-stretch flex-col gap-16 max-w-[440px]"}>
-          <h1 className={"italic text-5xl -ml-8"}>
+        <div
+          className={
+            "flex self-stretch px-2 md:px-0 flex-col gap-16 max-w-[440px]"
+          }
+        >
+          <h1 className={"italic text-4xl md:text-5xl md:-ml-8"}>
             <Balancer>
               <span className={"font-[800] font-heading "}>In Her Hands</span>
               <br />

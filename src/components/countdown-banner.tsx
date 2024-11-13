@@ -9,12 +9,12 @@ export function CountdownBanner(props: { children: React.ReactNode }) {
       className={"bg-white flex items-center py-2 min-h-12 border text-black"}
     >
       <div
-        className={
-          "flex container px-4 text-2xl mx-auto justify-between items-center"
-        }
+        className={"flex container px-4 mx-auto justify-between items-center"}
       >
-        <span className={"font-heading text-lg"}>PRE-ORDER ENDS IN</span>
-        <span>{props.children}</span>
+        <span className={"font-heading text-xs md:text-lg"}>
+          PRE-ORDER ENDS IN
+        </span>
+        <span className={"flex"}>{props.children}</span>
       </div>
     </div>
   );

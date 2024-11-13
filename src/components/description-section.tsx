@@ -14,7 +14,7 @@ export function BookDescription() {
       >
         <span
           className={
-            "absolute top-0 -translate-y-[40%] text-[32ch] font-heading italic opacity-25"
+            "absolute top-0 -translate-x-[30%] md:translate-x-[0] -translate-y-[30%] md:-translate-y-[40%] text-[50svw] md:text-[32ch] font-heading italic opacity-25"
           }
           style={{
             WebkitTextStroke: "1px currentColor",
@@ -43,9 +43,17 @@ export function BookDescription() {
           </span>
         </h1>
 
-        <article className={"grid w-full gap-24 grid-cols-3"}>
+        <article
+          className={
+            "grid w-full gap-y-24 gap-x-0 md:gap-24 grid-cols-1 sm:grid-cols-3"
+          }
+        >
           <div className={"col-span-3"}>
-            <p className={"font-heading text-4xl italic max-w-[30ch]"}>
+            <p
+              className={
+                "font-heading text-2xl md:text-4xl italic max-w-[30ch]"
+              }
+            >
               <Balancer>
                 Africa is seen as the next large growth economy, but with this
                 potential comes concerns about exploitation from outside
@@ -53,12 +61,14 @@ export function BookDescription() {
               </Balancer>
             </p>
           </div>
+
           <div className={"col-span-2 content-end"}>
             <div
               id={"video-canvas"}
               className={"aspect-[16/9] w-full bg-base-700 shadow"}
             />
           </div>
+
           <div
             className={
               "flex text-lg flex-col gap-[4ch] text-white text-opacity-85"

@@ -6,11 +6,21 @@ export function PlaceOrder() {
     <>
       <div className={"container mx-auto px-6"}>
         <div
-          className={"flex flex-row-reverse gap-16 items-center justify-center"}
+          className={
+            "flex flex-col md:flex-row gap-16 items-center justify-center"
+          }
         >
+          <figure
+            className={
+              "aspect-[388/573] w-full max-w-[400px] bg-base-200 shadow-xl"
+            }
+          >
+            <img {...CoverImage} alt={"In Her Hands cover"} />
+          </figure>
+
           <div
             className={
-              "flex flex-1 max-w-[30vw] flex-col gap-4 justify-between self-stretch"
+              "flex md:flex-1 w-full md:max-w-[30vw] flex-col gap-12 justify-between self-stretch"
             }
           >
             <div className={"flex flex-col gap-8"}>
@@ -42,16 +52,8 @@ export function PlaceOrder() {
               </a>
             </div>
           </div>
-          <figure
-            className={
-              "aspect-[388/573] w-full max-w-[400px] bg-base-200 shadow-xl"
-            }
-          >
-            <img {...CoverImage} alt={"In Her Hands cover"} />
-          </figure>
         </div>
       </div>
-
       <div className={"flex justify-center"}>
         <div />
       </div>
