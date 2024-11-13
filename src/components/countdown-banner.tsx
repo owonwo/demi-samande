@@ -59,7 +59,7 @@ type CounterViewProps = {
 
 export function Countdown(props: {
   to: Date;
-  View: React.FC<CounterViewProps>;
+  View?: React.FC<CounterViewProps>;
 }) {
   const { to: targetDate } = props;
   const View = props.View ?? GridView;

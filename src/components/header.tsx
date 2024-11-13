@@ -1,4 +1,3 @@
-import React from "react";
 import Logo from "../../public/assets/images/logo.svg";
 import { cn } from "../libs/utils.ts";
 
