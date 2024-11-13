@@ -1,6 +1,7 @@
-import { Slot } from "@radix-ui/react-slot";
 import { formatDuration } from "date-fns";
 import React from "react";
+import { CircularCounter } from "./circular-counter.tsx";
+import { CounterEntryBox } from "./counter-entry-box.tsx";
 
 export function CountdownBanner() {
   return (
@@ -10,7 +11,7 @@ export function CountdownBanner() {
           "flex container px-4 text-2xl mx-auto justify-between items-center"
         }
       >
-        <span className={"font-heading"}>Pre-order ends in</span>
+        <span className={"font-heading text-lg"}>Pre-order ends in</span>
         <span>
           <Countdown to={new Date(2024, 11, 15)} />
         </span>
@@ -53,6 +54,7 @@ function countdownToDate(
 }
 
 function Countdown({ to: targetDate }: { to: Date }) {
+  const [state, setState] = React.useState(0);
   const [timestamp, setRange] = React.useState<
     { value: string; unit: string }[]
   >([]);
@@ -94,9 +96,10 @@ function Countdown({ to: targetDate }: { to: Date }) {
 
     return () => clearInterval(id);
   }, [targetDate]);
-  const [state, setState] = React.useState(0);
 
   React.useEffect(() => {
+    if (import.meta.env.DEV) return;
+
     const controller = new AbortController();
     const inc = () => setState((e) => (e >= 9 ? 0 : e + 1));
     const dec = () => setState((e) => (e <= 0 ? 9 : e - 1));
@@ -119,12 +122,16 @@ function Countdown({ to: targetDate }: { to: Date }) {
   return (
     <span
       className={"flex font-heading gap-2 font-thin font-[600]"}
-      style={{ fontVariantNumeric: "tabular-nums", "--counter-height": "24px" }}
+      style={{
+        fontVariantNumeric: "tabular-nums",
+        // @ts-expect-error
+        "--counter-duration": "300ms",
+        "--counter-height": "24px",
+      }}
     >
-      <Counter value={state} />
-      {/*{timestamp.map((t, index) => {*/}
-      {/*  return <RenderValue data={t} key={index} />;*/}
-      {/*})}*/}
+      {timestamp.map((t, index) => {
+        return <RenderValue data={t} key={index} />;
+      })}
     </span>
   );
 }
@@ -133,7 +140,7 @@ function RenderValue({ data: t }: { data: { value: string; unit: string } }) {
   const record = t.value.split("").map((e, index) => {
     return (
       <span className={"text-base-800"} key={index}>
-        <Counter value={e} />
+        <CircularCounter value={e} />
       </span>
     );
   });
@@ -147,97 +154,6 @@ function RenderValue({ data: t }: { data: { value: string; unit: string } }) {
     </span>
   );
 }
-
-function CounterEntryBox(props: { children: React.ReactNode }) {
-  return (
-    <Slot
-      className="font-body text-[1.4rem] h-[--counter-height] overflow-hidden leading-[1]"
-      style={{
-        fontVariantNumeric: "tabular-nums",
-      }}
-    >
-      {props.children}
-    </Slot>
-  );
-}
-
-const Counter = React.memo(
-  function Counter(props: { value: number }) {
-    const swapRef = React.useRef<HTMLSpanElement>(null);
-    const container = React.useRef<HTMLSpanElement>(null);
-    const [count, setCount] = React.useState(() => Number(props.value));
-
-    React.useEffect(() => {
-      console.log(">>>", { count, value: props.value });
-      const new_value = props.value;
-      const swap = swapRef.current;
-      const con = container.current;
-      if (!(con && swap)) return;
-
-      if (
-        (new_value === 9 && count === 0) ||
-        (new_value === 0 && count === 9)
-      ) {
-        swap.textContent = new_value;
-        con.style.transform = "translateY(0)";
-        // con.style.transitionDuration = "0s";
-      } else {
-        con.style.transform = `
-                translateY(
-                  calc(
-                      calc(
-                        var(--count, 0)
-                        * calc(var(--counter-height) * -1)
-                      )
-                      - 
-                      var(--counter-height)
-                  )
-                )
-              `;
-        con.style.transitionDuration = "0.3s";
-      }
-
-      setCount(new_value);
-    }, [props.value]);
-
-    return (
-      <CounterEntryBox>
-        <div>
-          <span
-            ref={container}
-            className="inline-flex transform flex-col items-center"
-            style={{
-              "--count": count,
-              transitionProperty: "transform",
-              transitionDuration: ".3s",
-              transitionTimingFunction: "ease-in",
-            }}
-          >
-            <span
-              ref={swapRef}
-              className="relative text-center h-[--counter-height]"
-            >
-              --
-            </span>
-            {Array(10)
-              .fill(0)
-              .map((_, index) => {
-                return (
-                  <span
-                    key={index}
-                    className="relative text-center h-[--counter-height]"
-                  >
-                    {index}
-                  </span>
-                );
-              })}
-          </span>
-        </div>
-      </CounterEntryBox>
-    );
-  },
-  (prev, current) => prev.value === current.value,
-);
 
 const serialNo = (num: number): string => {
   if (num === 0) return "00";
