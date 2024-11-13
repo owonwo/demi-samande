@@ -3,6 +3,16 @@ import { CounterEntryBox } from "./counter-entry-box.tsx";
 
 export const CircularCounter = React.memo(
   function Counter(props: { value: number }) {
+    const initialTransform = React.useRef(
+      `translateY(
+            calc(
+                var(--counter-height)
+                * -1
+            )
+        )
+      `,
+    ).current;
+
     const prevRef = React.useRef<HTMLSpanElement>(null);
     const currentRef = React.useRef<HTMLSpanElement>(null);
     const container = React.useRef<HTMLSpanElement>(null);
@@ -11,7 +21,6 @@ export const CircularCounter = React.memo(
     const animating = React.useRef(false);
 
     React.useEffect(() => {
-      const old_value = count;
       const new_value = props.value;
 
       const prev = prevRef.current;
@@ -36,7 +45,7 @@ export const CircularCounter = React.memo(
         // quick swap
         current.textContent = new_value;
         con.style.transitionDuration = "0s";
-        con.style.transform = "translateY(-24px)";
+        con.style.transform = initialTransform;
         animating.current = false;
       }, Number.parseInt(duration) + 1);
 
@@ -50,7 +59,7 @@ export const CircularCounter = React.memo(
             ref={container}
             className="inline-flex transform flex-col items-center"
             style={{
-              transform: "translateY(-24px)",
+              transform: initialTransform,
               transitionProperty: "transform",
               transitionDuration: ".3s",
               transitionTimingFunction: "ease-in",

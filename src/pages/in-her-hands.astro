@@ -1,5 +1,9 @@
 ---
-import { CountdownBanner } from "../components/countdown-banner.tsx";
+import {
+  BannerCountdown,
+  Countdown,
+  CountdownBanner,
+} from "../components/countdown-banner.tsx";
 import { BookDescription } from "../components/description-section.tsx";
 import { Footer } from "../components/footer.tsx";
 import { Header } from "../components/header.tsx";
@@ -10,11 +14,28 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout title="Demi Samande: In Her Hands Book">
 	<main class="font-body">
-		<CountdownBanner client:only="react" />
+		<CountdownBanner>
+			<div class={"text-[1.4rem]"}
+				 style="--counter-height: 24px;  --counter-duration: 300ms">
+				<BannerCountdown client:only="react"/>
+			</div>
+		</CountdownBanner>
 		<Header variant="sticky"/>
 		<Hero/>
 		<BookDescription />
-		<PlaceOrder />
-        <Footer />
+		<section class="bg-base-100 pt-64">
+			<PlaceOrder />
+			 <div
+				class="flex pt-32 pb-16 flex-col items-center gap-4 text-[10svw]"
+				style="--counter-height: 10svw; --counter-duration: 800ms;">
+				 <h1 class="text-base tracking-normal font-body">PRE-ORDER ENDS IN</h1>
+				<Countdown
+					to={new Date(2024, 11, 15)}
+					client:only="react"
+				/>
+			 </div>
+			<Footer />
+		</section>
+
 	</main>
 </Layout>

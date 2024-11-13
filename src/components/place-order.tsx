@@ -3,7 +3,7 @@ import { BOOK_URL } from "../libs/constants.ts";
 
 export function PlaceOrder() {
   return (
-    <section className={"bg-base-100 py-64"}>
+    <>
       <div className={"container mx-auto px-6"}>
         <div
           className={"flex flex-row-reverse gap-16 items-center justify-center"}
@@ -28,16 +28,19 @@ export function PlaceOrder() {
                 <li>— E-book</li>
               </ul>
             </div>
-            <a href={BOOK_URL} target={"_blank"} rel={"noopener noreferrer"}>
-              <button
-                type={"button"}
-                className={
-                  "px-12 py-4 bg-base-500 text-white w-full text-center rounded-lg"
-                }
-              >
-                Pre-order now
-              </button>
-            </a>
+
+            <div className={"flex flex-col gap-4"}>
+              <a href={BOOK_URL} target={"_blank"} rel={"noopener noreferrer"}>
+                <button
+                  type={"button"}
+                  className={
+                    "px-12 py-4 bg-base-500 text-white w-full text-center rounded-lg"
+                  }
+                >
+                  Pre-order now
+                </button>
+              </a>
+            </div>
           </div>
           <figure
             className={
@@ -48,6 +51,10 @@ export function PlaceOrder() {
           </figure>
         </div>
       </div>
-    </section>
+
+      <div className={"flex justify-center"}>
+        <div />
+      </div>
+    </>
   );
 }

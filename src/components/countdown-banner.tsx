@@ -1,20 +1,20 @@
 import { formatDuration } from "date-fns";
 import React from "react";
-import { CircularCounter } from "./circular-counter.tsx";
 import { CounterEntryBox } from "./counter-entry-box.tsx";
+import { MechanicalCounter } from "./mechanical-counter.tsx";
 
-export function CountdownBanner() {
+export function CountdownBanner(props: { children: React.ReactNode }) {
   return (
-    <div className={"bg-white py-2 border text-black"}>
+    <div
+      className={"bg-white flex items-center py-2 min-h-12 border text-black"}
+    >
       <div
         className={
           "flex container px-4 text-2xl mx-auto justify-between items-center"
         }
       >
-        <span className={"font-heading text-lg"}>Pre-order ends in</span>
-        <span>
-          <Countdown to={new Date(2024, 11, 15)} />
-        </span>
+        <span className={"font-heading text-lg"}>PRE-ORDER ENDS IN</span>
+        <span>{props.children}</span>
       </div>
     </div>
   );
@@ -53,11 +53,21 @@ function countdownToDate(
   return setInterval(updateCountdown, 1000);
 }
 
-function Countdown({ to: targetDate }: { to: Date }) {
-  const [state, setState] = React.useState(0);
-  const [timestamp, setRange] = React.useState<
-    { value: string; unit: string }[]
-  >([]);
+type CounterViewProps = {
+  timestamp: { value: string; unit: string }[];
+};
+
+export function Countdown(props: {
+  to: Date;
+  View: React.FC<CounterViewProps>;
+}) {
+  const { to: targetDate } = props;
+  const View = props.View ?? GridView;
+
+  const [, setState] = React.useState(0);
+  const [timestamp, setRange] = React.useState<CounterViewProps["timestamp"]>(
+    [],
+  );
 
   React.useEffect(() => {
     const id = countdownToDate(targetDate, (value) => {
@@ -119,18 +129,33 @@ function Countdown({ to: targetDate }: { to: Date }) {
     return () => controller.abort();
   }, []);
 
+  return <View timestamp={timestamp} />;
+}
+
+export function BannerCountdown() {
+  return <Countdown to={new Date(2024, 11, 15)} View={ListView} />;
+}
+
+export function ListView({ timestamp }: CounterViewProps) {
   return (
-    <span
-      className={"flex font-heading gap-2 font-thin font-[600]"}
-      style={{
-        fontVariantNumeric: "tabular-nums",
-        // @ts-expect-error
-        "--counter-duration": "300ms",
-        "--counter-height": "24px",
-      }}
-    >
+    <span className={"flex font-thin gap-2 font-[600]"}>
       {timestamp.map((t, index) => {
         return <RenderValue data={t} key={index} />;
+      })}
+    </span>
+  );
+}
+export function GridView({ timestamp }: CounterViewProps) {
+  return (
+    <span className={"grid grid-cols-4 font-thin font-[600]"}>
+      {timestamp.map((t, index) => {
+        return (
+          <React.Fragment key={index}>
+            {index % 2 === 0 ? <span /> : null}
+            <RenderValue data={t} />
+            {index % 2 === 1 ? <span /> : null}
+          </React.Fragment>
+        );
       })}
     </span>
   );
@@ -140,7 +165,7 @@ function RenderValue({ data: t }: { data: { value: string; unit: string } }) {
   const record = t.value.split("").map((e, index) => {
     return (
       <span className={"text-base-800"} key={index}>
-        <CircularCounter value={e} />
+        <MechanicalCounter value={e} />
       </span>
     );
   });

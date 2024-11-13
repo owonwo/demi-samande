@@ -25,7 +25,7 @@ export const MechanicalCounter = React.memo(
                 )
               `,
               transitionProperty: "transform",
-              transitionDuration: ".3s",
+              transitionDuration: "var(--counter-duration)",
               transitionTimingFunction: "ease-in",
             }}
           >
