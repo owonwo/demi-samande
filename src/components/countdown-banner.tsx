@@ -147,13 +147,11 @@ export function ListView({ timestamp }: CounterViewProps) {
 }
 export function GridView({ timestamp }: CounterViewProps) {
   return (
-    <span className={"grid grid-cols-4 font-thin font-[600]"}>
+    <span className={"grid grid-cols-2 font-thin font-[600]"}>
       {timestamp.map((t, index) => {
         return (
           <React.Fragment key={index}>
-            {index % 2 === 0 ? <span /> : null}
             <RenderValue data={t} />
-            {index % 2 === 1 ? <span /> : null}
           </React.Fragment>
         );
       })}

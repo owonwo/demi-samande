@@ -26,9 +26,9 @@ import Layout from "../layouts/Layout.astro";
 		<section class="bg-base-100 pt-12 md:pt-64">
 			<PlaceOrder />
 			 <div
-				class="flex pt-32 pb-16 flex-col items-center gap-4 text-[10svw]"
-				style="--counter-height: 10svw; --counter-duration: 800ms;">
-				 <h1 class="text-base tracking-normal font-body">PRE-ORDER ENDS IN</h1>
+				class="flex pt-32 pb-16 flex-col items-center gap-4 text-[16svw]"
+				style="--counter-height: 16svw; --counter-duration: 800ms;">
+				 <h1 class="text-base tracking-[3px] font-body">PRE-ORDER ENDS IN</h1>
 				<Countdown
 					to={new Date(2024, 11, 15)}
 					client:only="react"

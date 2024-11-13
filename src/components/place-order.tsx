@@ -26,7 +26,7 @@ export function PlaceOrder() {
             <div className={"flex flex-col gap-8"}>
               <h1 className={"text-5xl font-heading font-bold text-left"}>
                 Get it <br />
-                <i className={"text-base-500 z-20 relative"}>in your hands</i>
+                <i className={"z-20 relative"}>in your hands</i>
                 <br />
               </h1>
               <p className={"max-w-xs"}>
@@ -44,7 +44,7 @@ export function PlaceOrder() {
                 <button
                   type={"button"}
                   className={
-                    "px-12 py-4 bg-base-500 text-white w-full text-center rounded-lg"
+                    "px-12 py-4 bg-secondary-500 text-white w-full text-center rounded-lg"
                   }
                 >
                   Pre-order now
@@ -54,6 +54,7 @@ export function PlaceOrder() {
           </div>
         </div>
       </div>
+
       <div className={"flex justify-center"}>
         <div />
       </div>
