@@ -161,11 +161,11 @@ export function GridView({ timestamp }: CounterViewProps) {
   );
 }
 
-function RenderValue({ data: t }: { data: { value: string; unit: string } }) {
+function RenderValue({ data: t }: { data: CounterViewProps["timestamp"][0] }) {
   const record = t.value.split("").map((e, index) => {
     return (
       <span className={"text-base-800"} key={index}>
-        <MechanicalCounter value={e} />
+        <MechanicalCounter value={Number(e)} />
       </span>
     );
   });
