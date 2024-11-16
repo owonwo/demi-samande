@@ -31,7 +31,7 @@ export function BookDescription() {
           }
         >
           <span
-            className={"px-12 bg-gradient-to-b from-purple-600 to-base-600 "}
+            className={"px-12 bg-gradient-to-b from-base-200 to-base-600 "}
             style={{
               fontWeight: 800,
               backgroundClip: "text",
@@ -119,7 +119,7 @@ function Italic(props: React.ComponentProps<"i">) {
   return (
     <span
       {...props}
-      className={cn(props.className, "italic text-purple-400 font-heading")}
+      className={cn(props.className, "italic text-base-400 font-heading")}
     >
       {props.children}
     </span>

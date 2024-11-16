@@ -10,6 +10,7 @@ import { Header } from "../components/header.tsx";
 import { Hero } from "../components/hero.tsx";
 import { PlaceOrder } from "../components/place-order.tsx";
 import Layout from "../layouts/Layout.astro";
+import { PreorderEndDate } from "../libs/constants";
 ---
 
 <Layout title="Demi Samande: In Her Hands Book">
@@ -30,7 +31,7 @@ import Layout from "../layouts/Layout.astro";
 				style="--counter-height: 16svw; --counter-duration: 800ms;">
 				 <h1 class="text-base tracking-[3px] font-body">PRE-ORDER ENDS IN</h1>
 				<Countdown
-					to={new Date(2024, 11, 15)}
+					to={PreorderEndDate}
 					client:only="react"
 				/>
 			 </div>

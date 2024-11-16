@@ -1,7 +1,7 @@
 import defaultTheme from "tailwindcss/defaultTheme";
 import { getColors } from "theme-colors";
 
-const values = getColors("#5942ED");
+const values = getColors("#E54244");
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -13,7 +13,8 @@ export default {
         body: ["var(--font-body)", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        base: {
+        base: values,
+        base_2: {
           50: "#f1f6ff",
           100: "#e6efff",
           200: "#d1e2ff",

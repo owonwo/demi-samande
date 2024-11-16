@@ -1,5 +1,6 @@
 import { formatDuration } from "date-fns";
 import React from "react";
+import { PreorderEndDate } from "../libs/constants.ts";
 import { CounterEntryBox } from "./counter-entry-box.tsx";
 import { MechanicalCounter } from "./mechanical-counter.tsx";
 
@@ -133,7 +134,7 @@ export function Countdown(props: {
 }
 
 export function BannerCountdown() {
-  return <Countdown to={new Date(2024, 11, 15)} View={ListView} />;
+  return <Countdown to={PreorderEndDate} View={ListView} />;
 }
 
 export function ListView({ timestamp }: CounterViewProps) {
