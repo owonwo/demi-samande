@@ -2,6 +2,7 @@ import { ArrowRightIcon } from "lucide-react";
 import Logo from "../../public/assets/images/logo-stacked-white.svg";
 import LogoDark from "../../public/assets/images/logo.svg";
 import { cn } from "../libs/utils.ts";
+import { Container } from "./layouts/container.tsx";
 
 export function Header({ variant = "sticky" }) {
   return (
@@ -23,11 +24,7 @@ export function Header({ variant = "sticky" }) {
 export function MainHeader({ variant = "sticky" }) {
   return (
     <header className={"absolute w-full bg-black bg-opacity-[0.02]"}>
-      <div
-        className={
-          "flex justify-between container py-5 ner px-4 mx-auto text-black"
-        }
-      >
+      <Container className={"flex justify-between py-5 ner px-4 text-black"}>
         <a href={"/"}>
           <img {...LogoDark} className={"w-[150px]"} alt={"Demi Samande"} />
         </a>
@@ -53,7 +50,7 @@ export function MainHeader({ variant = "sticky" }) {
             </li>
           </ul>
         </nav>
-      </div>
+      </Container>
     </header>
   );
 }

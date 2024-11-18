@@ -1,6 +1,7 @@
 import { ChevronRightIcon } from "lucide-react";
 import { Balancer } from "react-wrap-balancer";
 import CoverImage from "../../public/assets/images/in-her-hands-cover.jpg";
+import { Container } from "./layouts/container.tsx";
 
 export function Hero() {
   return (
@@ -72,7 +73,7 @@ export function Hero() {
 export function MainHero() {
   return (
     <section className="bg-purple-200">
-      <div className="container mx-auto px-4 py-4 flex items-end justify-start min-h-[100svh]">
+      <Container className="py-4 flex items-end justify-start min-h-[100svh]">
         <hgroup className="flex  items-start flex-col gap-4 pb-8">
           <h1 className="font-semibold text-7xl max-w-2xl text-balance font-heading">
             Empowering ideas, Inspiring change.
@@ -86,7 +87,7 @@ export function MainHero() {
             <ChevronRightIcon size="18" />
           </button>
         </hgroup>
-      </div>
+      </Container>
     </section>
   );
 }
