@@ -1,8 +1,15 @@
 ---
+import { ArrowRight, ChevronRightIcon } from "lucide-react";
+import { BioContent } from "../components/bio-content.tsx";
+import { Footer } from "../components/footer.tsx";
+import { MainHeader } from "../components/header.tsx";
+import { MainHero } from "../components/hero.tsx";
 import Layout from "../layouts/Layout.astro";
-return Astro.redirect("/in-her-hands");
 ---
 
 <Layout title="Demi Samande: Under Construction">
-	
+	<MainHeader />
+    <MainHero />
+    <BioContent client:load />
+    <Footer />
 </Layout>

@@ -1,3 +1,4 @@
+import { ChevronRightIcon } from "lucide-react";
 import { Balancer } from "react-wrap-balancer";
 import CoverImage from "../../public/assets/images/in-her-hands-cover.jpg";
 
@@ -65,5 +66,27 @@ export function Hero() {
         </div>
       </section>
     </div>
+  );
+}
+
+export function MainHero() {
+  return (
+    <section className="bg-purple-200">
+      <div className="container mx-auto px-4 py-4 flex items-end justify-start min-h-[100svh]">
+        <hgroup className="flex  items-start flex-col gap-4 pb-8">
+          <h1 className="font-semibold text-7xl max-w-2xl text-balance font-heading">
+            Empowering ideas, Inspiring change.
+          </h1>
+
+          <button
+            type="button"
+            className="inline-flex gap-3 p-4 items-center text-black"
+          >
+            <span>Get to know here</span>
+            <ChevronRightIcon size="18" />
+          </button>
+        </hgroup>
+      </div>
+    </section>
   );
 }

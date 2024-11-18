@@ -14,6 +14,9 @@ export default {
       },
       colors: {
         base: values,
+        dm: {
+          background: "#fff",
+        },
         base_2: {
           50: "#f1f6ff",
           100: "#e6efff",
