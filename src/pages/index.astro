@@ -1,9 +1,11 @@
 ---
 import { ArrowRight, ChevronRightIcon } from "lucide-react";
+import { Balancer } from "react-wrap-balancer";
 import { BioContent } from "../components/bio-content.tsx";
-import { Footer } from "../components/footer.tsx";
+import { MainFooter } from "../components/footer.tsx";
 import { MainHeader } from "../components/header.tsx";
 import { MainHero } from "../components/hero.tsx";
+import { Container } from "../components/layouts/container.tsx";
 import Layout from "../layouts/Layout.astro";
 ---
 
@@ -11,5 +13,114 @@ import Layout from "../layouts/Layout.astro";
 	<MainHeader />
     <MainHero />
     <BioContent client:load />
-    <Footer />
+
+    <div class="min-h-[60svh] bg-base-500">
+        <Container className="py-32">
+            <div class="flex flex-col items-center">
+                <figure class="w-[400px] shadow-2xl aspect-[4/5.2] bg-gray-200">
+                </figure>
+
+                <div class="flex flex-col items-center text-white py-12 max-w-xs text-center gap-4">
+                    <h1 class="font-heading text-3xl italic">
+                        In Her Hands
+                    </h1>
+
+                    <p class="text-balance">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis mollitia nam natus nostrum.
+
+                    </p>
+
+                    <button type="button" class="bg-white text-black p-4 rounded-lg">
+                        Learn more
+                    </button>
+                </div>
+            </div>
+        </Container>
+    </div>
+
+    <section id="speaker" class="min-h-[60svh] bg-dm-background py-32">
+        <Container className="flex gap-8 justify-between">
+            <div class="flex flex-col basis-1/2 justify-between">
+                <div class="flex flex-col gap-8">
+                    <div class="flex flex-col gap-6">
+                        <h1 class="font-heading text-5xl">
+                           Discover how <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to increase your<br/>
+                             potential
+                       </h1>
+                        <p class="text-base max-w-xl">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci blanditiis dolor ea incidunt libero, reiciendis sed! Aspernatur dicta dignissimos dolore eius enim in iusto laborum, necessitatibus quidem sequi totam vero.
+                        </p>
+                    </div>
+
+                    <div class="flex gap-8 text-sm">
+                        <div class="flex gap-2 items-center">
+                            <span class="text-5xl">5+</span>
+                            <span class="w-[60px] leading-[1] font-medium">speaking events</span>
+                        </div>
+                        <div class="flex gap-2 items-center">
+                            <span class="text-5xl">3</span>
+                            <span class="w-[60px] leading-[1] font-medium">different countries</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="flex gap-2 bg-gray-100 rounded-md border border-gray-200 px-4 py-2 items-center">
+                        <span>Reach out to Demi</span>
+                        <ArrowRight size="1em" />
+                    </button>
+                </div>
+            </div>
+
+            <figure class="bg-gray-200 basis-1/2 aspect-[3/2]">
+            </figure>
+        </Container>
+    </section>
+
+    <section id="podcaster" class="flex flex flex-col aspect-[16/9] w-full bg-black text-white py-32">
+        <Container className="flex flex-1 flex-col justify-between flex-1 gap-8 justify-between">
+            <h1 class="font-[300] text-2xl">
+                Susu podcast <span class="italic font-heading">hosted</span> by Demi
+            </h1>
+
+            <div class="flex gap-5">
+                <div class="flex flex-col items-start basis-4/12 gap-6">
+                    <h2 class="text-4xl">
+                        <Balancer>
+                          Manufacturing news and trends:
+                          What's happening in African manufacturing
+                        </Balancer>
+                    </h2>
+
+                    <button class="bg-white items-center gap-2 inline-flex text-black p-4">
+                        <span>Watch full episode</span>
+                        <ArrowRight  size="18"/>
+                    </button>
+                </div>
+
+                <div class="flex-1 items-end flex justify-end gap-4">
+                    <div class="aspect-[16/9] w-[15vw] border-white bg-white/[0.4] rounded-lg"></div>
+                    <div class="aspect-[16/9] w-[15vw] border-white bg-white/[0.4] rounded-lg"></div>
+                    <div class="aspect-[16/9] w-[15vw] border-white bg-white/[0.4] rounded-lg"></div>
+                    </div>
+            </div>
+        </Container>
+    </section>
+
+    <section id="contact" class="flex flex flex-col w-full bg-black text-white py-64">
+        <Container className="flex flex-col items-center flex-1 gap-8">
+
+                <div class="flex flex-col items-center basis-4/12 gap-6">
+                    <h1 class="text-5xl font-heading">
+                       Get in touch
+                    </h1>
+
+                    <button class="bg-white items-center gap-2 inline-flex text-black p-4">
+                        <span>Let's get talking</span>
+                    </button>
+                </div>
+        </Container>
+    </section>
+
+    <MainFooter />
 </Layout>

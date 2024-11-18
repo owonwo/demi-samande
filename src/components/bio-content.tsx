@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Container } from "./layouts/container.tsx";
 import {
   SmartAccordionItem,
@@ -8,7 +7,7 @@ import {
 
 export function BioContent() {
   return (
-    <section className="flex flex-col bg-dm-background py-24 gap-24 min-h-[100svh]">
+    <section className="flex flex-col bg-dm-background py-24 gap-24 min-h-[60svh]">
       <Container className="">
         <div className="flex gap-4 items-end">
           <hgroup className="basis-1/2 flex flex-col gap-8">
@@ -44,7 +43,6 @@ export function BioContent() {
             "border shrink-0 basis-1/2 bg-gray-200 rounded-lg aspect-[712/544]"
           }
         ></figure>
-
         <InteractiveSlider />
       </Container>
     </section>

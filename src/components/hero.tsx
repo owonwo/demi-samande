@@ -83,7 +83,7 @@ export function MainHero() {
             type="button"
             className="inline-flex gap-3 p-4 items-center text-black"
           >
-            <span>Get to know here</span>
+            <span>Get to know Demi</span>
             <ChevronRightIcon size="18" />
           </button>
         </hgroup>
