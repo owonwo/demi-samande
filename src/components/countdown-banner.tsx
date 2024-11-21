@@ -1,5 +1,6 @@
 import { formatDuration } from "date-fns";
 import React from "react";
+import { useArrowKeys } from "../hooks/use-arrow-keys.ts";
 import { PreorderEndDate } from "../libs/constants.ts";
 import { CounterEntryBox } from "./counter-entry-box.tsx";
 import { MechanicalCounter } from "./mechanical-counter.tsx";
@@ -108,27 +109,11 @@ export function Countdown(props: {
     return () => clearInterval(id);
   }, [targetDate]);
 
-  React.useEffect(() => {
-    if (import.meta.env.DEV) return;
-
-    const controller = new AbortController();
-    const inc = () => setState((e) => (e >= 9 ? 0 : e + 1));
-    const dec = () => setState((e) => (e <= 0 ? 9 : e - 1));
-
-    window.addEventListener(
-      "keyup",
-      (evt) => {
-        evt.preventDefault();
-        evt.stopPropagation();
-
-        if (evt.key === "ArrowRight") inc();
-        if (evt.key === "ArrowLeft") dec();
-      },
-      { signal: controller.signal },
-    );
-
-    return () => controller.abort();
-  }, []);
+  useArrowKeys({
+    maxValue: 9,
+    enabled: import.meta.env.DEV,
+    setter: setState,
+  });
 
   return <View timestamp={timestamp} />;
 }

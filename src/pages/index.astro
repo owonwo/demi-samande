@@ -6,6 +6,7 @@ import { MainFooter } from "../components/footer.tsx";
 import { MainHeader } from "../components/header.tsx";
 import { MainHero } from "../components/hero.tsx";
 import { Container } from "../components/layouts/container.tsx";
+import { Testimonial } from "../components/testimonial.tsx";
 import Layout from "../layouts/Layout.astro";
 ---
 
@@ -106,6 +107,8 @@ import Layout from "../layouts/Layout.astro";
             </div>
         </Container>
     </section>
+
+    <Testimonial client:load />
 
     <section id="contact" class="flex flex flex-col w-full bg-black text-white py-64">
         <Container className="flex flex-col items-center flex-1 gap-8">
