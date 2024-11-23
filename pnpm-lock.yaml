@@ -62,6 +62,9 @@ importers:
       tailwind-merge:
         specifier: ^2.5.4
         version: 2.5.4
+      text-split:
+        specifier: ^0.0.1
+        version: 0.0.1
       theme-colors:
         specifier: ^0.1.0
         version: 0.1.0
@@ -2168,6 +2171,9 @@ packages:
   tar@6.2.1:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
     engines: {node: '>=10'}
+
+  text-split@0.0.1:
+    resolution: {integrity: sha512-fQku+f7COMdbTe7MBdPfc2vlxh3WaTnWyLGOCxI4bygPpbCBh4u1zPhrIpfk09mgfFXJCwdXNaYDuoTlEW63Tg==}
 
   theme-colors@0.1.0:
     resolution: {integrity: sha512-6gTEHQqWlQNiOEGHCSSQmU//E5SnXHJ4H7oHQOD8x77CvNYNQAmt73dqR71mzw5ULV87zaHLxK5pIBnsToFuZw==}
@@ -4959,6 +4965,8 @@ snapshots:
       minizlib: 2.1.2
       mkdirp: 1.0.4
       yallist: 4.0.0
+
+  text-split@0.0.1: {}
 
   theme-colors@0.1.0: {}
 

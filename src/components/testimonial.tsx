@@ -3,6 +3,7 @@ import React from "react";
 import { Balancer } from "react-wrap-balancer";
 import { useArrowKeys } from "../hooks/use-arrow-keys.ts";
 import { cn } from "../libs/utils.ts";
+import { CustomSlider } from "./custom-slider.ts";
 import { Container } from "./layouts/container.tsx";
 
 const testimonies = [
@@ -43,13 +44,15 @@ export function Testimonial() {
     enabled: import.meta.env.DEV,
   });
 
+  const quoteRef = React.useRef<HTMLElement>();
+
   return (
     <section
       id="testimonials"
-      className="flex flex flex-col w-full bg-white text-black py-32"
+      className="flex flex flex-col w-full bg-white text-black py-32 overflow-hidden"
     >
-      <Container className="flex">
-        <div className="flex-1 flex justify-between flex-col">
+      <Container className="flex justify-between">
+        <div className="flex basis-4/12 justify-between flex-col">
           <h1 className="text-5xl font-heading text-black">
             <Balancer>What my clients, partners & leaders say</Balancer>
           </h1>
@@ -92,14 +95,60 @@ export function Testimonial() {
           </div>
         </div>
 
-        <div className="flex-1 flex flex-col gap-12">
-          <figure className="bg-gray-200 w-full aspect-[640/440]" />
-          <blockquote className="text-[28px] font-medium tracking-[-1.4px]">
+        <div className="flex max-w-[640px] flex-col gap-12">
+          <ImageCarousel pos={index} images={testimonies} />
+          <blockquote className="first-letter:-ml-[0.5ch] relative leading-[34px] text-[28px] tracking-[-1.4px]">
             “{current.quote}”
           </blockquote>
         </div>
       </Container>
     </section>
+  );
+}
+
+//
+// [
+//   [0, -15, -30],
+//   [15, 0, -15],
+//   [30, 15, 0],
+// ];
+function ImageCarousel({
+  pos,
+  images,
+}: { images: Record<string, string>[]; pos: number }) {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const slider = React.useRef(new CustomSlider([])).current;
+
+  React.useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const elements = container.children as unknown as HTMLElement[];
+    slider.setElements([...elements]);
+    slider.initialize();
+  }, [slider]);
+
+  React.useLayoutEffect(() => {
+    slider.move(pos);
+  }, [slider, pos]);
+
+  return (
+    <div
+      ref={containerRef}
+      className={"relative flex flex-col items-center aspect-[640/440] w-full"}
+    >
+      <Figure className={"w-full bg-red-200"} />
+      <Figure className={"w-full bg-purple-400"} />
+      <Figure className={"w-full bg-blue-200"} />
+    </div>
+  );
+}
+
+function Figure(props: React.ComponentProps<"div">) {
+  return (
+    <figure
+      {...props}
+      className={cn("absolute aspect-[640/416] rounded-sm", props.className)}
+    />
   );
 }
 

@@ -75,8 +75,9 @@ export function MainHero() {
     <section className="bg-purple-200">
       <Container className="py-4 flex items-end justify-start min-h-[100svh]">
         <hgroup className="flex  items-start flex-col gap-4 pb-8">
-          <h1 className="font-semibold text-7xl max-w-2xl text-balance font-heading">
-            Empowering ideas, Inspiring change.
+          <h1 className="font-semibold text-7xl text-balance font-heading">
+            Empowering ideas, <br />
+            Inspiring change.
           </h1>
 
           <button
