@@ -3,7 +3,7 @@ import React from "react";
 import { Balancer } from "react-wrap-balancer";
 import { useArrowKeys } from "../hooks/use-arrow-keys.ts";
 import { cn } from "../libs/utils.ts";
-import { CustomSlider } from "./custom-slider.ts";
+import { ImageCarousel } from "./custom-carousel.tsx";
 import { Container } from "./layouts/container.tsx";
 
 export type Testimony = {
@@ -100,90 +100,6 @@ export function Testimonial({ list: testimonies }: { list: Testimony[] }) {
         </div>
       </Container>
     </section>
-  );
-}
-
-//
-// [
-//   [0, -15, -30],
-//   [15, 0, -15],
-//   [30, 15, 0],
-// ];
-function ImageCarousel({
-  pos,
-  images,
-}: { images: { src: string; alt: string }[]; pos: number }) {
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  const slider = React.useRef(new CustomSlider([])).current;
-
-  React.useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-    const elements = container.children as unknown as HTMLElement[];
-    slider.setElements([...elements]);
-    slider.initialize();
-  }, [slider]);
-
-  React.useLayoutEffect(() => {
-    slider.move(pos);
-  }, [slider, pos]);
-
-  return (
-    <div
-      ref={containerRef}
-      className={"relative flex flex-col items-center aspect-[640/440] w-full"}
-    >
-      {images.map((image) => {
-        return (
-          <Figure
-            key={image.alt}
-            src={image.src}
-            alt={image.alt}
-            className={"w-full"}
-          />
-        );
-      })}
-    </div>
-  );
-}
-
-function TestImageCarousel({ pos, images }: { images: string[]; pos: number }) {
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  const slider = React.useRef(new CustomSlider([])).current;
-
-  React.useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-    const elements = container.children as unknown as HTMLElement[];
-    slider.setElements([...elements]);
-    slider.initialize();
-  }, [slider]);
-
-  React.useLayoutEffect(() => {
-    slider.move(pos);
-  }, [slider, pos]);
-
-  return (
-    <div
-      ref={containerRef}
-      className={"relative flex flex-col items-center aspect-[640/440] w-full"}
-    >
-      <Figure className={"w-full bg-red-200"} />
-      <Figure className={"w-full bg-purple-400"} />
-      <Figure className={"w-full bg-blue-200"} />
-    </div>
-  );
-}
-
-function Figure(props: React.ComponentProps<"img">) {
-  return (
-    <figure {...props} className={cn("absolute rounded-sm", props.className)}>
-      <img
-        src={props.src}
-        alt={props.alt}
-        className={"aspect-[640/416] w-full object-cover"}
-      />
-    </figure>
   );
 }
 

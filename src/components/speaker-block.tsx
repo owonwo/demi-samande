@@ -39,7 +39,6 @@ function ValidateCMSData<A, T>(props: {
     return null;
   }
 
-  // @ts-expect-error
   if (!data?.visible) return null;
 
   return <>{props.children}</>;

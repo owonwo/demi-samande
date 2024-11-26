@@ -14,9 +14,9 @@ const PodcastInfo = z.array(
   }),
 );
 
-export function PodcastBlock({ data }: { data: z.infer<typeof PodcastInfo> }) {
+export function PodcastBlock({ list }: { list: z.infer<typeof PodcastInfo> }) {
   const [index, setIndex] = useState(0);
-  const current = data[index];
+  const current = list[index];
 
   if (!current) return;
 
@@ -68,7 +68,7 @@ export function PodcastBlock({ data }: { data: z.infer<typeof PodcastInfo> }) {
           </div>
 
           <div className="flex-1 items-end flex justify-end gap-4">
-            {take(3, data).map((entry, idx) => {
+            {take(3, list).map((entry, idx) => {
               const is_active = entry.episodeLink === current.episodeLink;
 
               return (

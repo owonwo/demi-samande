@@ -1,6 +1,7 @@
 ---
 import { ArrowRight, ChevronRightIcon } from "lucide-react";
 import { BioContent } from "../components/bio-content.tsx";
+import { BooksBlock } from "../components/books-block.tsx";
 import { MainFooter } from "../components/footer.tsx";
 import { MainHeader } from "../components/header.tsx";
 import { MainHero } from "../components/hero.tsx";
@@ -23,38 +24,11 @@ const [hero, intro, speaker, podcast, testimonials] = await Promise.all([
 <Layout title="Demi Samande">
 	<MainHeader />
     <MainHero {...hero.data} />
-
     <BioContent {...intro.data} client:only="react" />
-
-    <div class="min-h-[60svh] bg-base-500">
-        <Container className="py-32">
-            <div class="flex flex-col items-center">
-                <figure class="w-[400px] shadow-2xl aspect-[4/5.2] bg-gray-200">
-                </figure>
-
-                <div class="flex flex-col items-center text-white py-12 max-w-xs text-center gap-4">
-                    <h1 class="font-heading text-3xl italic">
-                        In Her Hands
-                    </h1>
-
-                    <p class="text-balance">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis mollitia nam natus nostrum.
-                    </p>
-
-                    <button type="button" class="bg-white text-black p-4 rounded-lg">
-                        Learn more
-                    </button>
-                </div>
-            </div>
-        </Container>
-    </div>
-
+    <BooksBlock />
     <SpeakerBlock data={speaker.data} />
-
-    <PodcastBlock data={podcast} client:load />
-
+    <PodcastBlock list={podcast} client:load />
     <Testimonial client:load list={testimonials} />
-
     <section id="contact" class="flex flex flex-col w-full bg-black text-white py-64">
         <Container className="flex flex-col items-center flex-1 gap-8">
 
@@ -69,6 +43,5 @@ const [hero, intro, speaker, podcast, testimonials] = await Promise.all([
                 </div>
         </Container>
     </section>
-
     <MainFooter />
 </Layout>

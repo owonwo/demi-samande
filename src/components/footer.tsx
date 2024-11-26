@@ -25,7 +25,7 @@ export function MainFooter() {
         <div className={"border-[#1E1D1D] border-t w-full"} />
         <div
           className={
-            "flex w-full justify-between text-[#2F2F2F] *:justify-center *:flex"
+            "flex w-full py-4 justify-between text-white *:justify-center *:flex"
           }
         >
           <div className={"flex flex-wrap !justify-start gap-x-4 basis-4/12"}>
@@ -33,13 +33,39 @@ export function MainFooter() {
           </div>
 
           <div className={"flex gap-4 basis-4/12"}>
-            <a href={"#"}>LinkedIn</a>
-            <a href={"#"}>Youtube</a>
-            <a href={"#"}>Instagram</a>
+            <a
+              className={"hover:underline"}
+              target={"_blank"}
+              href={"https://www.linkedin.com/in/demi-samande-7529a2187"}
+              rel="noreferrer"
+            >
+              LinkedIn
+            </a>
+            <a
+              className={"hover:underline"}
+              target={"_blank"}
+              href={"https://www.youtube.com/demisamande"}
+              rel="noreferrer"
+            >
+              Youtube
+            </a>
+            <a
+              className={"hover:underline"}
+              target={"_blank"}
+              href={"https://www.instagram.com/demisamande"}
+              rel="noreferrer"
+            >
+              Instagram
+            </a>
           </div>
+
           <div className={"flex gap-4 !justify-end basis-4/12"}>
-            <a href={"/books"}>Books</a>
-            <a href={"/about"}>About</a>
+            <a className={"hover:underline"} href={"/books"}>
+              Books
+            </a>
+            <a className={"hover:underline"} href={"/about"}>
+              About
+            </a>
           </div>
         </div>
       </Container>
@@ -48,7 +74,7 @@ export function MainFooter() {
         <img
           {...LogoWhite}
           alt={"Demi Samande"}
-          className={"h-[60vh] absolute top-0 inset-x-0 relative"}
+          className={"h-[60vh] -ml-[3vw] absolute top-0 inset-x-0 relative"}
         />
       </div>
     </footer>

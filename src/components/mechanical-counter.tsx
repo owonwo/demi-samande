@@ -11,7 +11,6 @@ export const MechanicalCounter = React.memo(
           <span
             className="inline-flex transform flex-col items-center"
             style={{
-              // @ts-expect-error
               "--count": count,
               transform: `
                 translateY(

@@ -1,8 +1,10 @@
 import { format } from "date-fns";
 import { ChevronRightIcon } from "lucide-react";
+import type React from "react";
 import { Balancer } from "react-wrap-balancer";
 import CoverImage from "../../public/assets/images/in-her-hands-cover.jpg";
 import { PreorderEndDate } from "../libs/constants.ts";
+import { cn } from "../libs/utils.ts";
 import { Container } from "./layouts/container.tsx";
 
 export function Hero() {
@@ -76,19 +78,29 @@ export function MainHero({
   heading = "Heading",
   buttonText = "Get to know her",
   buttonLink = "/about",
+  ...props
 }: { heading: string; buttonText: string; buttonLink: string }) {
   return (
-    <section className="bg-purple-200">
-      <Container className="py-4 flex items-end justify-start min-h-[100svh]">
-        <hgroup className="flex  items-start flex-col gap-4 pb-8">
+    <section className="bg-purple-200 z-10 relative overflow-hidden text-white relative">
+      <ResponsiveImage
+        image={props.images[0]}
+        className={"absolute inset-0 pointer-events-none w-full h-full"}
+        style={{
+          backgroundBlendMode: "soft-light",
+          backgroundSize: "cover",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+        }}
+      />
+
+      <Container className="py-4 relative z-20 flex items-end justify-start min-h-[100svh]">
+        <hgroup className="flex items-start flex-col gap-12 pb-8">
           <h1 className="font-semibold text-7xl max-w-[15ch] text-balance font-heading">
             {heading}
           </h1>
-
           <a href={buttonLink}>
             <button
               type="button"
-              className="inline-flex gap-3 p-4 items-center text-black"
+              className="inline-flex bg-white gap-3 p-4 items-center text-black"
             >
               <span>{buttonText}</span>
               <ChevronRightIcon size="18" />
@@ -97,5 +109,39 @@ export function MainHero({
         </hgroup>
       </Container>
     </section>
+  );
+}
+
+type ResponsiveImage = {
+  base: string;
+  medium?: string;
+  small?: string;
+};
+
+function ResponsiveImage(
+  props: React.ComponentProps<"img"> & { image: ResponsiveImage },
+) {
+  const {
+    image: { small, base },
+    className,
+    style,
+  } = props;
+
+  return (
+    <>
+      <img
+        alt={props.alt}
+        style={{ ...style, backgroundImage: `url(${small})` }}
+        className={cn("md:hidden absolute inset-0 object-cover", className)}
+      />
+      <img
+        alt={props.alt}
+        style={{ ...style, backgroundImage: `url(${base})` }}
+        className={cn(
+          "hidden absolute inset-0 md:block object-cover",
+          className,
+        )}
+      />
+    </>
   );
 }

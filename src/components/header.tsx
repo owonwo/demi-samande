@@ -1,6 +1,6 @@
 import { ArrowRightIcon } from "lucide-react";
 import Logo from "../../public/assets/images/logo-stacked-white.svg";
-import LogoDark from "../../public/assets/images/logo.svg";
+import LogoWhite from "../../public/assets/images/logo-white.svg";
 import { cn } from "../libs/utils.ts";
 import { Container } from "./layouts/container.tsx";
 
@@ -23,25 +23,25 @@ export function Header({ variant = "sticky" }) {
 
 export function MainHeader({ variant = "sticky" }) {
   return (
-    <header className={"absolute w-full bg-black bg-opacity-[0.02]"}>
+    <header className={"absolute z-40 w-full bg-black bg-opacity-[0.02]"}>
       <Container className={"flex justify-between py-5 ner px-4 text-black"}>
         <a href={"/"}>
-          <img {...LogoDark} className={"w-[150px]"} alt={"Demi Samande"} />
+          <img {...LogoWhite} className={"w-[150px]"} alt={"Demi Samande"} />
         </a>
 
-        <nav className={"justify-end items-center inline-flex"}>
+        <nav className={"justify-end items-center text-white inline-flex"}>
           <ul className={"flex gap-6 items-center"}>
-            <li>
-              <a href="#">About</a>
+            <li className={"hover:underline"}>
+              <a href="/about">About</a>
             </li>
-            <li>
-              <a href="#">Books</a>
+            <li className={"hover:underline"}>
+              <a href="/in-her-hands">Books</a>
             </li>
             <li>
               <button
                 type={"button"}
                 className={
-                  "bg-white px-4 inline-flex items-center gap-2 py-2 rounded-lg base-button"
+                  "bg-white px-4 inline-flex text-black items-center gap-2 py-2 rounded-lg base-button"
                 }
               >
                 <span>Get to know her</span>

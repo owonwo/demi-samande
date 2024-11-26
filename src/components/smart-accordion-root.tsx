@@ -76,7 +76,6 @@ export function SmartAccordionItem(props: {
       data-debug={false}
       style={{
         maxWidth: "var(--smacc-available-width)",
-        // @ts-expect-error
         "--smacc-button-width": "2ch",
       }}
     >
