@@ -22,6 +22,14 @@ export async function getTestimonies(params: { limit: number }) {
   return safeArray(response).map(extractWithId);
 }
 
+export async function getBooks(params: { limit: number }) {
+  const response = await builderInstance.getAll("books", {
+    limit: params.limit,
+  });
+
+  return safeArray(response).map(extractWithId);
+}
+
 function extractWithId(e: BuilderContent) {
   return { id: e.id, ...safeObj(e.data) };
 }

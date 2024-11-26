@@ -10,14 +10,20 @@ import { PodcastBlock } from "../components/podcast-block.tsx";
 import { SpeakerBlock } from "../components/speaker-block.tsx";
 import { Testimonial } from "../components/testimonial.tsx";
 import Layout from "../layouts/Layout.astro";
-import { getContent, getPodcastInfo, getTestimonies } from "../libs/fetchers";
+import {
+  getBooks,
+  getContent,
+  getPodcastInfo,
+  getTestimonies,
+} from "../libs/fetchers";
 
-const [hero, intro, speaker, podcast, testimonials] = await Promise.all([
+const [hero, intro, speaker, podcast, testimonials, books] = await Promise.all([
   getContent({ key: "hero-content" }),
   getContent({ key: "intro-block" }),
   getContent({ key: "speaker-content" }),
   getPodcastInfo({ limit: 5 }),
   getTestimonies({ limit: 5 }),
+  getBooks({ limit: 1 }),
 ]);
 ---
 
@@ -25,7 +31,7 @@ const [hero, intro, speaker, podcast, testimonials] = await Promise.all([
 	<MainHeader />
     <MainHero {...hero.data} />
     <BioContent {...intro.data} client:only="react" />
-    <BooksBlock />
+    <BooksBlock list={books}/>
     <SpeakerBlock data={speaker.data} />
     <PodcastBlock list={podcast} client:load />
     <Testimonial client:load list={testimonials} />
