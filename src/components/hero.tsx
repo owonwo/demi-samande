@@ -1,6 +1,8 @@
+import { format } from "date-fns";
 import { ChevronRightIcon } from "lucide-react";
 import { Balancer } from "react-wrap-balancer";
 import CoverImage from "../../public/assets/images/in-her-hands-cover.jpg";
+import { PreorderEndDate } from "../libs/constants.ts";
 import { Container } from "./layouts/container.tsx";
 
 export function Hero() {
@@ -31,7 +33,7 @@ export function Hero() {
               "opacity-75 italic text-sm md:text-base py-2 text-center font-body"
             }
           >
-            Available from 2nd December, 2024
+            Available from {format(PreorderEndDate, "do MMMM, yyyy")}
           </p>
         </div>
 
