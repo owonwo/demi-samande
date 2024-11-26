@@ -70,23 +70,28 @@ export function Hero() {
   );
 }
 
-export function MainHero() {
+export function MainHero({
+  heading = "Heading",
+  buttonText = "Get to know her",
+  buttonLink = "/about",
+}: { heading: string; buttonText: string; buttonLink: string }) {
   return (
     <section className="bg-purple-200">
       <Container className="py-4 flex items-end justify-start min-h-[100svh]">
         <hgroup className="flex  items-start flex-col gap-4 pb-8">
-          <h1 className="font-semibold text-7xl text-balance font-heading">
-            Empowering ideas, <br />
-            Inspiring change.
+          <h1 className="font-semibold text-7xl max-w-[15ch] text-balance font-heading">
+            {heading}
           </h1>
 
-          <button
-            type="button"
-            className="inline-flex gap-3 p-4 items-center text-black"
-          >
-            <span>Get to know Demi</span>
-            <ChevronRightIcon size="18" />
-          </button>
+          <a href={buttonLink}>
+            <button
+              type="button"
+              className="inline-flex gap-3 p-4 items-center text-black"
+            >
+              <span>{buttonText}</span>
+              <ChevronRightIcon size="18" />
+            </button>
+          </a>
         </hgroup>
       </Container>
     </section>

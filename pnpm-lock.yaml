@@ -20,6 +20,9 @@ importers:
       '@astrojs/vercel':
         specifier: ^7.8.2
         version: 7.8.2(astro@4.16.10(rollup@4.25.0)(typescript@5.6.3))(react@18.3.1)
+      '@builder.io/sdk':
+        specifier: ^5.0.0
+        version: 5.0.0
       '@radix-ui/react-slot':
         specifier: ^1.1.0
         version: 1.1.0(@types/react@18.3.12)(react@18.3.1)
@@ -62,9 +65,6 @@ importers:
       tailwind-merge:
         specifier: ^2.5.4
         version: 2.5.4
-      text-split:
-        specifier: ^0.0.1
-        version: 0.0.1
       theme-colors:
         specifier: ^0.1.0
         version: 0.1.0
@@ -291,6 +291,9 @@ packages:
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
+
+  '@builder.io/sdk@5.0.0':
+    resolution: {integrity: sha512-kGm2jL7yyx8RPPkEnWjCVhhjAVYnzxI6Zl4wqpi4y5zxOqmKicvVEeriDuB15oCKSN+FWGResxscWWtbvOPBWQ==}
 
   '@emmetio/abbreviation@2.3.3':
     resolution: {integrity: sha512-mgv58UrU3rh4YgbE/TzgLQwJ3pFsHHhCLqY20aJq+9comytTXUDNGG/SMtSeMJdkpxgXSXunBGLD8Boka3JyVA==}
@@ -1312,6 +1315,9 @@ packages:
   has-unicode@2.0.1:
     resolution: {integrity: sha512-8Rf9Y83NBReMnx0gFzA8JImQACstCYWUplepDa9xprwwtmgEZUF0h/i5xSA625zB/I37EtrswSST6OXxwaaIJQ==}
 
+  hash-sum@2.0.0:
+    resolution: {integrity: sha512-WdZTbAByD+pHfl/g9QSsBIIwy8IT+EsPiKDs0KNX+zSHhdDLFKdZu0BQHljvO+0QI/BasbMSUa8wYNCZTvhslg==}
+
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
@@ -2172,9 +2178,6 @@ packages:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
     engines: {node: '>=10'}
 
-  text-split@0.0.1:
-    resolution: {integrity: sha512-fQku+f7COMdbTe7MBdPfc2vlxh3WaTnWyLGOCxI4bygPpbCBh4u1zPhrIpfk09mgfFXJCwdXNaYDuoTlEW63Tg==}
-
   theme-colors@0.1.0:
     resolution: {integrity: sha512-6gTEHQqWlQNiOEGHCSSQmU//E5SnXHJ4H7oHQOD8x77CvNYNQAmt73dqR71mzw5ULV87zaHLxK5pIBnsToFuZw==}
 
@@ -2216,6 +2219,9 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
+
+  tslib@1.14.1:
+    resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
 
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
@@ -2831,6 +2837,14 @@ snapshots:
 
   '@biomejs/cli-win32-x64@1.9.4':
     optional: true
+
+  '@builder.io/sdk@5.0.0':
+    dependencies:
+      hash-sum: 2.0.0
+      node-fetch: 2.7.0
+      tslib: 1.14.1
+    transitivePeerDependencies:
+      - encoding
 
   '@emmetio/abbreviation@2.3.3':
     dependencies:
@@ -3829,6 +3843,8 @@ snapshots:
       strip-bom-string: 1.0.0
 
   has-unicode@2.0.1: {}
+
+  hash-sum@2.0.0: {}
 
   hasown@2.0.2:
     dependencies:
@@ -4966,8 +4982,6 @@ snapshots:
       mkdirp: 1.0.4
       yallist: 4.0.0
 
-  text-split@0.0.1: {}
-
   theme-colors@0.1.0: {}
 
   thenify-all@1.6.0:
@@ -4997,6 +5011,8 @@ snapshots:
   tsconfck@3.1.4(typescript@5.6.3):
     optionalDependencies:
       typescript: 5.6.3
+
+  tslib@1.14.1: {}
 
   tslib@2.8.1: {}
 

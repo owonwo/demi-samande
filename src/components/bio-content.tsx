@@ -1,23 +1,27 @@
 import React from "react";
+import { safeArray, safeStr } from "../libs/data.helper.ts";
 import { Container } from "./layouts/container.tsx";
 import {
   SmartAccordionItem,
   SmartAccordionRoot,
 } from "./smart-accordion-root.tsx";
 
-export function BioContent() {
+export function BioContent(props: {
+  heading: string;
+  paragraph: string;
+  accomplishments: Accomplishment[];
+}) {
+  const { accomplishments } = props;
+
   return (
     <section className="flex flex-col bg-dm-background py-24 gap-24 min-h-[60svh]">
       <Container className="">
         <div className="flex gap-4 items-end">
           <hgroup className="basis-1/2 flex flex-col gap-8">
-            <h2 className="text-3xl font-heading">Hy, it's Demi Samande</h2>
+            <h2 className="text-3xl font-heading">{safeStr(props.heading)}</h2>
 
             <p className="w-full text-balance font-[100]">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid
-              culpa error, facere facilis necessitatibus obcaecati possimus
-              quasi qui quidem, repudiandae saepe, soluta totam vero. Esse
-              impedit ipsa iste molestias unde.
+              {safeStr(props.paragraph)}
             </p>
           </hgroup>
 
@@ -26,9 +30,9 @@ export function BioContent() {
             className="basis-1/2 relative flex items-end overflow-hidden w-full h-[200px]"
           >
             <div className="absolute bottom-0 flex gap-4">
-              {Array.from({ length: 7 }, (e, index) => (
+              {accomplishments.map(({ photo }, index) => (
                 <div
-                  key={index}
+                  key={photo}
                   className="w-[150px] bg-gray-100 aspect-[3/1]"
                 />
               ))}
@@ -42,14 +46,20 @@ export function BioContent() {
           className={
             "border shrink-0 basis-1/2 bg-gray-200 rounded-lg aspect-[712/544]"
           }
-        ></figure>
-        <InteractiveSlider />
+        />
+        <InteractiveSlider items={props.accomplishments} />
       </Container>
     </section>
   );
 }
 
-function InteractiveSlider() {
+type Accomplishment = {
+  heading: string;
+  paragraph: string;
+  photo: string;
+};
+
+function InteractiveSlider({ items }: { items: Accomplishment[] }) {
   const [index, setIndex] = React.useState(-1);
 
   React.useEffect(() => {
@@ -65,26 +75,18 @@ function InteractiveSlider() {
   return (
     <SmartAccordionRoot>
       <div className={"flex basis-1/2 justify-end shrink-0 grow-0"}>
-        <SmartAccordionItem
-          show={index === 0}
-          heading={"Founder"}
-          onClick={() => setIndex(0)}
-        />
-        <SmartAccordionItem
-          show={index === 1}
-          heading={"Speaker"}
-          onClick={() => setIndex(1)}
-        />
-        <SmartAccordionItem
-          show={index === 2}
-          heading={"Author"}
-          onClick={() => setIndex(2)}
-        />
-        <SmartAccordionItem
-          show={index === 3}
-          heading={"Podcaster"}
-          onClick={() => setIndex(3)}
-        />
+        {safeArray(items).map((item, idx) => {
+          return (
+            <SmartAccordionItem
+              key={item.heading}
+              show={index === idx}
+              heading={item.heading}
+              onClick={() => setIndex(idx)}
+            >
+              {item.paragraph}
+            </SmartAccordionItem>
+          );
+        })}
       </div>
     </SmartAccordionRoot>
   );

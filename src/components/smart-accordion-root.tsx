@@ -65,6 +65,7 @@ export function SmartAccordionRoot(props: { children: React.ReactNode }) {
 
 export function SmartAccordionItem(props: {
   heading: string;
+  children: React.ReactNode;
   show: boolean;
   onClick: () => void;
 }) {
@@ -122,10 +123,7 @@ export function SmartAccordionItem(props: {
         >
           <h3 className={"font-heading text-3xl"}>{props.heading}</h3>
           <p className={"text-sm text-neutral-500 max-w-xs"}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto
-            aut beatae culpa cumque, debitis ea, enim numquam optio pariatur sed
-            vel veniam. Doloribus eius impedit nihil sunt tempore veniam
-            veritatis?
+            {props.children}
           </p>
         </div>
       </div>
