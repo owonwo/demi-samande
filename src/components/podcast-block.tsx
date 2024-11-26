@@ -23,7 +23,7 @@ export function PodcastBlock({ list }: { list: z.infer<typeof PodcastInfo> }) {
   return (
     <section
       id="podcaster"
-      className="flex flex flex-col relative aspect-[16/9] w-full bg-black text-white py-24"
+      className="flex flex flex-col min-h-[100svh] relative aspect-[16/9] w-full bg-black text-white py-12 md:py-24"
     >
       <div
         className={"absolute z-10 inset-0"}
@@ -33,8 +33,10 @@ export function PodcastBlock({ list }: { list: z.infer<typeof PodcastInfo> }) {
           backgroundImage: `url(${current.coverImage})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
+          backgroundPosition: "center center",
         }}
       />
+
       <div
         className={"absolute z-20 inset-0 bg-black/[0.5]"}
         style={{ backgroundBlendMode: "difference" }}
@@ -46,9 +48,9 @@ export function PodcastBlock({ list }: { list: z.infer<typeof PodcastInfo> }) {
           Demi
         </h1>
 
-        <div className="flex gap-5">
+        <div className="flex flex-col md:flex-row gap-16 md:gap-5">
           <div className="flex flex-col items-start basis-6/12 gap-6">
-            <h2 className="text-4xl font-bold max-w-xl">
+            <h2 className="text-2xl md:text-4xl leading-[2.2ex] font-bold max-w-xl">
               <Balancer>{current.title}</Balancer>
             </h2>
 
@@ -67,7 +69,7 @@ export function PodcastBlock({ list }: { list: z.infer<typeof PodcastInfo> }) {
             </a>
           </div>
 
-          <div className="flex-1 items-end flex justify-end gap-4">
+          <div className="flex-1 justify-start items-end flex md:justify-end gap-4">
             {take(3, list).map((entry, idx) => {
               const is_active = entry.episodeLink === current.episodeLink;
 
@@ -75,7 +77,9 @@ export function PodcastBlock({ list }: { list: z.infer<typeof PodcastInfo> }) {
                 <button
                   type={"button"}
                   key={entry.title}
-                  className={"flex-1 max-w-[192px] group relative"}
+                  className={
+                    "flex-1 max-w-[35vw] md:max-w-[192px] group relative"
+                  }
                   onClick={() => {
                     setIndex(idx);
                   }}
