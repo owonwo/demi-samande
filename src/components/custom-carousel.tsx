@@ -21,7 +21,7 @@ export const MockCarouselImages = [
 ];
 
 type ImageCarouselProps = React.ComponentProps<"div"> & {
-  className: string;
+  className?: string;
   pos: number;
   images: { src: string; alt: string }[];
 };
