@@ -39,6 +39,7 @@ function ValidateCMSData<A, T>(props: {
     return null;
   }
 
+  // @ts-expect-error
   if (!data?.visible) return null;
 
   return <>{props.children}</>;
@@ -49,12 +50,15 @@ export function SpeakerBlock({
 }: { data: z.infer<typeof SpeakerSchema> }) {
   return (
     <ValidateCMSData data={data} schema={SpeakerSchema}>
-      <section id="speaker" className="min-h-[60svh] bg-dm-background py-32">
-        <Container className="flex gap-8 justify-between">
-          <div className="flex flex-col basis-1/2 justify-between">
+      <section
+        id="speaker"
+        className="min-h-[60svh] bg-dm-background py-12 md:py-32"
+      >
+        <Container className="flex flex-col md:flex-row gap-8 justify-between">
+          <div className="flex flex-col basis-1/2 justify-between gap-16">
             <div className="flex flex-col gap-8">
               <div className="flex flex-col gap-6">
-                <h1 className="font-heading max-w-xl text-5xl">
+                <h1 className="font-heading max-w-xl text-3xl md:text-5xl">
                   <Balancer>{data.heading}</Balancer>
                 </h1>
                 <p className="text-base text-neutral-700 max-w-xl">
@@ -64,7 +68,7 @@ export function SpeakerBlock({
 
               <div className="flex gap-12 text-sm">
                 <div className="flex gap-2 items-center">
-                  <span className="text-7xl font-semibold">
+                  <span className="text-5xl lg:text-7xl font-semibold">
                     {data.noOfSpokenEvents ?? "1"}
                   </span>
                   <span className="text-[20px] w-[60px] leading-[1] font-normal">
@@ -73,7 +77,7 @@ export function SpeakerBlock({
                 </div>
 
                 <div className="flex gap-2 items-center">
-                  <span className="text-7xl font-semibold">
+                  <span className="text-5xl lg:text-7xl font-semibold">
                     {data.noOfUniqueCountriesSpoken}
                   </span>
                   <span className="text-[20px] w-[60px] leading-[1] font-normal">
@@ -86,7 +90,7 @@ export function SpeakerBlock({
             <a href={data.buttonAction} className="inline-block self-start">
               <button
                 type="button"
-                className="flex gap-2 bg-gray-100 rounded-md px-4 py-4 items-center"
+                className="flex gap-2 text-sm md:text-base bg-gray-100 rounded-md px-4 py-4 items-center"
               >
                 <span>{data.buttonText}</span>
                 <ArrowRight size="1em" />
