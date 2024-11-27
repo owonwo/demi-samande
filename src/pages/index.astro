@@ -6,6 +6,7 @@ import { MainFooter } from "../components/footer.tsx";
 import { MainHeader } from "../components/header.tsx";
 import { MainHero } from "../components/hero.tsx";
 import { Container } from "../components/layouts/container.tsx";
+import { NavMenu } from "../components/nav-menu.tsx";
 import { PodcastBlock } from "../components/podcast-block.tsx";
 import { SpeakerBlock } from "../components/speaker-block.tsx";
 import { Testimonial } from "../components/testimonial.tsx";
@@ -28,7 +29,9 @@ const [hero, intro, speaker, podcast, testimonials, books] = await Promise.all([
 ---
 
 <Layout title="Demi Samande">
-	<MainHeader />
+	<MainHeader variant="sticky">
+        <NavMenu client:only="react" />
+    </MainHeader>
     <MainHero {...hero.data} />
     <BioContent {...intro.data} client:only="react" />
     <BooksBlock list={books}/>

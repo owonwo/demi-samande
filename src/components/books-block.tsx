@@ -29,7 +29,7 @@ export function BooksBlock({
           <figure className="w-full shadow-2xl aspect-[4/5.2] bg-gray-200" />
 
           <div className="flex flex-col items-center text-white py-12 text-center gap-4">
-            <h1 className="font-heading text-3xl font-semibold">
+            <h1 className="font-heading text-3xl font-medium">
               {first_book.title}
             </h1>
 

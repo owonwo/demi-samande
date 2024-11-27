@@ -1,5 +1,6 @@
 import React from "react";
 import { safeArray, safeStr } from "../libs/data.helper.ts";
+import { cn } from "../libs/utils.ts";
 import { testimonies } from "../mocks/testimonies.ts";
 import { ImageCarousel, MockCarouselImages } from "./custom-carousel.tsx";
 import { Container } from "./layouts/container.tsx";
@@ -28,20 +29,21 @@ export function BioContent(props: {
   }, []);
 
   return (
-    <section className="flex flex-col bg-dm-background py-24 gap-24 min-h-[60svh]">
+    <section className="flex flex-col bg-dm-background py-12 md:py-24 gap-24 min-h-[60svh]">
       <Container>
-        <div className="flex gap-4 items-end">
+        <div className="flex gap-4 flex-col md:flex-row items-end">
           <hgroup className="basis-1/2 flex flex-col gap-8">
-            <h2 className="text-3xl font-heading">{safeStr(props.heading)}</h2>
-
-            <p className="w-full text-balance font-[100]">
+            <h2 className="text-2xl font-medium lg:text-3xl font-heading">
+              {safeStr(props.heading)}
+            </h2>
+            <p className="w-full md:text-base text-balance font-[100]">
               {safeStr(props.paragraph)}
             </p>
           </hgroup>
 
           <div
             id="slider"
-            className="basis-1/2 relative flex items-end overflow-hidden w-full h-[200px]"
+            className="md:basis-1/2s relative flex items-end overflow-hidden w-full h-[10svh] md:h-[200px]"
           >
             <div className="absolute bottom-0 flex gap-4">
               {accomplishments.map(({ photo }, index) => (
@@ -55,7 +57,7 @@ export function BioContent(props: {
         </div>
       </Container>
 
-      <Container className={"flex gap-4"}>
+      <Container className={"flex flex-col md:flex-row gap-4"}>
         <ImageCarousel
           images={MockCarouselImages}
           pos={index}
@@ -68,6 +70,7 @@ export function BioContent(props: {
         <InteractiveSlider
           items={props.accomplishments}
           index={index}
+          className={"hidde md:inline-flex"}
           onIndexChange={(v) => setIndex(v)}
         />
       </Container>
@@ -84,13 +87,19 @@ type Accomplishment = {
 function InteractiveSlider(props: {
   items: Accomplishment[];
   index: number;
+  className?: string;
   onIndexChange: (n: number) => void;
 }) {
   const { items, index = 0 } = props;
 
   return (
     <SmartAccordionRoot>
-      <div className={"flex basis-1/2 justify-end shrink-0 grow-0"}>
+      <div
+        className={cn(
+          "flex basis-1/2 justify-end shrink-0 grow-0",
+          props.className,
+        )}
+      >
         {safeArray(items).map((item, idx) => {
           return (
             <SmartAccordionItem

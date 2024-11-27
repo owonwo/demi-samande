@@ -1,4 +1,5 @@
 import { ArrowRightIcon } from "lucide-react";
+import type React from "react";
 import Logo from "../../public/assets/images/logo-stacked-white.svg";
 import LogoWhite from "../../public/assets/images/logo-white.svg";
 import { cn } from "../libs/utils.ts";
@@ -21,15 +22,34 @@ export function Header({ variant = "sticky" }) {
   );
 }
 
-export function MainHeader({ variant = "sticky" }) {
+export function MainHeader(props: {
+  variant: "sticky" | "relative";
+  children?: React.ReactNode;
+}) {
+  const { variant = "sticky", children } = props;
+
   return (
     <header className={"absolute z-40 w-full bg-black bg-opacity-[0.02]"}>
-      <Container className={"flex justify-between py-5 ner px-4 text-black"}>
+      <Container
+        className={
+          "flex justify-between py-2 md:py-5 items-center px-4 text-black"
+        }
+      >
         <a href={"/"}>
-          <img {...LogoWhite} className={"w-[150px]"} alt={"Demi Samande"} />
+          <img
+            {...LogoWhite}
+            className={
+              "w-[123px] top-2 md:top-0 h-[39.36] md:h-auto z-[999] relative md:inline-block md:w-[150px]"
+            }
+            alt={"Demi Samande"}
+          />
         </a>
 
-        <nav className={"justify-end items-center text-white inline-flex"}>
+        <nav
+          className={
+            "justify-end hidden items-center text-white md:inline-flex"
+          }
+        >
           <ul className={"flex gap-6 items-center"}>
             <li className={"hover:underline"}>
               <a href="/about">About</a>
@@ -50,6 +70,8 @@ export function MainHeader({ variant = "sticky" }) {
             </li>
           </ul>
         </nav>
+
+        {children}
       </Container>
     </header>
   );

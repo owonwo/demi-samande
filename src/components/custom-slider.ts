@@ -38,44 +38,65 @@ export class CustomSlider {
 
     let nextSibling: Element | undefined | null =
       element.nextElementSibling || null;
-
     let prevSibling: Element | undefined | null =
       element.previousElementSibling || null;
     let count = 0;
     const BASE_SCALE = 1;
     const STAGGER_SCALE = 0.1;
 
-    while (nextSibling || prevSibling) {
+    const shared = {
+      ease: "easeIn",
+      duration: 0.4,
+    } as const;
+
+    while (prevSibling) {
       count++;
 
       if (prevSibling)
-        animate(prevSibling, {
-          y: count * -20,
-          scale: BASE_SCALE + -(count * STAGGER_SCALE),
-          // opacity: 0.1,
-          transformOrigin: "top center",
-        });
+        animate(
+          prevSibling,
+          {
+            y: count * -20,
+            scale: BASE_SCALE + -(count * STAGGER_SCALE),
+            // opacity: 0.1,
+            transformOrigin: "top center",
+          },
+          shared,
+        );
 
-      if (nextSibling)
-        animate(nextSibling, {
-          y: count * 20,
-          scale: BASE_SCALE + count * STAGGER_SCALE,
-          opacity: 0,
-          transformOrigin: "top center",
-        });
-
-      nextSibling = nextSibling?.nextElementSibling;
       prevSibling = prevSibling?.previousElementSibling;
     }
 
-    animate(element, {
-      y: 0,
-      opacity: 1,
-      transformOrigin: "top center",
-      scale: BASE_SCALE,
-    });
+    animate(
+      element,
+      {
+        y: 0,
+        opacity: 1,
+        transformOrigin: "top center",
+        scale: BASE_SCALE,
+      },
+      {
+        ...shared,
+      },
+    );
 
-    // animate(sequence, { duration: 0.3, delay: 0 });
+    setTimeout(() => {
+      while (nextSibling) {
+        if (nextSibling)
+          animate(
+            nextSibling,
+            {
+              y: count * 20,
+              scale: BASE_SCALE + count * STAGGER_SCALE,
+              opacity: 0,
+              transformOrigin: "top center",
+            },
+            shared,
+          );
+
+        nextSibling = nextSibling?.nextElementSibling;
+      }
+    }, 100);
 
     this.last_position = position;
   }

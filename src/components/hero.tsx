@@ -94,9 +94,10 @@ export function MainHero({
 
       <Container className="py-4 relative z-20 flex items-end justify-start min-h-[100svh]">
         <hgroup className="flex items-start flex-col gap-12 pb-8">
-          <h1 className="font-semibold text-7xl max-w-[15ch] text-balance font-heading">
+          <h1 className="font-semibold text-4xl md:text-7xl max-w-[15ch] text-balance font-heading">
             {heading}
           </h1>
+
           <a href={buttonLink}>
             <button
               type="button"
