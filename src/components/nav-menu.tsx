@@ -46,7 +46,7 @@ export function NavMenu() {
         }
         onClick={() => setOpen((open) => !open)}
       >
-        <DemiBrandSymbol size={24} data-active={open} className={"text-"} />
+        <DemiBrandSymbol size={24} data-active={!open} />
       </button>
 
       <nav

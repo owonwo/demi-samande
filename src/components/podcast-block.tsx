@@ -89,10 +89,10 @@ export function PodcastBlock({ list }: { list: z.infer<typeof PodcastInfo> }) {
                     initial={"hide"}
                     animate={is_active ? "show" : "hide"}
                     className={
-                      "-inset-1 rounded-lg z-[-1] pointer-events-none absolute border border-red-600"
+                      "-inset-1 rounded-lg z-[-1] pointer-events-none absolute border border-accent-500"
                     }
                   />
-                  <div className="aspect-[16/9] pointer-events-none relative w-full border border-white/[0.5] overflow-hidden border-white bg-white/[0.4] rounded-md">
+                  <div className="aspect-[16/9] pointer-events-none relative w-full overflow-hidden border-white bg-white/[0.4] rounded-md">
                     <img
                       src={entry.coverImage}
                       alt={entry.title}
