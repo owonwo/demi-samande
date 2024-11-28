@@ -26,6 +26,7 @@ export class CustomSlider {
   }
 
   getIndex(index: number): HTMLElement {
+    // @ts-expect-error
     return this.elements.find(
       (e) => e.getAttribute("data-index") === String(index),
     );

@@ -31,7 +31,7 @@ const Marquee = ({ text, className, direction = "rtl" }: MarqueeProps) => {
         {content}
       </div>
 
-      <style jsx>{`
+      <style>{`
         .marquee-style {
           --play: running;
           --duration: 35s;
@@ -117,7 +117,7 @@ export const MarqueeContainer = React.memo(function MarqueeContainerMemo({
         {children}
       </div>
 
-      <style jsx>{`
+      <style>{`
         .marquee-style {
           --play: running;
           --direction: normal;

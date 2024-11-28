@@ -79,7 +79,12 @@ export function MainHero({
   buttonText = "Get to know her",
   buttonLink = "/about",
   ...props
-}: { heading: string; buttonText: string; buttonLink: string }) {
+}: {
+  heading: string;
+  buttonText: string;
+  buttonLink: string;
+  images: ResponsiveImage[];
+}) {
   return (
     <section className="bg-purple-200 z-10 relative overflow-hidden text-white relative">
       <ResponsiveImage
