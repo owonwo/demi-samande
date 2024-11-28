@@ -1,6 +1,7 @@
 import type { BuilderContent } from "@builder.io/sdk";
 import { builderInstance } from "../config/builderio.ts";
 import {
+  AboutContentSchema,
   type Book,
   BookSchema,
   type PodcastInfo,
@@ -66,6 +67,11 @@ export async function getBooks(params: { limit: number }): Promise<Book[]> {
       });
     });
   });
+}
+
+export async function getAboutContent() {
+  const { data } = await getContent({ key: "about-content" });
+  return AboutContentSchema.parse(safeObj(data));
 }
 
 function emptyOnFailure<B>(fn: () => B[]): B[] | never[] {

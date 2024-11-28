@@ -1,0 +1,70 @@
+---
+import { ArrowRight } from "lucide-react";
+import { Balancer } from "react-wrap-balancer";
+import { ContactBlock } from "../components/contact-block.tsx";
+import { MainHeader } from "../components/header.tsx";
+import { headingVariant } from "../components/heading.tsx";
+import { Container } from "../components/layouts/container.tsx";
+import { NavMenu } from "../components/nav-menu.tsx";
+import { Testimonies } from "../components/testimonial.tsx";
+import Layout from "../layouts/Layout.astro";
+import { getAboutContent } from "../libs/fetchers";
+import { cn } from "../libs/utils";
+
+const data = await getAboutContent();
+---
+
+<Layout title="About: Demi Samande">
+	<MainHeader position="sticky" client:load variant="transparent">
+        <NavMenu client:only="react" />
+    </MainHeader>
+
+    <section class="bg-black pt-32 text-white min-h-[80svh] md:min-h-[60svh]">
+        Mino
+    </section>
+
+    <section class="bg-dm-background min-h-[100svh]">
+        <Container className="py-24 flex flex-col gap-12 md:gap-24 items-center">
+            <h1 class={
+                cn(
+                headingVariant({ size: 'title' }),
+                "text-center",
+            )}>
+                About
+            </h1>
+
+            <div class="grid md:gap-6 grid-cols-1 w-full items-start md:grid-cols-12">
+                <div class="hidden md:block blank" />
+                <div class="md:sticky flex gap-6 flex-col top-4 mb-24 md:col-span-4 flex justify-center">
+                    <h2 class={headingVariant({ size: 'h2', className: "!font-medium !font-body"})}>
+                        {data.title}
+                    </h2>
+                    <figure class="bg-base_2-500 shadow-xl w-full flex-1">
+                        <img src={data.photo.base}
+                             class=""
+                             alt="Demi Samande"/>
+                    </figure>
+                </div>
+
+                <div class="hidden md:block blank" />
+                <article class=" md:col-span-5 flex items-start max-w-[60ch] gap-4 flex-col">
+                    <div class="prose text-[18px] text-neutral-700" set:html={data.content ?? "<p>No Content</p>"} />
+                </article>
+                <div class="hidden md:block blank" />
+            </div>
+        </Container>
+    </section>
+
+    <ContactBlock />
+</Layout>
+
+<style is:global>
+    .prose {
+        @apply flex flex-col;
+    }
+
+    .prose > p + p {
+        @apply text-neutral-700;
+        margin-top: 2ex;
+    }
+</style>

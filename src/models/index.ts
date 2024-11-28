@@ -26,3 +26,17 @@ export const BookSchema = z.object({
   purchaseLink: z.string().url().optional(),
   testimonies: z.array(TestimonySchema).optional().default([]),
 });
+
+const ResponsiveImage = z.object({
+  base: z.string().url(),
+  small: z.string().url().optional(),
+  medium: z.string().url().optional(),
+});
+
+export type AboutContent = z.infer<typeof AboutContentSchema>;
+export const AboutContentSchema = z.object({
+  pageHeading: z.string().min(1).default("<PAGE_HEADING>"),
+  title: z.string().min(1).default("<TITLE>"),
+  content: z.string().min(1).default("<p>No Content</p>"),
+  photo: ResponsiveImage,
+});

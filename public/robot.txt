@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://demisamande.com/sitemap-index.xml

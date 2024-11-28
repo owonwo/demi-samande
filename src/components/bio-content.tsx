@@ -14,7 +14,6 @@ export function BioContent(props: {
   accomplishments: Accomplishment[];
 }) {
   const { accomplishments } = props;
-
   const [index, setIndex] = React.useState(-1);
 
   React.useEffect(() => {
