@@ -1,8 +1,76 @@
 ---
+import { ArrowRight, ChevronRightIcon } from "lucide-react";
+import { Balancer } from "react-wrap-balancer";
+import { MainHeader } from "../components/header.tsx";
+import { Title, headingVariant } from "../components/heading.tsx";
+import { Container } from "../components/layouts/container.tsx";
+import { NavMenu } from "../components/nav-menu.tsx";
 import Layout from "../layouts/Layout.astro";
-return Astro.redirect("/in-her-hands");
+import { safeArray } from "../libs/data.helper";
+import { getBooks } from "../libs/fetchers";
+import { cn } from "../libs/utils";
+
+const books = await getBooks({ limit: 1 });
+const [firstBook] = safeArray(books);
 ---
 
-<Layout title="Demi Samande: Under Construction">
-    
+<Layout title="About: Demi Samande">
+	<MainHeader position="relative" variant="default">
+        <NavMenu client:only="react" />
+    </MainHeader>
+
+    <section class="bg-black min-h-[60svh]">
+        Hi
+    </section>
+
+    <section class="bg-dm-background min-h-[100svh]">
+        <Container className="py-24 flex flex-col gap-24 items-center">
+            <h1 class={
+                cn(
+                headingVariant({ size: 'title' }),
+                "text-center font-medium",
+            )}>
+                Book
+            </h1>
+
+            <div class="grid gap-6 w-full grid-cols-12 justify-between">
+                <div class="blank" />
+                <article class="col-span-5 flex items-start max-w-[60ch] gap-4 flex-col">
+                    <h2 class={headingVariant({ size: 'h2', className: "!font-medium !font-body"})}>
+                        <Balancer>
+                            {firstBook.longTitle ?? "No Heading"}
+                        </Balancer>
+                    </h2>
+
+                    <div class="prose text-[18px] text-neutral-700" set:html={firstBook?.longDescription} />
+
+                    <button
+                        class="bg-gray-200 px-5 inline-flex text-black items-center gap-2 py-3 rounded-lg base-button"
+                        type="button"
+                    >
+                        <span>Pre-order book</span>
+                         <ArrowRight size={18} />
+                    </button>
+                </article>
+                <div class="blank" />
+                <div class="col-span-4 flex justify-center">
+                    <figure class="bg-[beige] shadow-xl w-full flex-1 aspect-[1/1.4]">
+                    </figure>
+                </div>
+                <div class="blank" />
+            </div>
+        </Container>
+    </section>
+
 </Layout>
+
+<style is:global>
+    .prose {
+        @apply flex flex-col;
+    }
+
+    .prose > p + p {
+        @apply text-neutral-700;
+        margin-top: 2ex;
+    }
+</style>

@@ -18,7 +18,7 @@ export default {
       colors: {
         base: blueColors,
         dm: {
-          background: "#fff",
+          background: "#FAFAFA",
         },
         base_2: blueColors,
         // base_2: {

@@ -1,7 +1,10 @@
 import { ArrowRightIcon } from "lucide-react";
 import type React from "react";
 import Logo from "../../public/assets/images/logo-stacked-white.svg";
-import LogoWhite from "../../public/assets/images/logo-white.svg";
+// @ts-expect-error
+import LogoWhite from "../../public/assets/images/logo-white.svg?react";
+// @ts-expect-error
+import LogoDark from "../../public/assets/images/logo.svg?react";
 import { cn } from "../libs/utils.ts";
 import { Container } from "./layouts/container.tsx";
 
@@ -23,32 +26,51 @@ export function Header({ variant = "sticky" }) {
 }
 
 export function MainHeader(props: {
-  variant: "sticky" | "relative";
+  variant: "transparent" | "default";
+  position: "sticky" | "relative";
   children?: React.ReactNode;
+  className?: string;
 }) {
-  const { variant = "sticky", children } = props;
+  const { variant, className = "", position = "sticky", children } = props;
 
   return (
-    <header className={"absolute z-40 w-full bg-black bg-opacity-[0.02]"}>
+    <header
+      className={cn(
+        "z-40 w-full",
+        {
+          "absolute bg-black bg-opacity-[0.02]": position === "sticky",
+          "relative bg-dm-background": position === "relative",
+        },
+        props.className,
+      )}
+    >
       <Container
         className={
           "flex justify-between py-2 md:py-5 items-center px-4 text-black"
         }
       >
         <a href={"/"}>
-          <img
-            {...LogoWhite}
-            className={
-              "w-[123px] top-2 md:top-0 h-[39.36] md:h-auto z-[999] relative md:inline-block md:w-[150px]"
-            }
-            alt={"Demi Samande"}
-          />
+          {variant === "transparent" ? (
+            <LogoWhite
+              className={
+                "w-[123px] top-2 md:top-0 h-[39.36] md:h-auto z-[999] relative md:inline-block md:w-[150px]"
+              }
+              title={"Demi Samande"}
+            />
+          ) : (
+            <LogoDark
+              className={
+                "w-[123px] top-2 md:top-0 h-[39.36] md:h-auto z-[999] relative md:inline-block md:w-[150px]"
+              }
+              title={"Demi Samande"}
+            />
+          )}
         </a>
 
         <nav
-          className={
-            "justify-end hidden items-center text-white md:inline-flex"
-          }
+          className={cn("justify-end hidden items-center md:inline-flex", {
+            "text-white": variant === "transparent",
+          })}
         >
           <ul className={"flex gap-6 items-center"}>
             <li className={"hover:underline"}>
@@ -60,9 +82,13 @@ export function MainHeader(props: {
             <li>
               <button
                 type={"button"}
-                className={
-                  "bg-white px-4 inline-flex text-black items-center gap-2 py-2 rounded-lg base-button"
-                }
+                className={cn(
+                  "px-4 inline-flex  items-center gap-2 py-2 rounded-lg base-button",
+                  {
+                    "bg-dm-background text-black": variant === "transparent",
+                    "bg-black text-white": variant === "default",
+                  },
+                )}
               >
                 <span>Get to know her</span>
                 <ArrowRightIcon size={18} />

@@ -29,7 +29,7 @@ const [hero, intro, speaker, podcast, testimonials, books] = await Promise.all([
 ---
 
 <Layout title="Demi Samande">
-	<MainHeader variant="sticky">
+	<MainHeader position="sticky" variant="default">
         <NavMenu client:only="react" />
     </MainHeader>
     <MainHero {...hero.data} />
@@ -46,7 +46,7 @@ const [hero, intro, speaker, podcast, testimonials, books] = await Promise.all([
                        Get in touch
                     </h1>
 
-                    <button class="bg-white items-center gap-2 inline-flex text-black p-4">
+                    <button class="bg-dm-background items-center gap-2 inline-flex text-black p-4">
                         <span>Let's get talking</span>
                     </button>
                 </div>
