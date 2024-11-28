@@ -70,7 +70,7 @@ export function ImageCarousel(props: ImageCarouselProps) {
   );
 }
 
-function TestImageCarousel({ pos, images }: { images: string[]; pos: number }) {
+export function TestImageCarousel({ pos }: { images: string[]; pos: number }) {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const slider = React.useRef(new CustomSlider([])).current;
 

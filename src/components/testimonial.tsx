@@ -4,16 +4,9 @@ import { Balancer } from "react-wrap-balancer";
 import { useArrowKeys } from "../hooks/use-arrow-keys.ts";
 import { safeStr } from "../libs/data.helper.ts";
 import { cn } from "../libs/utils.ts";
+import type { Testimony } from "../models";
 import { ImageCarousel } from "./custom-carousel.tsx";
 import { Container } from "./layouts/container.tsx";
-
-export type Testimony = {
-  fullName: string;
-  id: number;
-  photo: string;
-  quote: string;
-  titleAndPosition: string;
-};
 
 export function Testimonial({ list: testimonies }: { list: Testimony[] }) {
   const [index, setIndex] = React.useState(0);
@@ -88,6 +81,7 @@ export function Testimonial({ list: testimonies }: { list: Testimony[] }) {
                   }}
                 >
                   <img
+                    draggable={false}
                     src={e.src}
                     alt={e.alt}
                     className={
@@ -170,6 +164,7 @@ export function Testimonies({ list: testimonies }: { list: Testimony[] }) {
                 <img
                   src={e.src}
                   alt={e.alt}
+                  draggable={false}
                   className={
                     "absolute transition-all duration-200 group-hover:rotate-[5deg] group-hover:scale-[1.2] inset-0 w-full bg-gray-200 aspect-square object-cover"
                   }

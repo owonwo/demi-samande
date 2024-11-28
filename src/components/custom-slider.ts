@@ -1,8 +1,6 @@
-import { type AnimationSequence, animate } from "framer-motion";
+import { animate } from "framer-motion";
 
 export class CustomSlider {
-  private last_position = 0;
-
   constructor(public elements: HTMLElement[]) {}
 
   setElements(elements: HTMLElement[]) {
@@ -98,15 +96,5 @@ export class CustomSlider {
         nextSibling = nextSibling?.nextElementSibling;
       }
     }, 100);
-
-    this.last_position = position;
-  }
-
-  setActive(element: HTMLElement, state: boolean) {
-    element.setAttribute("data-active", state ? "true" : "false");
-  }
-
-  computeMotion(n: number, cursorPosition: number) {
-    return Array.from({ length: n }, (_, i) => (i - cursorPosition) * 15);
   }
 }

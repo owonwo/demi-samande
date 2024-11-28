@@ -2,9 +2,8 @@ import { ArrowRightIcon } from "lucide-react";
 import type React from "react";
 import Logo from "../../public/assets/images/logo-stacked-white.svg";
 // @ts-expect-error
-import LogoWhite from "../../public/assets/images/logo-white.svg?react";
-// @ts-expect-error
 import LogoDark from "../../public/assets/images/logo.svg?react";
+import { usePathname } from "../hooks/use-pathname.ts";
 import { cn } from "../libs/utils.ts";
 import { Container } from "./layouts/container.tsx";
 
@@ -31,7 +30,7 @@ export function MainHeader(props: {
   children?: React.ReactNode;
   className?: string;
 }) {
-  const { variant, className = "", position = "sticky", children } = props;
+  const { variant, position = "sticky", children } = props;
 
   return (
     <header
@@ -68,12 +67,10 @@ export function MainHeader(props: {
           })}
         >
           <ul className={"flex gap-6 items-center"}>
-            <li className={"hover:underline"}>
-              <a href="/about">About</a>
-            </li>
-            <li className={"hover:underline"}>
-              <a href="/books">Books</a>
-            </li>
+            <NavItemDesktop href={"/books"}>Books</NavItemDesktop>
+
+            <NavItemDesktop href={"/about"}>About</NavItemDesktop>
+
             <li>
               <button
                 type={"button"}
@@ -95,5 +92,29 @@ export function MainHeader(props: {
         {children}
       </Container>
     </header>
+  );
+}
+
+function NavItemDesktop(props: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  const pathname = usePathname();
+  const isActive = pathname === props.href;
+
+  return (
+    <li
+      data-active={isActive}
+      className={
+        "group relative data-[active=true]:uppercase data-[active=true]:italic data-[active=true]:font-heading"
+      }
+    >
+      <a href={props.href}>{props.children}</a>
+      <span
+        className={cn(
+          "h-px group-hover:right-0 transition-all ease-in-out duration-200 start-0 end-[100%] absolute bottom-0 bg-accent-500",
+        )}
+      />
+    </li>
   );
 }

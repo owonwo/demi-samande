@@ -17,7 +17,7 @@ const [firstBook] = safeArray(books);
 ---
 
 <Layout title="About: Demi Samande">
-	<MainHeader position="sticky" variant="transparent">
+	<MainHeader position="sticky" client:load variant="transparent">
         <NavMenu client:only="react" />
     </MainHeader>
 
@@ -43,9 +43,7 @@ const [firstBook] = safeArray(books);
                             {firstBook.longTitle ?? "No Heading"}
                         </Balancer>
                     </h2>
-
                     <div class="prose text-[18px] text-neutral-700" set:html={firstBook?.longDescription} />
-
                     <a href={firstBook.purchaseLink} target="_blank" rel="noopener noreferrer">
                         <button
                             class="bg-gray-200 px-5 inline-flex text-black items-center gap-2 py-3 rounded-lg base-button"
@@ -70,10 +68,7 @@ const [firstBook] = safeArray(books);
         <Container className="grid grid-cols-4 md:grid-cols-12 gap-6 py-12 md:py-32">
             <div class="blank hidden md:block md:col-span-2"/>
             <div class="col-span-4 md:col-span-8">
-                <Testimonies client:load list={firstBook.testimonies.map(e => ({
-                    id: e.entry.fullName,
-                    ...e.entry
-                }))} />
+                <Testimonies client:load list={firstBook.testimonies} />
             </div>
         </Container>
     </section>

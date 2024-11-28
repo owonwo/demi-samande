@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import React from "react";
 // @ts-expect-error
 import SymbolCut from "../assets/images/identity-shape.svg?react";
+import { usePathname } from "../hooks/use-pathname.ts";
 import { cn } from "../libs/utils.ts";
 import { NavItem } from "./nav-item.tsx";
 
@@ -22,9 +23,7 @@ const links = [
 ] as const;
 
 export function NavMenu() {
-  const [pathname] = React.useState(() => {
-    return typeof window === "undefined" ? "" : window.location.pathname;
-  });
+  const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {

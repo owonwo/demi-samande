@@ -1,12 +1,8 @@
-import { z } from "astro:schema";
+import type { z } from "astro:schema";
 import { Balancer } from "react-wrap-balancer";
+import type { BookSchema } from "../models";
 import { Container } from "./layouts/container.tsx";
 import { MarqueeContainer } from "./marquee.tsx";
-
-const BookSchema = z.object({
-  title: z.string().min(1),
-  shortDescription: z.string(),
-});
 
 export function BooksBlock({
   list = [],

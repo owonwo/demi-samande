@@ -1,8 +1,8 @@
-import type { Testimony } from "../components/testimonial.tsx";
+import type { Testimony } from "../models";
 
 export const testimonies: Testimony[] = [
   {
-    id: 1,
+    id: "1",
     fullName: "John Inengite",
     titleAndPosition: "Founder of Spark podcast",
     photo: "",
@@ -11,7 +11,7 @@ export const testimonies: Testimony[] = [
             incididunt ut labore et dolore`.trim(),
   },
   {
-    id: 2,
+    id: "2",
     fullName: "Frank Gray",
     titleAndPosition: "Author, Atomic Habits",
     photo: "",
@@ -19,7 +19,7 @@ export const testimonies: Testimony[] = [
       `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium adipisci assumenda minima perspiciatis quisquam veritatis!`.trim(),
   },
   {
-    id: 3,
+    id: "3",
     fullName: "John C. Maxwell",
     titleAndPosition: "Founder, John Maxwell Group",
     photo: "",

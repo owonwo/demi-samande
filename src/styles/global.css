@@ -21,6 +21,10 @@ html {
   background-image: url(--attr);
 }
 
+.adjust-heading-font {
+  font-size-adjust: ex-height 0.5;
+}
+
 /* Register your custom font family and tell the browser where to find it. */
 @font-face {
   font-family: "Libre Caslon Text";

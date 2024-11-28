@@ -1,9 +1,7 @@
 ---
-import { ArrowRight, ChevronRightIcon } from "lucide-react";
 import { BioContent } from "../components/bio-content.tsx";
 import { BooksBlock } from "../components/books-block.tsx";
 import { ContactBlock } from "../components/contact-block.tsx";
-import { MainFooter } from "../components/footer.tsx";
 import { MainHeader } from "../components/header.tsx";
 import { MainHero } from "../components/hero.tsx";
 import { NavMenu } from "../components/nav-menu.tsx";
@@ -29,15 +27,14 @@ const [hero, intro, speaker, podcast, testimonials, books] = await Promise.all([
 ---
 
 <Layout title="Demi Samande">
-	<MainHeader position="sticky" variant="transparent">
+	<MainHeader position="sticky" client:load variant="transparent">
         <NavMenu client:only="react" />
     </MainHeader>
     <MainHero {...hero.data} />
     <BioContent {...intro.data} client:only="react" />
     <BooksBlock list={books} />
     <SpeakerBlock data={speaker.data} />
-    <PodcastBlock list={podcast} client:load />
+    <PodcastBlock client:load list={podcast} />
     <Testimonial client:load list={testimonials} />
     <ContactBlock />
-    <MainFooter />
 </Layout>

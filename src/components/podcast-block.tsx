@@ -1,20 +1,12 @@
-import { z } from "astro:schema";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { take } from "ramda";
 import { useState } from "react";
 import { Balancer } from "react-wrap-balancer";
+import type { PodcastInfo } from "../models";
 import { Container } from "./layouts/container";
 
-const PodcastInfo = z.array(
-  z.object({
-    title: z.string(),
-    coverImage: z.string().url(),
-    episodeLink: z.string().url(),
-  }),
-);
-
-export function PodcastBlock({ list }: { list: z.infer<typeof PodcastInfo> }) {
+export function PodcastBlock({ list }: { list: PodcastInfo[] }) {
   const [index, setIndex] = useState(0);
   const current = list[index];
 

@@ -1,7 +1,7 @@
 import defaultTheme from "tailwindcss/defaultTheme";
 import { getColors } from "theme-colors";
 
-const values = getColors("#E54244");
+const redPalette = getColors("#E54244");
 const blueColors = getColors("#002480");
 const secondaryColors = getColors("#afd8ff");
 const accentColors = getColors("#ffd160");
@@ -16,7 +16,7 @@ export default {
         body: ["var(--font-body)", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        base: blueColors,
+        base: redPalette,
         dm: {
           border: "#E6E6E6",
           background: "#FAFAFA",

@@ -1,7 +1,6 @@
 import React from "react";
 import { safeArray, safeStr } from "../libs/data.helper.ts";
 import { cn } from "../libs/utils.ts";
-import { testimonies } from "../mocks/testimonies.ts";
 import { ImageCarousel, MockCarouselImages } from "./custom-carousel.tsx";
 import { Container } from "./layouts/container.tsx";
 import {
@@ -46,7 +45,7 @@ export function BioContent(props: {
             className="md:basis-1/2s relative flex items-end overflow-hidden w-full h-[10svh] md:h-[200px]"
           >
             <div className="absolute bottom-0 flex gap-4">
-              {accomplishments.map(({ photo }, index) => (
+              {accomplishments.map(({ photo }) => (
                 <div
                   key={photo}
                   className="w-[150px] bg-gray-100 aspect-[3/1]"
