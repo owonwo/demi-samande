@@ -36,12 +36,15 @@ export function BooksBlock({
             <p className="text-balance mb-8">
               <Balancer>{first_book.shortDescription}</Balancer>
             </p>
-            <button
-              type="button"
-              className="bg-white text-black text-sm md:text-base p-4 rounded-lg"
-            >
-              Learn more
-            </button>
+
+            <a href={"/books"}>
+              <button
+                type="button"
+                className="bg-white text-black text-sm md:text-base p-4 rounded-lg"
+              >
+                Learn more
+              </button>
+            </a>
           </div>
         </div>
       </Container>

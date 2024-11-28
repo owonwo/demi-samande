@@ -18,6 +18,7 @@ export default {
       colors: {
         base: blueColors,
         dm: {
+          border: "#E6E6E6",
           background: "#FAFAFA",
         },
         base_2: blueColors,

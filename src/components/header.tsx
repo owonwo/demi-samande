@@ -50,21 +50,16 @@ export function MainHeader(props: {
         }
       >
         <a href={"/"}>
-          {variant === "transparent" ? (
-            <LogoWhite
-              className={
-                "w-[123px] top-2 md:top-0 h-[39.36] md:h-auto z-[999] relative md:inline-block md:w-[150px]"
-              }
-              title={"Demi Samande"}
-            />
-          ) : (
-            <LogoDark
-              className={
-                "w-[123px] top-2 md:top-0 h-[39.36] md:h-auto z-[999] relative md:inline-block md:w-[150px]"
-              }
-              title={"Demi Samande"}
-            />
-          )}
+          <div
+            className={cn(
+              "w-[123px] top-2 md:top-0 h-[39.36] md:h-auto z-[999] relative md:inline-block md:w-[150px]",
+              {
+                "text-white": variant === "transparent",
+              },
+            )}
+          >
+            <LogoDark title={"Demi Samande"} />
+          </div>
         </a>
 
         <nav
@@ -77,7 +72,7 @@ export function MainHeader(props: {
               <a href="/about">About</a>
             </li>
             <li className={"hover:underline"}>
-              <a href="/in-her-hands">Books</a>
+              <a href="/books">Books</a>
             </li>
             <li>
               <button

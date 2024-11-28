@@ -1,10 +1,12 @@
 ---
-import { ArrowRight, ChevronRightIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Balancer } from "react-wrap-balancer";
+import { ContactBlock } from "../components/contact-block.tsx";
 import { MainHeader } from "../components/header.tsx";
-import { Title, headingVariant } from "../components/heading.tsx";
+import { headingVariant } from "../components/heading.tsx";
 import { Container } from "../components/layouts/container.tsx";
 import { NavMenu } from "../components/nav-menu.tsx";
+import { Testimonies } from "../components/testimonial.tsx";
 import Layout from "../layouts/Layout.astro";
 import { safeArray } from "../libs/data.helper";
 import { getBooks } from "../libs/fetchers";
@@ -15,16 +17,16 @@ const [firstBook] = safeArray(books);
 ---
 
 <Layout title="About: Demi Samande">
-	<MainHeader position="relative" variant="default">
+	<MainHeader position="sticky" variant="transparent">
         <NavMenu client:only="react" />
     </MainHeader>
 
-    <section class="bg-black min-h-[60svh]">
+    <section class="bg-black pt-32 text-white min-h-[80svh] md:min-h-[60svh]">
         Hi
     </section>
 
     <section class="bg-dm-background min-h-[100svh]">
-        <Container className="py-24 flex flex-col gap-24 items-center">
+        <Container className="py-24 flex flex-col gap-12 md:gap-24 items-center">
             <h1 class={
                 cn(
                 headingVariant({ size: 'title' }),
@@ -33,9 +35,9 @@ const [firstBook] = safeArray(books);
                 Book
             </h1>
 
-            <div class="grid gap-6 w-full grid-cols-12 justify-between">
-                <div class="blank" />
-                <article class="col-span-5 flex items-start max-w-[60ch] gap-4 flex-col">
+            <div class="grid md:gap-6 grid-cols-1 w-full items-start md:grid-cols-12">
+                <div class="hidden md:block blank" />
+                <article class="order-2 md:order-none md:col-span-5 flex items-start max-w-[60ch] gap-4 flex-col">
                     <h2 class={headingVariant({ size: 'h2', className: "!font-medium !font-body"})}>
                         <Balancer>
                             {firstBook.longTitle ?? "No Heading"}
@@ -44,24 +46,39 @@ const [firstBook] = safeArray(books);
 
                     <div class="prose text-[18px] text-neutral-700" set:html={firstBook?.longDescription} />
 
-                    <button
-                        class="bg-gray-200 px-5 inline-flex text-black items-center gap-2 py-3 rounded-lg base-button"
-                        type="button"
-                    >
-                        <span>Pre-order book</span>
-                         <ArrowRight size={18} />
-                    </button>
+                    <a href={firstBook.purchaseLink} target="_blank" rel="noopener noreferrer">
+                        <button
+                            class="bg-gray-200 px-5 inline-flex text-black items-center gap-2 py-3 rounded-lg base-button"
+                            type="button"
+                        >
+                            <span>Pre-order book</span>
+                             <ArrowRight size={18} />
+                        </button>
+                    </a>
                 </article>
-                <div class="blank" />
-                <div class="col-span-4 flex justify-center">
-                    <figure class="bg-[beige] shadow-xl w-full flex-1 aspect-[1/1.4]">
+                <div class="hidden md:block blank" />
+                <div class="order-1 md:sticky top-4 md:order-none mb-24 md:col-span-4 flex justify-center">
+                    <figure class="bg-base_2-500 shadow-xl w-full flex-1 aspect-[1/1.4]">
                     </figure>
                 </div>
-                <div class="blank" />
+                <div class="hidden md:block blank" />
+            </div>
+        </Container>
+
+        <div class="border-t border-dm-border w-full" />
+
+        <Container className="grid grid-cols-4 min-h-[100svh] md:min-h-[auto] md:grid-cols-12 gap-6 py-12 md:py-32">
+            <div class="blank hidden md:block md:col-span-2"/>
+            <div class="col-span-4 md:col-span-8">
+                <Testimonies client:load list={firstBook.testimonies.map(e => ({
+                    id: e.entry.fullName,
+                    ...e.entry
+                }))} />
             </div>
         </Container>
     </section>
 
+    <ContactBlock />
 </Layout>
 
 <style is:global>

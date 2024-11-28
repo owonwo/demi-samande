@@ -12,7 +12,7 @@ const links = [
     title: "Home",
   },
   {
-    href: "/in-her-hands",
+    href: "/books",
     title: "Books",
   },
   {

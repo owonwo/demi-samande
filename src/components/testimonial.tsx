@@ -8,11 +8,11 @@ import { ImageCarousel } from "./custom-carousel.tsx";
 import { Container } from "./layouts/container.tsx";
 
 export type Testimony = {
-  id: number;
   fullName: string;
-  titleAndPosition: string;
+  id: number;
   photo: string;
   quote: string;
+  titleAndPosition: string;
 };
 
 export function Testimonial({ list: testimonies }: { list: Testimony[] }) {
@@ -126,6 +126,111 @@ export function Testimonial({ list: testimonies }: { list: Testimony[] }) {
   );
 }
 
+export function Testimonies({ list: testimonies }: { list: Testimony[] }) {
+  const [index, setIndex] = React.useState(0);
+  const current = testimonies[index];
+
+  useArrowKeys({
+    maxValue: testimonies.length - 1,
+    setter: setIndex,
+    enabled: import.meta.env.DEV,
+  });
+
+  const images = testimonies.map((e) => ({
+    id: e.id,
+    src: e.photo,
+    alt: e.fullName,
+  }));
+
+  return (
+    <section
+      id="testimonials"
+      className="flex flex flex-col w-full text-black py-12 md:py-32 overflow-hidden"
+    >
+      <div className="flex flex-col items-center">
+        <div
+          id="thumbnails"
+          className="mb-8 md:mb-[5.126rem] w-full md:w-auto gap-4 grid grid-cols-[repeat(5,minmax(30px,69px))] md:flex"
+        >
+          {images.map((e, index) => {
+            return (
+              <button
+                key={e.id}
+                type={"button"}
+                className={cn(
+                  "relative group filter transition-all grayscale-0 flex-1 w-auto md:w-[69px] max-w-[69px] aspect-square transform ease-in duration-[200ms] rounded-md overflow-hidden",
+                  {
+                    "opacity-70 grayscale": e.id !== current.id,
+                  },
+                )}
+                onClick={() => {
+                  setIndex(index);
+                }}
+              >
+                <img
+                  src={e.src}
+                  alt={e.alt}
+                  className={
+                    "absolute transition-all duration-200 group-hover:rotate-[5deg] group-hover:scale-[1.2] inset-0 w-full bg-gray-200 aspect-square object-cover"
+                  }
+                />
+              </button>
+            );
+          })}
+        </div>
+
+        <div className={"grid grid-cols-1 md:grid-cols-8 gap-6 w-full"}>
+          <div className="absolute text-[64px] md:relative md:text-[92px] md:aspect-square md:w-full font-body leading-[1] self-start">
+            “
+          </div>
+
+          <div
+            className={
+              "flex py-6 px-5 md:col-span-6 flex-1 gap-[1.5rem] flex-col"
+            }
+          >
+            <blockquote
+              className="mt-[2.2ex] relative leading-[2.2ex] text-2xl text-[30px] md:text-[36px] tracking-tighter md:tracking-[-1.4px]"
+              style={{ verticalAlign: "top" }}
+            >
+              <span>{addPeriodSymbol(current.quote)}</span>
+            </blockquote>
+
+            <div
+              id={"name-title"}
+              className={"flex flex-col justify-end gap-1"}
+            >
+              <SlideLens
+                index={index}
+                options={testimonies.map((e) => ({
+                  id: e.id,
+                  text: e.fullName,
+                }))}
+                className="text-[20px] font-medium text-black md:text-[22px]"
+              />
+              <SlideLens
+                index={index}
+                options={testimonies.map((e) => ({
+                  id: e.id,
+                  text: e.titleAndPosition,
+                }))}
+                className={"text-[18px] text-neutral-700"}
+              />
+            </div>
+          </div>
+
+          <div
+            className="absolute text-[64px] md:relative md:text-[92px] leading-[1] relative w-full md:aspect-square self-end text-end font-body"
+            style={{ verticalAlign: "text-bottom" }}
+          >
+            <span className={"absolute leading-[0] bottom-0 end-0"}>”</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function addPeriodSymbol(quote_: string) {
   const quote = safeStr(quote_);
   return quote.trim().endsWith(".") ? quote.slice(0, quote.length - 1) : quote;
@@ -143,7 +248,7 @@ function SlideLens({ index = 0, className, options }: SlideLensProps) {
       <motion.div
         className="flex flex-col"
         animate={{ y: `-${(index / options.length) * 100}%` }}
-        transition={{ duration: 0.4 }}
+        transition={{ duration: 0.4, delay: 0.4 }}
       >
         {options.map((e) => {
           return (
