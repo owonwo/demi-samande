@@ -20,19 +20,27 @@ export function Footer() {
 
 export function MainFooter() {
   return (
-    <footer className={"bg-black text-white flex flex-col gap-24"}>
-      <Container className={"flex flex-col gap-2 text-sm"}>
+    <footer
+      className={
+        "bg-black text-[#BDBDBD] flex text-base flex-col gap-16 md:gap-24"
+      }
+    >
+      <Container className={"flex flex-col gap-2"}>
         <div className={"border-[#1E1D1D] border-t w-full"} />
         <div
           className={
-            "flex w-full py-4 justify-between text-white *:justify-center *:flex"
+            "flex w-full items-start md:items-center py-4 justify-between *:justify-center"
           }
         >
-          <div className={"flex flex-wrap !justify-start gap-x-4 basis-4/12"}>
+          <div
+            className={
+              "hidden md:flex flex-wrap !justify-start gap-x-4 basis-4/12"
+            }
+          >
             <p>Demi Samande &copy; All Rights Reserved 2024</p>
           </div>
 
-          <div className={"flex gap-4 basis-4/12"}>
+          <div className={"flex flex-col md:flex-row gap-4 basis-4/12"}>
             <a
               className={"hover:underline"}
               target={"_blank"}
@@ -59,7 +67,11 @@ export function MainFooter() {
             </a>
           </div>
 
-          <div className={"flex gap-4 !justify-end basis-4/12"}>
+          <div
+            className={
+              "flex flex-col text-end md:flex-row gap-4 !justify-end basis-4/12"
+            }
+          >
             <a className={"hover:underline"} href={"/books"}>
               Books
             </a>
@@ -70,13 +82,19 @@ export function MainFooter() {
         </div>
       </Container>
 
-      <div className={"h-[35vh] overflow-hidden"}>
+      <div className={"md:h-[35vh] relative px-4 overflow-hidden"}>
         <img
           {...LogoWhite}
           alt={"Demi Samande"}
-          className={"h-[60vh] -ml-[3vw] absolute top-0 inset-x-0 relative"}
+          className={
+            "md:h-[60vh] left-0 md:-ml-[3vw] relative md:absolute top-0 inset-x-0"
+          }
         />
       </div>
+
+      <p className={"text-center md:hidden pb-4"}>
+        Demi Samande &copy; All Rights Reserved 2024
+      </p>
     </footer>
   );
 }
