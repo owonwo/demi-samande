@@ -1,17 +1,16 @@
 ---
-import { ArrowRight } from "lucide-react";
-import { Balancer } from "react-wrap-balancer";
+import { Image } from "@unpic/astro";
 import { ContactBlock } from "../components/contact-block.tsx";
 import { MainHeader } from "../components/header.tsx";
 import { headingVariant } from "../components/heading.tsx";
 import { Container } from "../components/layouts/container.tsx";
 import { NavMenu } from "../components/nav-menu.tsx";
-import { Testimonies } from "../components/testimonial.tsx";
 import Layout from "../layouts/Layout.astro";
 import { getAboutContent } from "../libs/fetchers";
 import { cn } from "../libs/utils";
 
 const data = await getAboutContent();
+const coverImage = data.heroImages[0];
 ---
 
 <Layout title="About: Demi Samande">
@@ -19,8 +18,10 @@ const data = await getAboutContent();
         <NavMenu client:only="react" />
     </MainHeader>
 
-    <section class="bg-black pt-32 text-white min-h-[80svh] md:min-h-[60svh]">
-        Mino
+    <section class="bg-base_2-900 pt-32 relative text-white min-h-[80svh] md:min-h-[60svh]">
+        {coverImage ? (
+            <Image src={coverImage.entry.base} class="absolute inset-0 h-full" />
+        ) : null}
     </section>
 
     <section class="bg-dm-background min-h-[100svh]">
@@ -36,16 +37,19 @@ const data = await getAboutContent();
             <div class="grid md:gap-6 grid-cols-1 w-full items-start md:grid-cols-12">
                 <div class="hidden md:block blank" />
                 <div class="md:sticky flex gap-6 flex-col top-4 mb-24 md:col-span-4 flex justify-center">
-                    <h2 class={headingVariant({ size: 'h2', className: "!font-medium !font-body"})}>
+                    <h2 class={cn(
+                        headingVariant({ size: 'h2', className: "!font-medium !font-body"}),
+                        "text-[24px] leading-[2.2ex] md:text-[32px]"
+                    )}>
                         {data.title}
                     </h2>
+
                     <figure class="bg-base_2-500 shadow-xl w-full flex-1">
                         <img src={data.photo.base}
                              class=""
                              alt="Demi Samande"/>
                     </figure>
                 </div>
-
                 <div class="hidden md:block blank" />
                 <article class=" md:col-span-5 flex items-start max-w-[60ch] gap-4 flex-col">
                     <div class="prose text-[18px] text-neutral-700" set:html={data.content ?? "<p>No Content</p>"} />

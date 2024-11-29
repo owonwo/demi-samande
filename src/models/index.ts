@@ -39,4 +39,5 @@ export const AboutContentSchema = z.object({
   title: z.string().min(1).default("<TITLE>"),
   content: z.string().min(1).default("<p>No Content</p>"),
   photo: ResponsiveImage,
+  heroImages: z.array(z.object({ entry: ResponsiveImage })).default([]),
 });
