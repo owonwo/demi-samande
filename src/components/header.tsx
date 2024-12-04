@@ -1,4 +1,3 @@
-import { ArrowRightIcon } from "lucide-react";
 import type React from "react";
 import Logo from "../../public/assets/images/logo-stacked-white.svg";
 // @ts-expect-error
@@ -69,19 +68,10 @@ export function MainHeader(props: {
         >
           <ul className={"flex gap-6 items-center"}>
             <NavItemDesktop href={"/books"}>Books</NavItemDesktop>
-
             <NavItemDesktop href={"/about"}>About</NavItemDesktop>
-
             <li>
               <button
                 type={"button"}
-                className={cn(
-                  "px-4 inline-flex  items-center gap-2 py-2 rounded-lg base-button",
-                  {
-                    "bg-dm-background text-black": variant === "transparent",
-                    "bg-black text-white": variant === "default",
-                  },
-                )}
                 onClick={() => {
                   const el = document.querySelector('#contact');
                   if (!el) return;
@@ -95,8 +85,7 @@ export function MainHeader(props: {
                   });
                 }}
               >
-                <span>Get to know her</span>
-                <ArrowRightIcon size={18} />
+                <span>Get in touch</span>
               </button>
             </li>
           </ul>
@@ -119,16 +108,18 @@ function NavItemDesktop(props: {
     <li
       data-active={isActive}
       className={
-        "group relative data-[active=true]:uppercase data-[active=true]:italic data-[active=true]:font-heading"
+        "group data-[active=true]:uppercase flex justify-center min-w-[6ch] data-[active=true]:italic data-[active=true]:font-heading"
       }
     >
-      <a href={props.href}>{props.children}</a>
-      <span
-        className={cn(
-          { "group-hover:right-0": !isActive },
-          "h-px transition-all ease-in-out duration-200 start-0 end-[100%] absolute bottom-0 bg-accent-500",
-        )}
-      />
+      <span className="relative inline-block">
+        <a href={props.href}>{props.children}</a>
+        <span
+          className={cn(
+            { "group-hover:right-0": !isActive },
+            "h-px transition-all ease-in-out duration-200 start-0 end-[100%] absolute bottom-0 bg-accent-500",
+          )}
+        />
+      </span>
     </li>
   );
 }

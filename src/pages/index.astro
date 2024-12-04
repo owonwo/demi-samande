@@ -33,7 +33,7 @@ const [hero, intro, speaker, podcast, testimonials, books] = await Promise.all([
     <MainHero {...hero.data} />
     <BioContent {...intro.data} client:only="react" />
     <BooksBlock list={books} />
-    <SpeakerBlock data={speaker.data} />
+    <SpeakerBlock data={speaker.data} client:load />
     <PodcastBlock client:load list={podcast} />
     <Testimonial client:load list={testimonials} />
     <ContactBlock />

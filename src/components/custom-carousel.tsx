@@ -27,8 +27,9 @@ type ImageCarouselProps = React.ComponentProps<"div"> & {
 };
 
 export function ImageCarousel(props: ImageCarouselProps) {
-  const { pos, images, className, ...PROPS } = props;
+  const { pos, images: _images, className, ...PROPS } = props;
 
+  const images = React.useMemo(() => _images.toReversed(), [_images]);
   const containerRef = React.useRef<HTMLDivElement>(null);
   const slider = React.useRef(new CustomSlider([])).current;
 
@@ -62,7 +63,7 @@ export function ImageCarousel(props: ImageCarouselProps) {
             key={image.alt}
             src={image.src}
             alt={image.alt}
-            className={"w-full border-red-500 aspect-[--carousel-aspect-ratio]"}
+            className={"w-full bg-gray-50 border-red-500 aspect-[--carousel-aspect-ratio]"}
           />
         );
       })}

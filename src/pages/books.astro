@@ -11,18 +11,20 @@ import Layout from "../layouts/Layout.astro";
 import { safeArray } from "../libs/data.helper";
 import { getBooks } from "../libs/fetchers";
 import { cn } from "../libs/utils";
+import { BannerCountdown, CountdownBanner } from "../components/countdown-banner";
 
 const books = await getBooks({ limit: 1 });
 const [firstBook] = safeArray(books);
 ---
 
 <Layout title="About: Demi Samande">
+
 	<MainHeader position="sticky" client:load variant="transparent">
         <NavMenu client:only="react" />
     </MainHeader>
 
     <section
-        class="pt-32 text-white min-h-[80svh] relative md:min-h-[32rem] md:h-[80svh] max-h-[918px]"
+        class="pt-32 text-white min-h-[20svh] relative md:min-h-[10svh]"
         style={{
           backgroundColor: 'rgba(0,0,0,0.2)',
           backgroundImage: "url(/assets/images/in-her-hands-cover.jpg)",
@@ -31,17 +33,23 @@ const [firstBook] = safeArray(books);
         }}
     >
         <div class="bg-black/[0.7] backdrop-blur inset-0 absolute"/>
-
     </section>
 
-    <section class="bg-dm-background min-h-[100svh]">
+    <CountdownBanner className="sticky top-0 z-20">
+		<div class={"text-base md:text-[1.4rem]"}
+			 style="--counter-height: 24px; --counter-duration: 300ms">
+			<BannerCountdown client:only="react"/>
+		</div>
+	</CountdownBanner>
+
+    <section class="bg-dm-background min-h-[100svh] relative z-10">
         <Container className="py-24 flex flex-col gap-12 md:gap-24 items-center">
             <h1 class={
                 cn(
                 headingVariant({ size: 'title' }),
                 "text-center",
             )}>
-                Book
+                First Book
             </h1>
 
             <div class="grid md:gap-6 grid-cols-1 w-full items-start md:grid-cols-12">

@@ -45,7 +45,7 @@ export function NavMenu() {
         }
         onClick={() => setOpen((open) => !open)}
       >
-        <DemiBrandSymbol size={24} data-active={!open} />
+        <DemiBrandSymbol size={'8vw'} data-active={!open} />
       </button>
 
       <nav
@@ -96,8 +96,8 @@ export function NavMenu() {
   );
 }
 
-function DemiBrandSymbol({ size = 40, ...props }) {
-  const size_ = size / 2;
+function DemiBrandSymbol({ size = '24px', ...props }) {
+  const size_ = `calc(${size} / 2)`;
   const cn_ = (class_name: string) =>
     cn(
       "transition-all duration-200 ease-in-out transform",
@@ -113,7 +113,7 @@ function DemiBrandSymbol({ size = 40, ...props }) {
         "group aspect-square *:flex *:w-[--width] gap-0 grid grid-cols-2"
       }
       style={{
-        "--width": `${size_}px`,
+        "--width": `${size_}`,
         width: size,
         height: size,
         fontSize: size_,

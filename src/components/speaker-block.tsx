@@ -1,8 +1,12 @@
 import { z } from "astro:schema";
 import { ArrowRight } from "lucide-react";
-import type React from "react";
+import React from "react";
 import { Balancer } from "react-wrap-balancer";
 import { Container } from "./layouts/container.tsx";
+import { ImageCarousel } from "./custom-carousel.tsx";
+import { ThumbnailButton } from "./testimonial.tsx";
+import { ImageSourceSchema, type ImageSource } from "../models/index.ts";
+import uncrypto from 'uncrypto'
 
 const buttonSchema = z.object({
   buttonText: z.string().default("Button text"),
@@ -22,6 +26,17 @@ const SpeakerSchema = z
   .object({
     noOfSpokenEvents: z.string({ coerce: true }).min(1).default("N/A"),
     noOfUniqueCountriesSpoken: z.string({ coerce: true }).min(1).default("N/A"),
+    images: z.array(z.any())
+      .refine((images) => {
+        const photos = images.map(e => ({
+          id: uncrypto.randomUUID(),
+          src: e.src,
+          caption: e.caption,
+          alt: e.photoDescription
+        }));
+        return z.array(ImageSourceSchema).default([]).parse(photos);
+      })
+      .default([])
   })
   .merge(visibilitySchema)
   .merge(headingSchema)
@@ -35,7 +50,6 @@ function ValidateCMSData<A, T>(props: {
   const { success, data, error } = props.schema.safeParse(props.data);
 
   if (!success) {
-    console.log(error);
     return null;
   }
 
@@ -54,7 +68,7 @@ export function SpeakerBlock({
         id="speaker"
         className="min-h-[60svh] bg-dm-background py-12 md:py-32"
       >
-        <Container className="flex flex-col md:flex-row gap-8 justify-between">
+        <Container className="flex flex-col md:flex-row gap-16 md:gap-8 justify-between">
           <div className="flex flex-col basis-1/2 justify-between gap-16">
             <div className="flex flex-col gap-8">
               <div className="flex flex-col gap-6">
@@ -98,9 +112,38 @@ export function SpeakerBlock({
             </a>
           </div>
 
-          <figure className="bg-gray-200 basis-1/2 aspect-[3/2]" />
+          <div className="flex-1">
+            <Carousel images={data.images} />
+          </div>
         </Container>
       </section>
     </ValidateCMSData>
   );
+}
+
+function Carousel({ images = [] }: { images: ImageSource[] }) {
+  const [index, setIndex] = React.useState(0);
+
+  return <div className="w-full flex flex-col gap-4 aspect-square">
+    <ImageCarousel
+      images={images}
+      pos={index}
+      className={"shrink-0 basis-1/2 rounded-lg"}
+      style={{
+        "--carousel-aspect-ratio": "712/544",
+      }}
+    />
+
+    {images.length > 1 ?
+      <div className="grid gap-4 grid-cols-[repeat(3,minmax(40px,69px))] self-center content-end items-start">
+        {images.map((entry, idx) => {
+          return <ThumbnailButton
+            key={entry.id}
+            image={entry}
+            isActive={index === idx}
+            onClick={() => setIndex(idx)} />
+        })}
+      </div>
+      : null}
+  </div>
 }

@@ -1,23 +1,27 @@
-import { formatDuration } from "date-fns";
+import { formatDuration, isPast } from "date-fns";
 import React from "react";
 import { useArrowKeys } from "../hooks/use-arrow-keys.ts";
 import { PreorderEndDate } from "../libs/constants.ts";
 import { CounterEntryBox } from "./counter-entry-box.tsx";
 import { MechanicalCounter } from "./mechanical-counter.tsx";
+import { Container } from "./layouts/container.tsx";
+import { cn } from "../libs/utils.ts";
 
-export function CountdownBanner(props: { children: React.ReactNode }) {
+export function CountdownBanner(props: { children: React.ReactNode, className?: string }) {
+  if (isPast(PreorderEndDate)) { return null }
+
   return (
     <div
-      className={"bg-white flex items-center py-2 min-h-12 border text-black"}
+      className={cn("bg-white flex items-center py-2 min-h-12 border-b text-black", props.className)}
     >
-      <div
-        className={"flex container px-4 mx-auto justify-between items-center"}
+      <Container
+        className={"flex justify-between items-center"}
       >
-        <span className={"font-heading text-xs md:text-lg"}>
+        <span className={"text-xs font-body md:text-lg"}>
           PRE-ORDER ENDS IN
         </span>
         <span className={"flex"}>{props.children}</span>
-      </div>
+      </Container>
     </div>
   );
 }

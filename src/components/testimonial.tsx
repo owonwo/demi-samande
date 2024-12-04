@@ -4,7 +4,7 @@ import { Balancer } from "react-wrap-balancer";
 import { useArrowKeys } from "../hooks/use-arrow-keys.ts";
 import { safeStr } from "../libs/data.helper.ts";
 import { cn } from "../libs/utils.ts";
-import type { Testimony } from "../models";
+import type { Testimony, ImageSource } from "../models";
 import { ImageCarousel } from "./custom-carousel.tsx";
 import { Container } from "./layouts/container.tsx";
 
@@ -18,11 +18,13 @@ export function Testimonial({ list: testimonies }: { list: Testimony[] }) {
     enabled: import.meta.env.DEV,
   });
 
-  const images = testimonies.map((e) => ({
-    id: e.id,
-    src: e.photo,
-    alt: e.fullName,
-  }));
+  const images = React.useMemo(() => {
+    return testimonies.map((e): ImageSource => ({
+      id: e.id,
+      src: e.photo,
+      alt: e.fullName,
+    }))
+  }, [testimonies]);
 
   return (
     <section
@@ -36,7 +38,7 @@ export function Testimonial({ list: testimonies }: { list: Testimony[] }) {
           </h1>
 
           <div className={"row-span-2 aspect-[1.1/1] flex items-end order-2"}>
-            <ImageCarousel pos={index} images={images.toReversed()} />
+            <ImageCarousel pos={index} images={images} />
           </div>
 
           <div
@@ -57,38 +59,22 @@ export function Testimonial({ list: testimonies }: { list: Testimony[] }) {
                 id: e.id,
                 text: e.titleAndPosition,
               }))}
-              className={"text-lg text-neutral-700"}
+              className={"text-sm md:text-lg text-neutral-700"}
             />
           </div>
 
           <div
             id="thumbnails"
-            className="order-5 md:order-4 grid gap-4 grid-cols-[repeat(auto-fit,minmax(40px,69px))] content-end items-start"
+            className="order-5 md:order-4 grid gap-4 grid-cols-[repeat(5,minmax(40px,69px))] content-end items-start"
           >
             {images.map((e, index) => {
               return (
-                <button
-                  type={"button"}
+                <ThumbnailButton
                   key={e.id}
-                  className={cn(
-                    "relative filter transition-all grayscale-0 md:w-[69px] aspect-square transform ease-in duration-[200ms] rounded-md overflow-hidden",
-                    {
-                      "opacity-70 grayscale": e.id !== current.id,
-                    },
-                  )}
-                  onClick={() => {
-                    setIndex(index);
-                  }}
-                >
-                  <img
-                    draggable={false}
-                    src={e.src}
-                    alt={e.alt}
-                    className={
-                      "absolute inset-0 w-full bg-gray-200 aspect-square object-cover"
-                    }
-                  />
-                </button>
+                  isActive={current.id === e.id}
+                  image={e}
+                  onClick={() => setIndex(index)}
+                />
               );
             })}
           </div>
@@ -118,6 +104,35 @@ export function Testimonial({ list: testimonies }: { list: Testimony[] }) {
       </Container>
     </section>
   );
+}
+
+
+export function ThumbnailButton(props: {
+  isActive: boolean;
+  image: { src: string, alt: string },
+  onClick: () => void
+}) {
+  const { isActive = false, image, onClick } = props;
+
+  return <button
+    type={"button"}
+    className={cn(
+      "relative filter transition-all grayscale-0 md:w-[69px] aspect-square transform ease-in duration-[200ms] rounded-md overflow-hidden",
+      {
+        "opacity-70 grayscale": isActive
+      },
+    )}
+    onClick={onClick}
+  >
+    <img
+      draggable={false}
+      src={image.src}
+      alt={image.alt}
+      className={
+        "absolute inset-0 w-full bg-gray-200 aspect-square object-cover"
+      }
+    />
+  </button>
 }
 
 export function Testimonies({ list: testimonies }: { list: Testimony[] }) {
