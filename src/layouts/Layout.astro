@@ -14,7 +14,6 @@ const { title } = Astro.props;
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
@@ -23,9 +22,23 @@ const { title } = Astro.props;
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 		<link rel="sitemap" href="/sitemap-index.xml" />
-		<meta property="og:site_name" content="Demi Samande" />
+
+		<meta name="description" content="An Industrious African Entrepreneur, Speaker, Author and Podcaster dedicated to re-imagining Africa as the global hub for value-added manufacturing and innovation" />
+		<meta property="og:site_name" content="The Demi Samande Brand" />
+		<meta property="og:title" content="Meet Demi Samande" />
 		<meta property="og:image" content={baseUrl("/assets/images/og-banner.png")} />
-		<meta property="og:description" content="Meet Demi Samande. An Audacious Female African Entrepreneur dedicated to re-imagining Africa as the global hub for value-added manufacturing and innovation" />
+		<meta property="og:image:width" content={'1200px'} />
+		<meta property="og:image:height" content={'630px'} />
+		<meta property="og:image:type" content={'image/png'} />
+		<meta property="og:url" content={baseUrl('/')} />
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="en_GB" />
+		<meta property="og:description" content="An Industrious African Entrepreneur, Speaker, Author and Podcaster dedicated to re-imagining Africa as the global hub for value-added manufacturing and innovation" />
+
+		<meta property="twitter:card" content="summary_large_image">
+		<meta property="twitter:title" content="Meet Demi Samande" />
+		<meta property="twitter:image" content={baseUrl("/assets/images/twitter-banner.png")} />
+		<meta property="twitter:description" content="An Industrious African Entrepreneur, Speaker, Author and Podcaster dedicated to re-imagining Africa as the global hub for value-added manufacturing and innovation" />
 	</head>
 
 	<body class="font-body">
