@@ -5,23 +5,25 @@ import {
   CountdownBanner,
 } from "../components/countdown-banner.tsx";
 import { BookDescription } from "../components/description-section.tsx";
-import { Footer } from "../components/footer.tsx";
-import { Header } from "../components/header.tsx";
+import { MainHeader } from "../components/header.tsx";
 import { Hero } from "../components/hero.tsx";
 import { PlaceOrder } from "../components/place-order.tsx";
 import Layout from "../layouts/Layout.astro";
 import { PreorderEndDate } from "../libs/constants";
+
+return Astro.redirect('/books')
 ---
 
 <Layout title="Demi Samande: In Her Hands Book">
 	<main class="font-body">
-		<CountdownBanner>
+        <MainHeader position="relative" variant="default" client:load />
+		<CountdownBanner className="sticky top-0">
 			<div class={"text-base md:text-[1.4rem]"}
 				 style="--counter-height: 24px;  --counter-duration: 300ms">
 				<BannerCountdown client:only="react"/>
 			</div>
 		</CountdownBanner>
-		<Header variant="sticky"/>
+
 		<Hero />
 		<BookDescription />
 		<section class="bg-base-100 pt-12 md:pt-64">
@@ -35,8 +37,6 @@ import { PreorderEndDate } from "../libs/constants";
 					client:only="react"
 				/>
 			 </div>
-			<Footer />
 		</section>
-
 	</main>
 </Layout>
