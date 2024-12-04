@@ -20,6 +20,7 @@ export const TestimonySchema = z.object({
 export type Book = z.infer<typeof BookSchema>;
 export const BookSchema = z.object({
   title: z.string().min(1),
+  bookCoverImage: z.string().url().optional(),
   shortDescription: z.string(),
   longTitle: z.string().optional(),
   longDescription: z.string().optional(),

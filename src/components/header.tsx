@@ -6,6 +6,7 @@ import LogoDark from "../../public/assets/images/logo.svg?react";
 import { usePathname } from "../hooks/use-pathname.ts";
 import { cn } from "../libs/utils.ts";
 import { Container } from "./layouts/container.tsx";
+import { animate } from "framer-motion";
 
 export function Header({ variant = "sticky" }) {
   return (
@@ -81,6 +82,18 @@ export function MainHeader(props: {
                     "bg-black text-white": variant === "default",
                   },
                 )}
+                onClick={() => {
+                  const el = document.querySelector('#contact');
+                  if (!el) return;
+                  const { y: top } = el.getBoundingClientRect();
+                  animate(window.scrollY, top, {
+                    duration: 1,
+                    ease: "easeIn",
+                    onUpdate: (value) => {
+                      window.scrollTo({ top: value });
+                    }
+                  });
+                }}
               >
                 <span>Get to know her</span>
                 <ArrowRightIcon size={18} />
@@ -112,7 +125,8 @@ function NavItemDesktop(props: {
       <a href={props.href}>{props.children}</a>
       <span
         className={cn(
-          "h-px group-hover:right-0 transition-all ease-in-out duration-200 start-0 end-[100%] absolute bottom-0 bg-accent-500",
+          { "group-hover:right-0": !isActive },
+          "h-px transition-all ease-in-out duration-200 start-0 end-[100%] absolute bottom-0 bg-accent-500",
         )}
       />
     </li>

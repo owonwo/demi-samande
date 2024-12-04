@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
 import { MainFooter } from "../components/footer";
+import { baseUrl } from "../libs/utils";
+
 interface Props {
   title: string;
 }
@@ -21,6 +23,9 @@ const { title } = Astro.props;
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 		<link rel="sitemap" href="/sitemap-index.xml" />
+		<meta property="og:site_name" content="Demi Samande" />
+		<meta property="og:image" content={baseUrl("/assets/images/og-banner.png")} />
+		<meta property="og:description" content="Meet Demi Samande. An Audacious Female African Entrepreneur dedicated to re-imagining Africa as the global hub for value-added manufacturing and innovation" />
 	</head>
 
 	<body class="font-body">

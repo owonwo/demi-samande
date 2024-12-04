@@ -22,7 +22,9 @@ export function BooksBlock({
 
       <Container className="py-12 md:py-32">
         <div className="flex flex-col items-center mx-auto max-w-md">
-          <figure className="w-full shadow-2xl aspect-[4/5.2] bg-gray-200" />
+          <figure className="w-full shadow-2xl aspect-[4/5.2]">
+            <img src={first_book.bookCoverImage} alt={first_book.title} />
+          </figure>
 
           <div className="flex flex-col items-center text-white py-12 text-center gap-4">
             <h1 className="font-heading text-3xl font-medium">
