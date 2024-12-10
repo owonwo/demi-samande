@@ -33,30 +33,55 @@ export function MainHeader(props: {
   const { variant, position = "sticky", children } = props;
 
   React.useEffect(() => {
-    const match = document.querySelectorAll(".page-section");
-    const header = document.querySelector(
+    const match = document.querySelectorAll("[data-header-color]");
+    const _header = document.querySelector(
       "#demi-header",
     ) as HTMLDivElement | null;
-    if (!header) return;
+    const logoElement = document.querySelector("#demi-logo");
 
-    const marginTop = header.clientHeight * 0.5;
-    const header_ = header;
+    if (!_header) return;
 
+    const marginTop = _header.clientHeight * 0.5;
+    const header = _header;
+
+    function getCSSVariable(
+      variable: string,
+      element = document.documentElement,
+    ) {
+      return getComputedStyle(element).getPropertyValue(variable);
+    }
+
+    let activeSection: Element;
+
+    // change text color for every section
     function complementSection() {
       for (const el of match) {
         const { offsetTop } = el as HTMLElement;
         const threshold = offsetTop - marginTop;
-        if (window.scrollY >= threshold) {
+        const isNear = window.scrollY >= threshold;
+        const isActive = activeSection === el;
+        const distance = window.innerHeight;
+        const isWithinBounds = isNear && window.scrollY < distance + offsetTop;
+
+        if (isNear && !isActive && isWithinBounds) {
           const cssColorVariable =
             el.getAttribute("data-header-color") || "--foreground-alt";
-          header_.style.setProperty(
-            "--header-text-color",
-            `var(${cssColorVariable})`,
-          );
+
+          const new_value = getCSSVariable(cssColorVariable);
+          const current = getCSSVariable("--header-text-color", header);
+
+          animate(current, new_value, {
+            duration: 0.4,
+            onUpdate: (color_value) => {
+              header.style.setProperty("--header-text-color", color_value);
+            },
+          });
+          activeSection = el;
         }
       }
     }
 
+    // hide the navbar while user scrolls down
     function setupScrollDir(
       fn: (direction: string, onComplete: () => void) => void,
     ) {
@@ -79,19 +104,39 @@ export function MainHeader(props: {
     const abortControl = new AbortController();
     const observe = setupScrollDir((dir, onComplete) => {
       animate(
-        header_,
-        { y: dir === "down" ? `-${header_.clientHeight}px` : 0 },
+        header,
+        { y: dir === "down" ? `-${header.clientHeight}px` : 0 },
         {
           onComplete: onComplete,
         },
       );
     });
 
+    // expands the logo when the user scrolls to the top
+    const expandLogo = function expandLogo() {
+      if (!logoElement) return null;
+      if (window.scrollY <= 10) {
+        return animate(
+          logoElement,
+          {
+            scale: 1.5,
+          },
+          {
+            duration: 0.2,
+            ease: "anticipate",
+          },
+        );
+      }
+      if (window.scrollY < window.innerHeight / 2) {
+        return animate(logoElement, { scale: 1 }, { duration: 0.2 });
+      }
+    };
+
     window.addEventListener(
       "scroll",
       () => {
+        expandLogo();
         complementSection();
-        // observe();
       },
       {
         signal: abortControl.signal,
@@ -126,7 +171,12 @@ export function MainHeader(props: {
           href={"/"}
           className="block text-[--header-text-color] w-[30svw] md:w-[123px] top-[0.5svw] md:top-0 aspect-[123/39.36] z-[999] relative md:inline-block md:w-[150px]"
         >
-          <LogoDark title={"Demi Samande"} className={"w-full"} />
+          <LogoDark
+            id="demi-logo"
+            title={"Demi Samande"}
+            className={"w-full"}
+            style={{ transformOrigin: "top left" }}
+          />
         </a>
 
         <nav

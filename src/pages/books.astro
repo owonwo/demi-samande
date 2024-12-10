@@ -23,6 +23,7 @@ const [firstBook] = safeArray(books);
 <Layout title="Books: Demi Samande">
   <section
     class="pt-32 text-[--foreground-alt] min-h-[20svh] relative md:min-h-[10svh]"
+    data-header-color="--foreground-alt"
     style={{
       backgroundColor: "rgba(0,0,0,0.2)",
       backgroundImage: "url(/assets/images/in-her-hands-cover.jpg)",
@@ -42,11 +43,12 @@ const [firstBook] = safeArray(books);
     </div>
   </CountdownBanner>
 
-  <section class="bg-dm-background min-h-[100svh] relative z-10">
+  <section
+    class="bg-dm-background min-h-[100svh] relative z-10"
+    data-header-color="--primary"
+  >
     <Container className="py-24 flex flex-col gap-12 md:gap-24 items-center">
-      <h1
-        class={cn(headingVariant({ size: "title" }), "text-center text-black")}
-      >
+      <h1 class={cn(headingVariant({ size: "h1" }), "text-center text-black")}>
         First Book
       </h1>
 

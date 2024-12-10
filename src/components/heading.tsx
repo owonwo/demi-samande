@@ -16,8 +16,6 @@ export function Title(props: {
 const variantConfig = {
   variants: {
     size: {
-      title:
-        "text-[40px] md:text-[60px] font-heading tracking-tighter font-bold",
       h1: "text-[2.5rem] md:text-6xl font-normal tracking-tighter font-heading",
       h2: "text-[1.875rem] md:text-[2.25rem] leading-[2.2ex] tracking-tight font-heading font-bold",
       h3: "text-[28px] font-heading font-bold leading-[112.5%]",

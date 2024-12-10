@@ -13,8 +13,8 @@ export function BooksBlock({
 
   return (
     <section
-      className="page-section min-h-[60svh] bg-accent-500"
-      data-header-color={"--foreground"}
+      className="page-section min-h-[60svh] bg-base-500"
+      data-header-color={"--foreground-alt"}
     >
       <div className={"bg-warning-secondary py-2 md:py-4"}>
         <MarqueeContainer speed={15}>

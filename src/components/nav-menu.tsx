@@ -41,7 +41,7 @@ export function NavMenu() {
       <button
         type="button"
         className={
-          "p-0 md:hidden outline-none font-thin z-[999] relative aspect-square inline-flex items-center justify-center appearance-none text-[--foreground-alt]"
+          "p-0 md:hidden outline-none font-thin z-[999] relative aspect-square inline-flex items-center justify-center appearance-none text-[--header-text-color]"
         }
         onClick={() => setOpen((open) => !open)}
       >

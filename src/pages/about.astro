@@ -13,17 +13,17 @@ const coverImage = data.heroImages[0];
 ---
 
 <Layout title="About: Demi Samande">
-  <MainHeader position="sticky" client:load variant="transparent">
-    <NavMenu client:only="react" />
-  </MainHeader>
-
   <section
+    data-header-color="--foreground-alt"
     class="bg-base_2-900 pt-32 relative text-[--foreground-alt] min-h-[80svh] md:min-h-[60svh]"
   >
     <ResponsiveImage client:load image={coverImage.entry} />
   </section>
 
-  <section class="bg-dm-background min-h-[100svh]">
+  <section
+    class="bg-dm-background min-h-[100svh]"
+    data-header-color="--primary"
+  >
     <Container className="py-24 flex flex-col gap-12 md:gap-24 items-center">
       <h1 class={cn(headingVariant({ size: "h1" }), "text-black text-center")}>
         {data.pageHeading ?? "About"}
@@ -40,13 +40,13 @@ const coverImage = data.heroImages[0];
                 size: "h2",
                 className: "!font-medium !font-body",
               }),
-              "text-[24px] text-center text-balance leading-[2.2ex] text-black md:text-[32px]",
+              "text-[24px] text-center md:text-start text-balance leading-[2.2ex] text-black md:text-[32px]",
             )}
           >
             {data.title}
           </h2>
 
-          <figure class="bg-base_2-500 shadow-xl w-full flex-1">
+          <figure class="bg-gray-50 shadow-xl w-full flex-1">
             <ResponsiveImage
               client:load
               className="object-center"
