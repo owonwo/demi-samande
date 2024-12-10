@@ -32,7 +32,8 @@ export function Testimonial({ list: testimonies }: { list: Testimony[] }) {
   return (
     <section
       id="testimonials"
-      className="flex flex flex-col w-full bg-white text-black py-12 md:py-32 overflow-hidden"
+      className="page-section flex flex-col w-full bg-white text-black py-12 md:py-32 overflow-hidden"
+      data-header-color={"--primary"}
     >
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(320px,_640px)] gap-12 w-full justify-between flex-col">

@@ -44,7 +44,7 @@ export function PlaceOrder() {
                 <button
                   type={"button"}
                   className={
-                    "px-12 py-4 bg-secondary-500 text-white w-full text-center rounded-lg"
+                    "px-12 py-4 bg-secondary-500 text-[--foreground-alt] w-full text-center rounded-lg"
                   }
                 >
                   Pre-order now

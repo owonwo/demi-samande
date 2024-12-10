@@ -5,6 +5,10 @@ html {
 :root {
   --font-heading: "Libre Caslon Text";
   --font-body: "Figtree";
+
+  --primary: #002480;
+  --foreground: #414651;
+  --foreground-alt: #ffffe3;
   --accent: 136, 58, 234;
   --accent-light: 224, 204, 250;
   --accent-dark: 49, 10, 101;

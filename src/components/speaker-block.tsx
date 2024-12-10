@@ -71,7 +71,8 @@ export function SpeakerBlock({
     <ValidateCMSData data={data} schema={SpeakerSchema}>
       <section
         id="speaker"
-        className="min-h-[60svh] bg-dm-background py-12 md:py-32"
+        className="page-section min-h-[60svh] bg-dm-background py-12 md:py-32"
+        data-header-color={"--primary"}
       >
         <Container className="flex flex-col md:flex-row gap-16 md:gap-8 justify-between">
           <div className="flex flex-col basis-1/2 justify-between gap-16">

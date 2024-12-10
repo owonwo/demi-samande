@@ -1,18 +1,16 @@
 import { format } from "date-fns";
-import { animate, motion } from "framer-motion";
-import { ArrowRight, ChevronRightIcon } from "lucide-react";
+import { motion } from "framer-motion";
 import React from "react";
 import { Balancer } from "react-wrap-balancer";
 import CoverImage from "../../public/assets/images/in-her-hands-cover.jpg";
 import { PreorderEndDate } from "../libs/constants.ts";
-import { Button } from "./button.tsx";
 import { Title } from "./heading.tsx";
 import { Container } from "./layouts/container.tsx";
 import { ResponsiveImage } from "./responsive-image.tsx";
 
 export function Hero() {
   return (
-    <div className="pb-32 pt-52 bg-base-500 text-white">
+    <div className="pb-32 pt-52 bg-base-500 text-[--foreground-alt]">
       <section
         className={
           "flex flex-col md:flex-row items-center md:items-start container mx-auto px-6 justify-center gap-10 sm:gap-32 min-h-[300]"
@@ -89,7 +87,11 @@ export function MainHero({
   images: ResponsiveImage[];
 }) {
   return (
-    <section className="bg-orange-500 z-10 relative overflow-hidden text-white relative">
+    <section
+      id={"hero"}
+      className="page-section z-10 relative overflow-hidden text-[--foreground-alt] relative"
+      data-header-color={"--foreground-alt"}
+    >
       <ResponsiveImage image={props.images[0]} priority={true} />
 
       <div
@@ -130,7 +132,7 @@ function TransitionS(props: { children: string }) {
             }}
             key={word.id}
             data-index={index}
-            className={"inline-block leading-[1]"}
+            className={"inline-block leading-[normal]"}
           >
             {word.value}
           </motion.span>

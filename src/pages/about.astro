@@ -1,10 +1,9 @@
 ---
-import { Image } from "@unpic/astro";
-import { ContactBlock } from "../components/contact-block.tsx";
 import { MainHeader } from "../components/header.tsx";
 import { headingVariant } from "../components/heading.tsx";
 import { Container } from "../components/layouts/container.tsx";
 import { NavMenu } from "../components/nav-menu.tsx";
+import { ResponsiveImage } from "../components/responsive-image";
 import Layout from "../layouts/Layout.astro";
 import { getAboutContent } from "../libs/fetchers";
 import { cn } from "../libs/utils";
@@ -19,19 +18,15 @@ const coverImage = data.heroImages[0];
   </MainHeader>
 
   <section
-    class="bg-base_2-900 pt-32 relative text-white min-h-[80svh] md:min-h-[60svh]"
+    class="bg-base_2-900 pt-32 relative text-[--foreground-alt] min-h-[80svh] md:min-h-[60svh]"
   >
-    {
-      coverImage ? (
-        <Image src={coverImage.entry.base} class="absolute inset-0 h-full" />
-      ) : null
-    }
+    <ResponsiveImage client:load image={coverImage.entry} />
   </section>
 
   <section class="bg-dm-background min-h-[100svh]">
     <Container className="py-24 flex flex-col gap-12 md:gap-24 items-center">
-      <h1 class={cn(headingVariant({ size: "title" }), "text-center")}>
-        About
+      <h1 class={cn(headingVariant({ size: "h1" }), "text-black text-center")}>
+        {data.pageHeading ?? "About"}
       </h1>
 
       <div class="grid md:gap-6 grid-cols-1 w-full items-start md:grid-cols-12">
@@ -45,14 +40,19 @@ const coverImage = data.heroImages[0];
                 size: "h2",
                 className: "!font-medium !font-body",
               }),
-              "text-[24px] leading-[2.2ex] md:text-[32px]",
+              "text-[24px] text-center text-balance leading-[2.2ex] text-black md:text-[32px]",
             )}
           >
             {data.title}
           </h2>
 
           <figure class="bg-base_2-500 shadow-xl w-full flex-1">
-            <img src={data.photo.base} class="" alt="Demi Samande" />
+            <ResponsiveImage
+              client:load
+              className="object-center"
+              containerClassName="relative block w-full aspect-[408/469] md:aspect-[434/649]"
+              image={data.photo}
+            />
           </figure>
         </div>
         <div class="hidden md:block blank"></div>
@@ -68,8 +68,6 @@ const coverImage = data.heroImages[0];
       </div>
     </Container>
   </section>
-
-  <ContactBlock />
 </Layout>
 
 <style is:global>

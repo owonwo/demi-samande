@@ -5,7 +5,9 @@ import { cn } from "../libs/utils.ts";
 export function BookDescription() {
   return (
     <section
-      className={"relative bg-base-900 text-white py-24 overflow-hidden"}
+      className={
+        "relative bg-base-900 text-[--foreground-alt] py-24 overflow-hidden"
+      }
     >
       <div
         className={
@@ -71,7 +73,7 @@ export function BookDescription() {
 
           <div
             className={
-              "flex text-lg flex-col gap-[4ch] text-white text-opacity-85"
+              "flex text-lg flex-col gap-[4ch] text-[--foreground-alt] text-opacity-85"
             }
           >
             <p>

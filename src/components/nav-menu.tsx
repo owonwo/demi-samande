@@ -41,26 +41,24 @@ export function NavMenu() {
       <button
         type="button"
         className={
-          "p-0 md:hidden outline-none font-thin z-[999] relative aspect-square inline-flex items-center justify-center appearance-none text-white"
+          "p-0 md:hidden outline-none font-thin z-[999] relative aspect-square inline-flex items-center justify-center appearance-none text-[--foreground-alt]"
         }
         onClick={() => setOpen((open) => !open)}
       >
-        <DemiBrandSymbol size={"8vw"} data-active={!open} />
+        <DemiBrandSymbol size={"6svw"} data-active={!open} />
       </button>
 
       <nav
         className={cn(
           "z-[998] flex flex-col lg:hidden justify-end py-12 px-6 items-center fixed inset-0 inset-y-0",
-          { "pointer-events-none": !open }
+          { "pointer-events-none": !open },
         )}
       >
         <motion.div
-          initial={{ right: 0, left: 0, rotate: "45deg", scale: 3 }}
-          animate={
-            open
-              ? { right: 0, left: 0, rotate: "45deg", scale: 3 }
-              : { scale: 3, right: "100%", rotate: "45deg", left: "100%" }
-          }
+          id={"menu-background"}
+          variants={backgroundVariants}
+          initial={"close"}
+          animate={open ? "open" : "close"}
           transition={{
             duration: 0.8,
             delay: open ? 0 : 0.4,
@@ -70,6 +68,8 @@ export function NavMenu() {
         />
 
         <motion.ul
+          variants={navContVariants}
+          initial={"hide"}
           animate={open ? "show" : "hide"}
           transition={{
             delayChildren: open ? 0.2 : 0,
@@ -77,7 +77,7 @@ export function NavMenu() {
             staggerDirection: !open ? -1 : 1,
           }}
           className={
-            "flex relative items-stretch z-10 w-full flex-col gap-8 text-white text-5xl"
+            "flex relative items-stretch z-10 w-full flex-col gap-8 text-[--foreground-alt] text-5xl"
           }
         >
           {links.map(({ href, title }) => (
@@ -102,7 +102,7 @@ function DemiBrandSymbol({ size = "24px", ...props }) {
     cn(
       "transition-all duration-200 ease-in-out transform",
       props.className,
-      class_name
+      class_name,
     );
 
   return (
@@ -122,31 +122,41 @@ function DemiBrandSymbol({ size = "24px", ...props }) {
       <div>
         <SymbolCut
           className={cn_(
-            "w-[1em] h-[1em] rotate-90 group-data-[active=true]:rotate-0"
+            "w-[1em] h-[1em] rotate-90 group-data-[active=true]:rotate-0",
           )}
         />
       </div>
       <div>
         <SymbolCut
           className={cn_(
-            "w-[1em] h-[1em] rotate-180 group-data-[active=true]:rotate-90"
+            "w-[1em] h-[1em] rotate-180 group-data-[active=true]:rotate-90",
           )}
         />
       </div>
       <div>
         <SymbolCut
           className={cn_(
-            "w-[1em] h-[1em] rotate-0 group-data-[active=true]:rotate-[270deg]"
+            "w-[1em] h-[1em] rotate-0 group-data-[active=true]:rotate-[270deg]",
           )}
         />
       </div>
       <div>
         <SymbolCut
           className={cn_(
-            "w-[1em] h-[1em] rotate-[270deg] group-data-[active=true]:rotate-[180deg]"
+            "w-[1em] h-[1em] rotate-[270deg] group-data-[active=true]:rotate-[180deg]",
           )}
         />
       </div>
     </span>
   );
 }
+
+const backgroundVariants = {
+  open: { right: 0, left: 0, rotate: "45deg", scale: 3 },
+  close: { scale: 3, right: "100%", rotate: "45deg", left: "100%" },
+};
+
+const navContVariants = {
+  show: { opacity: 1, transition: { duration: 0.2 } },
+  hide: { opacity: 0 },
+};

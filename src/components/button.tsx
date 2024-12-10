@@ -12,7 +12,7 @@ export const Button = React.forwardRef<
       ref={ref}
       type={"button"}
       className={cn(
-        "inline-flex bg-white gap-3 p-4 items-center text-black",
+        "inline-flex bg-white gap-3 p-4 justify-center text-center rounded-md items-center text-black",
         className,
       )}
       {...PROPS}

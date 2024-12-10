@@ -10,18 +10,22 @@ export type ResponsiveImage = {
 
 interface RIProps extends Omit<React.ComponentProps<typeof Image>, "src"> {
   image: ResponsiveImage;
+  containerClassName?: string;
 }
 
 export function ResponsiveImage(props: RIProps) {
   const {
     image: { small, base },
     className,
+    containerClassName,
     priority = false,
     ...PROPS
   } = props;
 
   return (
-    <picture className={cn(className, "absolute bg-purple-500/[0.3] inset-0")}>
+    <picture
+      className={cn("absolute bg-purple-500/[0.3] inset-0", containerClassName)}
+    >
       <Source src={base} media="(min-width: 601px)" layout="fullWidth" />
       {small ? (
         <Source
@@ -39,7 +43,10 @@ export function ResponsiveImage(props: RIProps) {
         height={undefined}
         aspectRatio={16 / 9}
         layout={"constrained"}
-        className={"w-full absolute object-top object-cover h-full inset-0"}
+        className={cn(
+          "w-full absolute object-top object-cover h-full inset-0",
+          className,
+        )}
         alt={props.alt}
         unstyled
         priority={priority}

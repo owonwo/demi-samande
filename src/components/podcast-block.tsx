@@ -4,6 +4,7 @@ import { take } from "ramda";
 import { useState } from "react";
 import { Balancer } from "react-wrap-balancer";
 import type { PodcastInfo } from "../models";
+import { Button } from "./button.tsx";
 import { Container } from "./layouts/container";
 
 export function PodcastBlock({ list }: { list: PodcastInfo[] }) {
@@ -15,7 +16,8 @@ export function PodcastBlock({ list }: { list: PodcastInfo[] }) {
   return (
     <section
       id="podcaster"
-      className="flex flex flex-col min-h-[100svh] relative aspect-[16/9] w-full bg-black text-white py-12 md:py-24"
+      className="page-section flex flex-col min-h-[100svh] relative aspect-[16/9] w-full bg-black text-[--foreground-alt] py-12 md:py-24"
+      data-header-color={"--foreground-alt"}
     >
       <div
         className={"absolute z-10 inset-0"}
@@ -51,13 +53,13 @@ export function PodcastBlock({ list }: { list: PodcastInfo[] }) {
               rel="noopener noreferrer"
               target={"_blank"}
             >
-              <button
+              <Button
                 type={"button"}
-                className="bg-white items-center text-[14px] gap-2 rounded-sm inline-flex text-black p-4"
+                className="items-center text-[0.875rem] gap-2 text-black"
               >
                 <span>Watch full episode</span>
                 <ArrowRight size="1.1rem" />
-              </button>
+              </Button>
             </a>
           </div>
 

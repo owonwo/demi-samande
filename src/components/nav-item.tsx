@@ -3,7 +3,7 @@ import type React from "react";
 import { cn } from "../libs/utils.ts";
 
 const lineVariant: Variants = {
-  show: { width: "100%", transition: { delay: 1.2 } },
+  show: { width: "100%", transition: { delay: 0.4 } },
   hide: { width: 0 },
 };
 
@@ -38,9 +38,13 @@ export function NavItem(props: NavItemProps) {
     <motion.li variants={linkVariants} className={"relative inline-block"}>
       <a
         {...PROPS}
-        className={cn("font-heading text-white font-[400]", props.className, {
-          italic: isActive,
-        })}
+        className={cn(
+          "font-heading text-[--foreground-alt] font-[400]",
+          props.className,
+          {
+            italic: isActive,
+          },
+        )}
       >
         {props.children}
       </a>

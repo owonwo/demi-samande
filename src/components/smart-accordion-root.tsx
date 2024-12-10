@@ -1,5 +1,6 @@
 import { Slot } from "@radix-ui/react-slot";
 import React from "react";
+import { Title } from "./heading.tsx";
 
 type CalcFn = (params: {
   button?: HTMLButtonElement | null;
@@ -16,20 +17,25 @@ const takeAvailableWidth: CalcFn = ({ parent, borderSum = 0 }) => {
 
   const { width: total_width } = rect;
 
-  const count = parent.children.length - 1;
-  const button_width = getButtonWidth(parent.children[0]);
-  const button_width_sum = button_width * count;
+  const button_width = Array.from(parent.children).reduce(
+    (accum, el) => getButtonWidth(el) + accum,
+    0,
+  );
+  const itemWidth = total_width - (button_width + borderSum);
 
-  const itemWidth = total_width - (button_width + button_width_sum + borderSum);
-
-  console.log({ itemWidth, total_width, button_width_sum: button_width_sum });
+  // console.log({
+  //   itemWidth,
+  //   total_width,
+  //   button_width_sum: button_width,
+  // });
 
   return { itemWidth };
 
   function getButtonWidth(entryEl: Element) {
-    return (
-      entryEl.querySelector("button")?.getBoundingClientRect?.()?.width ?? 0
-    );
+    const button = entryEl.querySelector("button");
+    if (!button) return 38;
+
+    return button?.getBoundingClientRect()?.width ?? 38;
   }
 };
 
@@ -52,10 +58,9 @@ export function SmartAccordionRoot(props: { children: React.ReactNode }) {
         borderSum: 2,
         parent: containerRef.current,
       });
-
       containerRef.current.style.setProperty(
         "--smacc-available-width",
-        `${res?.itemWidth}px`
+        `${res?.itemWidth}px`,
       );
     }
   }, []);
@@ -77,34 +82,36 @@ export function SmartAccordionItem(props: {
       style={{
         maxWidth: "var(--smacc-available-width)",
         "--smacc-button-width": "2ch",
+        "--smacc-transition-duration": ".4s",
       }}
     >
       <button
         type={"button"}
         className={
-          "border-l border-gray-100 relative h-full flex items-center text-3xl transition-all duration-[1s] group-data-[debug=true]:bg-pink-200 overflow-hidden"
+          "border-l border-[#E6E7EA] relative h-full flex items-center text-3xl transition-all duration-[--smacc-transition-duration] group-data-[debug=true]:bg-pink-200 overflow-hidden"
         }
         style={{
-          // width: "var(--smacc-button-width)",
           width: !props.show ? "var(--smacc-button-width)" : "0px",
         }}
         onClick={props.onClick}
       >
         <span
           className={
-            "font-heading transform absolute -rotate-[90deg] translate-x-[1.8ch] left-0 bottom-0 inline-flex"
+            "font-heading group transform absolute -rotate-[90deg] translate-x-[1.8ch] left-0 bottom-0 inline-flex"
           }
           style={{
             transformOrigin: "bottom left",
           }}
         >
-          <span className={"text-xl text-gray-400"}>{props.heading}</span>
+          <span className={"text-xl group-hover:text-black text-gray-400"}>
+            {props.heading}
+          </span>
         </span>
       </button>
 
       <div
         className={
-          "flex flex-col justify-end grow group-data-[debug=true]:bg-green-200 overflow-hidden relative gap-2 transition-all duration-[1s] w-[200px]"
+          "flex flex-col justify-end grow group-data-[debug=true]:bg-green-200 overflow-hidden relative gap-2 transition-all duration-[--smacc-transition-duration] w-[200px]"
         }
         style={{
           width: props.show ? "var(--smacc-available-width)" : 0,
@@ -120,8 +127,10 @@ export function SmartAccordionItem(props: {
               "calc(var(--smacc-available-width) - var(--smacc-button-width))",
           }}
         >
-          <h3 className={"font-heading text-3xl"}>{props.heading}</h3>
-          <p className={"text-sm text-neutral-500 max-w-xs"}>
+          <Title size={"h2"}>
+            <h3 className={"font-heading text-black"}>{props.heading}</h3>
+          </Title>
+          <p className={"text-sm leading-[2.5ex] md:text-[1.125rem] w-full"}>
             {props.children}
           </p>
         </div>

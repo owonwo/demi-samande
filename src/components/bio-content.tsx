@@ -34,7 +34,11 @@ export function BioContent(props: {
   }, []);
 
   return (
-    <section className="flex flex-col bg-dm-background py-12 md:py-24 gap-24 min-h-[60svh]">
+    <section
+      id={"demi-intro"}
+      className="page-section flex flex-col bg-dm-background py-12 md:py-24 gap-24 min-h-[60svh]"
+      data-header-color={"--primary"}
+    >
       <Container>
         <div className="flex gap-4 flex-col md:flex-row items-end">
           <hgroup className="basis-1/2 flex flex-col gap-8">
@@ -62,7 +66,7 @@ export function BioContent(props: {
         </div>
       </Container>
 
-      <Container className={"flex flex-col md:flex-row gap-4"}>
+      <Container className={"flex flex-col md:flex-row gap-4 md:gap-12"}>
         <ImageCarousel
           images={images}
           pos={index}
@@ -75,7 +79,7 @@ export function BioContent(props: {
         <InteractiveSlider
           items={props.accomplishments}
           index={index}
-          className={"hidden md:inline-flex"}
+          className={"hidden basis-1/2 md:inline-flex"}
           onIndexChange={(v) => setIndex(v)}
         />
 
@@ -141,12 +145,7 @@ function InteractiveSlider(props: {
 
   return (
     <SmartAccordionRoot>
-      <div
-        className={cn(
-          "flex basis-1/2 justify-end shrink-0 grow-0",
-          props.className,
-        )}
-      >
+      <div className={cn("flex justify-end shrink-0 grow-0", props.className)}>
         {safeArray(items).map((item, idx) => {
           return (
             <SmartAccordionItem

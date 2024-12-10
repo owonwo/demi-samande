@@ -12,7 +12,10 @@ export function BooksBlock({
   const [first_book] = list;
 
   return (
-    <div className="min-h-[60svh] bg-base-500">
+    <section
+      className="page-section min-h-[60svh] bg-accent-500"
+      data-header-color={"--foreground"}
+    >
       <div className={"bg-warning-secondary py-2 md:py-4"}>
         <MarqueeContainer speed={15}>
           <span className={"flex items-center gap-6 text-xs md:text-base mr-6"}>
@@ -30,7 +33,7 @@ export function BooksBlock({
             <img src={first_book.bookCoverImage} alt={first_book.title} />
           </figure>
 
-          <div className="flex flex-col items-center text-white py-12 text-center gap-4">
+          <div className="flex flex-col items-center text-[--foreground-alt] py-12 text-center gap-4">
             <h1 className="font-heading text-3xl font-medium">
               {first_book.title}
             </h1>
@@ -50,6 +53,6 @@ export function BooksBlock({
           </div>
         </div>
       </Container>
-    </div>
+    </section>
   );
 }
