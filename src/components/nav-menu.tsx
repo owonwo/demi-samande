@@ -45,13 +45,13 @@ export function NavMenu() {
         }
         onClick={() => setOpen((open) => !open)}
       >
-        <DemiBrandSymbol size={'8vw'} data-active={!open} />
+        <DemiBrandSymbol size={"8vw"} data-active={!open} />
       </button>
 
       <nav
         className={cn(
           "z-[998] flex flex-col lg:hidden justify-end py-12 px-6 items-center fixed inset-0 inset-y-0",
-          { "pointer-events-none": !open },
+          { "pointer-events-none": !open }
         )}
       >
         <motion.div
@@ -96,13 +96,13 @@ export function NavMenu() {
   );
 }
 
-function DemiBrandSymbol({ size = '24px', ...props }) {
+function DemiBrandSymbol({ size = "24px", ...props }) {
   const size_ = `calc(${size} / 2)`;
   const cn_ = (class_name: string) =>
     cn(
       "transition-all duration-200 ease-in-out transform",
       props.className,
-      class_name,
+      class_name
     );
 
   return (
@@ -122,28 +122,28 @@ function DemiBrandSymbol({ size = '24px', ...props }) {
       <div>
         <SymbolCut
           className={cn_(
-            "w-[1em] h-[1em] rotate-90 group-data-[active=true]:rotate-0",
+            "w-[1em] h-[1em] rotate-90 group-data-[active=true]:rotate-0"
           )}
         />
       </div>
       <div>
         <SymbolCut
           className={cn_(
-            "w-[1em] h-[1em] rotate-180 group-data-[active=true]:rotate-90",
+            "w-[1em] h-[1em] rotate-180 group-data-[active=true]:rotate-90"
           )}
         />
       </div>
       <div>
         <SymbolCut
           className={cn_(
-            "w-[1em] h-[1em] rotate-0 group-data-[active=true]:rotate-[270deg]",
+            "w-[1em] h-[1em] rotate-0 group-data-[active=true]:rotate-[270deg]"
           )}
         />
       </div>
       <div>
         <SymbolCut
           className={cn_(
-            "w-[1em] h-[1em] rotate-[270deg] group-data-[active=true]:rotate-[180deg]",
+            "w-[1em] h-[1em] rotate-[270deg] group-data-[active=true]:rotate-[180deg]"
           )}
         />
       </div>

@@ -10,7 +10,7 @@ export const CircularCounter = React.memo(
                 * -1
             )
         )
-      `,
+      `
     ).current;
 
     const prevRef = React.useRef<HTMLSpanElement>(null);
@@ -82,5 +82,5 @@ export const CircularCounter = React.memo(
       </CounterEntryBox>
     );
   },
-  (prev, current) => prev.value === current.value,
+  (prev, current) => prev.value === current.value
 );

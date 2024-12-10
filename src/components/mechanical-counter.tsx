@@ -49,5 +49,5 @@ export const MechanicalCounter = React.memo(
       </CounterEntryBox>
     );
   },
-  (prev, current) => prev.value === current.value,
+  (prev, current) => prev.value === current.value
 );

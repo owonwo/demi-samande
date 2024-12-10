@@ -16,7 +16,7 @@ export class CustomSlider {
       if (!element) continue;
       this.setIndex(element, idx);
     }
-    this.move(0);
+    this.move(0, { initial: true });
   }
 
   setIndex(element: HTMLElement, idx: number) {
@@ -30,7 +30,7 @@ export class CustomSlider {
     );
   }
 
-  move(position: number) {
+  move(position: number, { initial = false }: { initial?: boolean } = {}) {
     const element = this.getIndex(position);
 
     if (!element) return;
@@ -44,8 +44,9 @@ export class CustomSlider {
     const STAGGER_SCALE = 0.1;
 
     const shared = {
-      ease: "easeIn",
+      ease: "easeOut",
       duration: 0.4,
+      delay: initial ? 2 : 0,
     } as const;
 
     while (prevSibling) {

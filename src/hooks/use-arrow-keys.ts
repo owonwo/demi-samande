@@ -22,7 +22,7 @@ export function useArrowKeys(params: {
           setter((e) => (e >= maxValue ? 0 : e + 1));
         if (evt.key === "ArrowLeft") setter((e) => (e <= 0 ? maxValue : e - 1));
       },
-      { signal: controller.signal },
+      { signal: controller.signal }
     );
 
     return () => controller.abort();

@@ -13,7 +13,7 @@ export function Header({ variant = "sticky" }) {
       <header
         className={cn(
           "text-base-100 flex justify-center py-12 items-center",
-          {},
+          {}
         )}
       >
         <a href={"/"}>
@@ -40,7 +40,7 @@ export function MainHeader(props: {
           "absolute bg-black bg-opacity-[0.02]": position === "sticky",
           "relative bg-dm-background": position === "relative",
         },
-        props.className,
+        props.className
       )}
     >
       <Container
@@ -54,7 +54,7 @@ export function MainHeader(props: {
               "w-[123px] top-2 md:top-0 h-[39.36] md:h-auto z-[999] relative md:inline-block md:w-[150px]",
               {
                 "text-white": variant === "transparent",
-              },
+              }
             )}
           >
             <LogoDark title={"Demi Samande"} />
@@ -73,7 +73,7 @@ export function MainHeader(props: {
               <button
                 type={"button"}
                 onClick={() => {
-                  const el = document.querySelector('#contact');
+                  const el = document.querySelector("#contact");
                   if (!el) return;
                   const { y: top } = el.getBoundingClientRect();
                   animate(window.scrollY, top, {
@@ -81,7 +81,7 @@ export function MainHeader(props: {
                     ease: "easeIn",
                     onUpdate: (value) => {
                       window.scrollTo({ top: value });
-                    }
+                    },
                   });
                 }}
               >
@@ -97,10 +97,7 @@ export function MainHeader(props: {
   );
 }
 
-function NavItemDesktop(props: {
-  href: string;
-  children: React.ReactNode;
-}) {
+function NavItemDesktop(props: { href: string; children: React.ReactNode }) {
   const pathname = usePathname();
   const isActive = pathname === props.href;
 
@@ -116,7 +113,7 @@ function NavItemDesktop(props: {
         <span
           className={cn(
             { "group-hover:right-0": !isActive },
-            "h-px transition-all ease-in-out duration-200 start-0 end-[100%] absolute bottom-0 bg-accent-500",
+            "h-px transition-all ease-in-out duration-200 start-0 end-[100%] absolute bottom-0 bg-accent-500"
           )}
         />
       </span>

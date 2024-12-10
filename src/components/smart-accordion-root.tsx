@@ -55,7 +55,7 @@ export function SmartAccordionRoot(props: { children: React.ReactNode }) {
 
       containerRef.current.style.setProperty(
         "--smacc-available-width",
-        `${res?.itemWidth}px`,
+        `${res?.itemWidth}px`
       );
     }
   }, []);

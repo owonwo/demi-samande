@@ -63,7 +63,9 @@ export function ImageCarousel(props: ImageCarouselProps) {
             key={image.alt}
             src={image.src}
             alt={image.alt}
-            className={"w-full bg-gray-50 border-red-500 aspect-[--carousel-aspect-ratio]"}
+            className={
+              "w-full bg-gray-50 border-red-500 aspect-[--carousel-aspect-ratio]"
+            }
           />
         );
       })}
@@ -102,17 +104,18 @@ export function TestImageCarousel({ pos }: { images: string[]; pos: number }) {
 }
 
 function Figure(props: React.ComponentProps<"img">) {
+  const { src, alt, ...PROPS } = props;
   return (
     <figure
-      {...props}
+      {...PROPS}
       className={cn(
         "absolute rounded-md pointer-events-none overflow-hidden",
         props.className,
       )}
     >
       <img
-        src={props.src}
-        alt={props.alt}
+        src={src}
+        alt={alt}
         draggable={false}
         className={
           "pointer-events-none aspect-[--carousel-aspect-ratio] w-full object-cover"

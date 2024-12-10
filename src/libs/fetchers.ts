@@ -15,9 +15,9 @@ export async function getContent(params: { key: string }) {
   return builderInstance.get(params.key, {}).promise();
 }
 
-export async function getPodcastInfo(params: { limit: number }): Promise<
-  PodcastInfo[]
-> {
+export async function getPodcastInfo(params: {
+  limit: number;
+}): Promise<PodcastInfo[]> {
   const response = await builderInstance.getAll("featured-podcasts", {
     limit: params.limit,
   });
@@ -31,9 +31,9 @@ export async function getPodcastInfo(params: { limit: number }): Promise<
   });
 }
 
-export async function getTestimonies(params: { limit: number }): Promise<
-  Testimony[]
-> {
+export async function getTestimonies(params: {
+  limit: number;
+}): Promise<Testimony[]> {
   const response = await builderInstance.getAll("testimonials", {
     limit: params.limit,
   });
@@ -42,7 +42,7 @@ export async function getTestimonies(params: { limit: number }): Promise<
     safeArray(response).map((v) => {
       const data = extractWithId(v);
       return TestimonySchema.parse(data);
-    }),
+    })
   );
 }
 
@@ -78,6 +78,7 @@ function emptyOnFailure<B>(fn: () => B[]): B[] | never[] {
   try {
     return fn();
   } catch (err) {
+    console.log(">>>>", err);
     return [];
   }
 }

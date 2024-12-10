@@ -43,10 +43,10 @@ export const AboutContentSchema = z.object({
   heroImages: z.array(z.object({ entry: ResponsiveImage })).default([]),
 });
 
-export type ImageSource = z.infer<typeof ImageSourceSchema>
+export type ImageSource = z.infer<typeof ImageSourceSchema>;
 export const ImageSourceSchema = z.object({
   id: z.string(),
   src: z.string(),
   alt: z.string(),
-  caption: z.string().optional()
+  caption: z.string().optional(),
 });

@@ -1,11 +1,14 @@
 import { format } from "date-fns";
-import { ChevronRightIcon } from "lucide-react";
-import type React from "react";
+import { animate, motion } from "framer-motion";
+import { ArrowRight, ChevronRightIcon } from "lucide-react";
+import React from "react";
 import { Balancer } from "react-wrap-balancer";
 import CoverImage from "../../public/assets/images/in-her-hands-cover.jpg";
 import { PreorderEndDate } from "../libs/constants.ts";
-import { cn } from "../libs/utils.ts";
+import { Button } from "./button.tsx";
+import { Title } from "./heading.tsx";
 import { Container } from "./layouts/container.tsx";
+import { ResponsiveImage } from "./responsive-image.tsx";
 
 export function Hero() {
   return (
@@ -86,68 +89,61 @@ export function MainHero({
   images: ResponsiveImage[];
 }) {
   return (
-    <section className="bg-purple-200 z-10 relative overflow-hidden text-white relative">
-      <ResponsiveImage
-        image={props.images[0]}
-        className={"absolute inset-0 pointer-events-none w-full h-full"}
+    <section className="bg-orange-500 z-10 relative overflow-hidden text-white relative">
+      <ResponsiveImage image={props.images[0]} priority={true} />
+
+      <div
+        className={"z-20 absolute inset-0"}
         style={{
           backgroundBlendMode: "soft-light",
-          backgroundSize: "cover",
           backgroundColor: "rgba(0, 0, 0, 0.5)",
         }}
       />
 
-      <Container className="py-4 relative z-20 flex items-end justify-start min-h-[100svh]">
-        <hgroup className="flex items-start flex-col gap-12 pb-8">
-          <h1 className="font-semibold text-4xl md:text-7xl max-w-[15ch] text-balance font-heading">
-            {heading}
-          </h1>
-
-          <a href={buttonLink}>
-            <button
-              type="button"
-              className="inline-flex bg-white gap-3 p-4 items-center text-black"
-            >
-              <span>{buttonText}</span>
-              <ChevronRightIcon size="18" />
-            </button>
-          </a>
+      <Container className="py-4 relative z-20 flex items-end justify-start min-h-[86svh]">
+        <hgroup className="flex items-start flex-col gap-12 pb-12">
+          <Title size={"h1"}>
+            <h1 className="font-normal max-w-[20ch] text-balance">
+              <TransitionS>{heading}</TransitionS>
+            </h1>
+          </Title>
         </hgroup>
       </Container>
     </section>
   );
 }
 
-type ResponsiveImage = {
-  base: string;
-  medium?: string;
-  small?: string;
-};
-
-function ResponsiveImage(
-  props: React.ComponentProps<"img"> & { image: ResponsiveImage },
-) {
-  const {
-    image: { small, base },
-    className,
-    style,
-  } = props;
-
+function TransitionS(props: { children: string }) {
   return (
-    <>
-      <img
-        alt={props.alt}
-        style={{ ...style, backgroundImage: `url(${small})` }}
-        className={cn("md:hidden absolute inset-0 object-cover", className)}
-      />
-      <img
-        alt={props.alt}
-        style={{ ...style, backgroundImage: `url(${base})` }}
-        className={cn(
-          "hidden absolute inset-0 md:block object-cover",
-          className,
-        )}
-      />
-    </>
+    <motion.div
+      initial={"hide"}
+      transition={{ delay: 3, staggerChildren: 2 }}
+      whileInView={"show"}
+      viewport={{ once: true }}
+    >
+      {breakInTwos(props.children).map((word, index) => {
+        return (
+          <motion.span
+            variants={{
+              show: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+              hide: { opacity: 0, y: "25%" },
+            }}
+            key={word.id}
+            data-index={index}
+            className={"inline-block leading-[1]"}
+          >
+            {word.value}
+          </motion.span>
+        );
+      })}
+    </motion.div>
   );
+}
+
+function breakInTwos(value: string) {
+  const matchIterator = value.matchAll(/(\w+\.?)\s(\w+\.?)/g);
+  return Array.from(matchIterator).map((e) => ({
+    value: e[0],
+    id: crypto.randomUUID(),
+  }));
 }

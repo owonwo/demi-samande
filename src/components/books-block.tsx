@@ -6,7 +6,9 @@ import { MarqueeContainer } from "./marquee.tsx";
 
 export function BooksBlock({
   list = [],
-}: { list: z.infer<typeof BookSchema>[] }) {
+}: {
+  list: z.infer<typeof BookSchema>[];
+}) {
   const [first_book] = list;
 
   return (
@@ -14,8 +16,10 @@ export function BooksBlock({
       <div className={"bg-warning-secondary py-2 md:py-4"}>
         <MarqueeContainer speed={15}>
           <span className={"flex items-center gap-6 text-xs md:text-base mr-6"}>
-            <span className={"w-2 h-2 bg-black inline-block rounded-full"} />
-            <span>NEW BOOK RELEASE PRE-ORDER NOW</span>
+            <span
+              className={"w-2 h-2 bg-black animate animate-spin inline-block"}
+            />
+            <span className={"text-black"}>NEW BOOK RELEASE PRE-ORDER NOW</span>
           </span>
         </MarqueeContainer>
       </div>

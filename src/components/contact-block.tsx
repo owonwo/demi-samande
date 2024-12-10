@@ -1,8 +1,10 @@
 import { Container } from "./layouts/container.tsx";
 
 export function ContactBlock({
-  contactEmail = "mailto:hello@demisamande.com",
-}: { contactEmail?: string }) {
+  contactEmail = "mailto:demi@majeursholdings.com",
+}: {
+  contactEmail?: string;
+}) {
   return (
     <section
       id="contact"

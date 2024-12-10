@@ -6,6 +6,7 @@ import { imageService } from "@unpic/astro/service";
 // @ts-check
 import { defineConfig } from "astro/config";
 import svgr from "vite-plugin-svgr";
+import glsl from "vite-plugin-glsl";
 
 // https://astro.build/config
 export default defineConfig({
@@ -26,6 +27,7 @@ export default defineConfig({
   adapter: vercel(),
   vite: {
     plugins: [
+      glsl(),
       svgr({
         include: "**/*.svg?react",
       }),

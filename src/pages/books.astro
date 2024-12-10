@@ -2,6 +2,10 @@
 import { ArrowRight } from "lucide-react";
 import { Balancer } from "react-wrap-balancer";
 import { ContactBlock } from "../components/contact-block.tsx";
+import {
+  BannerCountdown,
+  CountdownBanner,
+} from "../components/countdown-banner";
 import { MainHeader } from "../components/header.tsx";
 import { headingVariant } from "../components/heading.tsx";
 import { Container } from "../components/layouts/container.tsx";
@@ -11,96 +15,108 @@ import Layout from "../layouts/Layout.astro";
 import { safeArray } from "../libs/data.helper";
 import { getBooks } from "../libs/fetchers";
 import { cn } from "../libs/utils";
-import { BannerCountdown, CountdownBanner } from "../components/countdown-banner";
 
 const books = await getBooks({ limit: 1 });
 const [firstBook] = safeArray(books);
 ---
 
-<Layout title="About: Demi Samande">
+<Layout title="Books: Demi Samande">
+  <MainHeader position="sticky" client:load variant="transparent">
+    <NavMenu client:only="react" />
+  </MainHeader>
 
-	<MainHeader position="sticky" client:load variant="transparent">
-        <NavMenu client:only="react" />
-    </MainHeader>
+  <section
+    class="pt-32 text-white min-h-[20svh] relative md:min-h-[10svh]"
+    style={{
+      backgroundColor: "rgba(0,0,0,0.2)",
+      backgroundImage: "url(/assets/images/in-her-hands-cover.jpg)",
+      backgroundSize: "cover",
+      backgroundAttachment: "fixed",
+    }}
+  >
+    <div class="bg-black/[0.7] backdrop-blur inset-0 absolute"></div>
+  </section>
 
-    <section
-        class="pt-32 text-white min-h-[20svh] relative md:min-h-[10svh]"
-        style={{
-          backgroundColor: 'rgba(0,0,0,0.2)',
-          backgroundImage: "url(/assets/images/in-her-hands-cover.jpg)",
-          backgroundSize: 'cover',
-          backgroundAttachment: 'fixed'
-        }}
+  <CountdownBanner className="sticky top-0 z-20">
+    <div
+      class={"text-base md:text-[1.4rem]"}
+      style="--counter-height: 24px; --counter-duration: 300ms"
     >
-        <div class="bg-black/[0.7] backdrop-blur inset-0 absolute"/>
-    </section>
+      <BannerCountdown client:only="react" />
+    </div>
+  </CountdownBanner>
 
-    <CountdownBanner className="sticky top-0 z-20">
-		<div class={"text-base md:text-[1.4rem]"}
-			 style="--counter-height: 24px; --counter-duration: 300ms">
-			<BannerCountdown client:only="react"/>
-		</div>
-	</CountdownBanner>
+  <section class="bg-dm-background min-h-[100svh] relative z-10">
+    <Container className="py-24 flex flex-col gap-12 md:gap-24 items-center">
+      <h1 class={cn(headingVariant({ size: "title" }), "text-center")}>
+        First Book
+      </h1>
 
-    <section class="bg-dm-background min-h-[100svh] relative z-10">
-        <Container className="py-24 flex flex-col gap-12 md:gap-24 items-center">
-            <h1 class={
-                cn(
-                headingVariant({ size: 'title' }),
-                "text-center",
-            )}>
-                First Book
-            </h1>
+      <div class="grid md:gap-6 grid-cols-1 w-full items-start md:grid-cols-12">
+        <div class="hidden md:block blank"></div>
+        <article
+          class="order-2 md:order-none md:col-span-5 flex items-start max-w-[60ch] gap-4 flex-col"
+        >
+          <h2
+            class={headingVariant({
+              size: "h2",
+              className: "!font-medium !font-body",
+            })}
+          >
+            <Balancer>
+              {firstBook.longTitle ?? "No Heading"}
+            </Balancer>
+          </h2>
+          <div
+            class="prose text-[18px] text-neutral-700"
+            set:html={firstBook?.longDescription}
+          />
+          <a
+            href={firstBook.purchaseLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <button
+              class="bg-gray-200 px-5 inline-flex text-black items-center gap-2 py-3 rounded-lg base-button"
+              type="button"
+            >
+              <span>Pre-order book</span>
+              <ArrowRight size={18} />
+            </button>
+          </a>
+        </article>
+        <div class="hidden md:block blank"></div>
+        <div
+          class="order-1 md:sticky top-4 md:order-none mb-24 md:col-span-4 flex justify-center"
+        >
+          <figure class="w-full flex-1 shadow-[40px_35px_46px_rgba(0,0,0,0.3)]">
+            <img src={"/assets/images/in-her-hands-mock.png"} />
+          </figure>
+        </div>
+        <div class="hidden md:block blank"></div>
+      </div>
+    </Container>
 
-            <div class="grid md:gap-6 grid-cols-1 w-full items-start md:grid-cols-12">
-                <div class="hidden md:block blank" />
-                <article class="order-2 md:order-none md:col-span-5 flex items-start max-w-[60ch] gap-4 flex-col">
-                    <h2 class={headingVariant({ size: 'h2', className: "!font-medium !font-body"})}>
-                        <Balancer>
-                            {firstBook.longTitle ?? "No Heading"}
-                        </Balancer>
-                    </h2>
-                    <div class="prose text-[18px] text-neutral-700" set:html={firstBook?.longDescription} />
-                    <a href={firstBook.purchaseLink} target="_blank" rel="noopener noreferrer">
-                        <button
-                            class="bg-gray-200 px-5 inline-flex text-black items-center gap-2 py-3 rounded-lg base-button"
-                            type="button"
-                        >
-                            <span>Pre-order book</span>
-                             <ArrowRight size={18} />
-                        </button>
-                    </a>
-                </article>
-                <div class="hidden md:block blank" />
-                <div class="order-1 md:sticky top-4 md:order-none mb-24 md:col-span-4 flex justify-center">
-                    <figure class="w-full flex-1  shadow-[40px_35px_46px_rgba(0,0,0,0.3)]">
-                        <img src={'/assets/images/in-her-hands-mock.png'} />
-                    </figure>
-                </div>
-                <div class="hidden md:block blank" />
-            </div>
-        </Container>
+    <div class="border-t border-dm-border w-full"></div>
 
-        <div class="border-t border-dm-border w-full" />
+    <Container className="grid grid-cols-4 md:grid-cols-12 gap-6 py-12">
+      <div class="blank hidden md:block md:col-span-2"></div>
+      <div class="col-span-4 md:col-span-8">
+        <Testimonies client:load list={firstBook.testimonies} />
+      </div>
+    </Container>
+  </section>
 
-        <Container className="grid grid-cols-4 md:grid-cols-12 gap-6 py-12">
-            <div class="blank hidden md:block md:col-span-2"/>
-            <div class="col-span-4 md:col-span-8">
-                <Testimonies client:load list={firstBook.testimonies} />
-            </div>
-        </Container>
-    </section>
-
-    <ContactBlock />
+  <ContactBlock />
 </Layout>
 
 <style is:global>
-    .prose {
-        @apply flex flex-col;
-    }
+  .prose {
+    @apply flex flex-col;
+  }
 
-    .prose > p + p {
-        @apply text-neutral-700;
-        margin-top: 2ex;
-    }
+  .prose > p + p {
+    @apply text-neutral-700;
+    margin-top: 2ex;
+  }
 </style>

@@ -1,4 +1,6 @@
+import { motion } from "framer-motion";
 import React from "react";
+import { Balancer } from "react-wrap-balancer";
 import { safeArray, safeStr } from "../libs/data.helper.ts";
 import { cn } from "../libs/utils.ts";
 import { ImageCarousel } from "./custom-carousel.tsx";
@@ -7,7 +9,6 @@ import {
   SmartAccordionItem,
   SmartAccordionRoot,
 } from "./smart-accordion-root.tsx";
-import { motion } from "framer-motion";
 
 export function BioContent(props: {
   heading: string;
@@ -17,8 +18,10 @@ export function BioContent(props: {
   const { accomplishments } = props;
   const [index, setIndex] = React.useState(-1);
 
-  const images = props.accomplishments
-    .map(e => ({ src: e.photo, alt: e.paragraph }));
+  const images = props.accomplishments.map((e) => ({
+    src: e.photo,
+    alt: e.paragraph,
+  }));
 
   React.useEffect(() => {
     setIndex(0);
@@ -35,11 +38,11 @@ export function BioContent(props: {
       <Container>
         <div className="flex gap-4 flex-col md:flex-row items-end">
           <hgroup className="basis-1/2 flex flex-col gap-8">
-            <h2 className="text-2xl font-medium lg:text-3xl font-heading">
+            <h2 className="text-2xl text-black font-normal lg:text-[32px] font-heading">
               {safeStr(props.heading)}
             </h2>
             <p className="w-full md:text-base text-balance font-[100]">
-              {safeStr(props.paragraph)}
+              <Balancer>{safeStr(props.paragraph)}</Balancer>
             </p>
           </hgroup>
 
@@ -80,36 +83,41 @@ export function BioContent(props: {
           {props.accomplishments.map((e, idx) => {
             const isActive = index === idx;
 
-            return <li key={e.heading} className="group border-b last:border-b-0">
-              <div className="py-3">
-                <button
-                  type='button'
-                  className={cn("w-full text-3xl text-start font-heading", {
-                    "text-[#8F95A3] transition-all linear duration-[0.3s] text-[1.375rem]": !isActive
-                  })}
-                  onClick={() => setIndex(idx)}
-                >
-                  {e.heading}
-                </button>
-              </div>
-
-              <motion.div className="overflow-hidden"
-                animate={{ height: !isActive ? 0 : 'auto' }}
-                transition={{ ease: "easeIn", duration: 0.4, delay: 0.4 }}
-              >
-                <div>
-                  <motion.p
-                    animate={{
-                      opacity: isActive ? 1 : 0,
-                      y: isActive ? 0 : '50%'
-                    }}
-                    transition={{ delay: isActive ? 1 : 0, duration: 0.4 }}
-                    className="text-neutral-700 text-[1.125rem] pb-4">
-                    {e.paragraph}
-                  </motion.p>
+            return (
+              <li key={e.heading} className="group border-b last:border-b-0">
+                <div className="py-3">
+                  <button
+                    type="button"
+                    className={cn("w-full text-3xl text-start font-heading", {
+                      "text-[#8F95A3] transition-all linear duration-[0.3s] text-[1.375rem]":
+                        !isActive,
+                    })}
+                    onClick={() => setIndex(idx)}
+                  >
+                    {e.heading}
+                  </button>
                 </div>
-              </motion.div>
-            </li>
+
+                <motion.div
+                  className="overflow-hidden"
+                  animate={{ height: !isActive ? 0 : "auto" }}
+                  transition={{ ease: "easeIn", duration: 0.4, delay: 0.4 }}
+                >
+                  <div>
+                    <motion.p
+                      animate={{
+                        opacity: isActive ? 1 : 0,
+                        y: isActive ? 0 : "50%",
+                      }}
+                      transition={{ delay: isActive ? 1 : 0, duration: 0.4 }}
+                      className="text-neutral-700 text-[1.125rem] pb-4"
+                    >
+                      {e.paragraph}
+                    </motion.p>
+                  </div>
+                </motion.div>
+              </li>
+            );
           })}
         </ul>
       </Container>

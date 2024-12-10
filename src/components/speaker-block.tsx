@@ -2,11 +2,13 @@ import { z } from "astro:schema";
 import { ArrowRight } from "lucide-react";
 import React from "react";
 import { Balancer } from "react-wrap-balancer";
-import { Container } from "./layouts/container.tsx";
+import uncrypto from "uncrypto";
+import { type ImageSource, ImageSourceSchema } from "../models/index.ts";
+import { Button } from "./button.tsx";
 import { ImageCarousel } from "./custom-carousel.tsx";
+import { Title } from "./heading.tsx";
+import { Container } from "./layouts/container.tsx";
 import { ThumbnailButton } from "./testimonial.tsx";
-import { ImageSourceSchema, type ImageSource } from "../models/index.ts";
-import uncrypto from 'uncrypto'
 
 const buttonSchema = z.object({
   buttonText: z.string().default("Button text"),
@@ -26,17 +28,18 @@ const SpeakerSchema = z
   .object({
     noOfSpokenEvents: z.string({ coerce: true }).min(1).default("N/A"),
     noOfUniqueCountriesSpoken: z.string({ coerce: true }).min(1).default("N/A"),
-    images: z.array(z.any())
+    images: z
+      .array(z.any())
       .refine((images) => {
-        const photos = images.map(e => ({
+        const photos = images.map((e) => ({
           id: uncrypto.randomUUID(),
           src: e.src,
           caption: e.caption,
-          alt: e.photoDescription
+          alt: e.photoDescription,
         }));
         return z.array(ImageSourceSchema).default([]).parse(photos);
       })
-      .default([])
+      .default([]),
   })
   .merge(visibilitySchema)
   .merge(headingSchema)
@@ -61,7 +64,9 @@ function ValidateCMSData<A, T>(props: {
 
 export function SpeakerBlock({
   data,
-}: { data: z.infer<typeof SpeakerSchema> }) {
+}: {
+  data: z.infer<typeof SpeakerSchema>;
+}) {
   return (
     <ValidateCMSData data={data} schema={SpeakerSchema}>
       <section
@@ -72,15 +77,17 @@ export function SpeakerBlock({
           <div className="flex flex-col basis-1/2 justify-between gap-16">
             <div className="flex flex-col gap-8">
               <div className="flex flex-col gap-6">
-                <h1 className="font-heading max-w-xl text-3xl md:text-5xl">
-                  <Balancer>{data.heading}</Balancer>
-                </h1>
+                <Title size={"h2"}>
+                  <h1 className="font-heading text-black max-w-xl">
+                    <Balancer>{data.heading}</Balancer>
+                  </h1>
+                </Title>
                 <p className="text-base text-neutral-700 max-w-xl">
                   {data.paragraph}
                 </p>
               </div>
 
-              <div className="flex gap-12 text-sm">
+              <div className="flex gap-12 text-sm text-black">
                 <div className="flex gap-2 items-center">
                   <span className="text-5xl lg:text-7xl font-semibold">
                     {data.noOfSpokenEvents ?? "1"}
@@ -102,13 +109,13 @@ export function SpeakerBlock({
             </div>
 
             <a href={data.buttonAction} className="inline-block self-start">
-              <button
+              <Button
                 type="button"
-                className="flex gap-2 text-sm md:text-base bg-gray-100 rounded-md px-4 py-4 items-center"
+                className="gap-2 bg-gray-100 text-sm md:text-base"
               >
                 <span>{data.buttonText}</span>
                 <ArrowRight size="1em" />
-              </button>
+              </Button>
             </a>
           </div>
 
@@ -124,26 +131,32 @@ export function SpeakerBlock({
 function Carousel({ images = [] }: { images: ImageSource[] }) {
   const [index, setIndex] = React.useState(0);
 
-  return <div className="w-full flex flex-col gap-4 aspect-square">
-    <ImageCarousel
-      images={images}
-      pos={index}
-      className={"shrink-0 basis-1/2 rounded-lg"}
-      style={{
-        "--carousel-aspect-ratio": "712/544",
-      }}
-    />
+  return (
+    <div className="w-full flex flex-col gap-4">
+      <ImageCarousel
+        images={images}
+        pos={index}
+        className={"shrink-0 basis-1/2 rounded-lg"}
+        style={{
+          "--carousel-aspect-ratio": "712/544",
+        }}
+      />
 
-    {images.length > 1 ?
-      <div className="grid gap-4 grid-cols-[repeat(3,minmax(40px,69px))] self-center content-end items-start">
-        {images.map((entry, idx) => {
-          return <ThumbnailButton
-            key={entry.id}
-            image={entry}
-            isActive={index === idx}
-            onClick={() => setIndex(idx)} />
-        })}
-      </div>
-      : null}
-  </div>
+      {images.length > 1 ? (
+        <div className="grid gap-4 grid-cols-[repeat(3,minmax(1.4rem,2.5rem))] self-center content-end items-start">
+          {images.map((entry, idx) => {
+            return (
+              <ThumbnailButton
+                key={entry.id}
+                image={entry}
+                className={"md:w-[2.5rem]"}
+                isActive={index === idx}
+                onClick={() => setIndex(idx)}
+              />
+            );
+          })}
+        </div>
+      ) : null}
+    </div>
+  );
 }
