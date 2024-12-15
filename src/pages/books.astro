@@ -1,15 +1,12 @@
 ---
 import { ArrowRight } from "lucide-react";
 import { Balancer } from "react-wrap-balancer";
-import { ContactBlock } from "../components/contact-block.tsx";
 import {
   BannerCountdown,
   CountdownBanner,
 } from "../components/countdown-banner";
-import { MainHeader } from "../components/header.tsx";
 import { headingVariant } from "../components/heading.tsx";
 import { Container } from "../components/layouts/container.tsx";
-import { NavMenu } from "../components/nav-menu.tsx";
 import { Testimonies } from "../components/testimonial.tsx";
 import Layout from "../layouts/Layout.astro";
 import { safeArray } from "../libs/data.helper";
@@ -80,7 +77,7 @@ const [firstBook] = safeArray(books);
               class="bg-gray-200 px-5 inline-flex text-black items-center gap-2 py-3 rounded-lg base-button"
               type="button"
             >
-              <span>Pre-order book</span>
+              <span>Order now</span>
               <ArrowRight size={18} />
             </button>
           </a>

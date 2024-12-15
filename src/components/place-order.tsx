@@ -47,7 +47,7 @@ export function PlaceOrder() {
                     "px-12 py-4 bg-secondary-500 text-[--foreground-alt] w-full text-center rounded-lg"
                   }
                 >
-                  Pre-order now
+                  Order now
                 </button>
               </a>
             </div>
