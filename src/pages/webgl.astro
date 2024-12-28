@@ -1,0 +1,93 @@
+---
+
+---
+
+<div>
+  <div class="images-holder">
+    <img class="gl-image" src="/assets/images/in-her-hands-cover.jpg" />
+    <img
+      class="gl-image"
+      src="https://cdn.builder.io/api/v1/image/assets%2Fa9aee0a49b7a41018967c72016d0d762%2Ff2fad67788d944ee8efecb5ea1980eb2"
+    />
+    <img
+      class="gl-image"
+      src="https://cdn.builder.io/api/v1/image/assets%2Fa9aee0a49b7a41018967c72016d0d762%2F20f139f6aa804bb19c15f762fc0a4c00"
+    />
+    <img
+      class="gl-image"
+      src="https://cdn.builder.io/api/v1/image/assets%2Fa9aee0a49b7a41018967c72016d0d762%2F993f4df890a14e9bba2490277b01bf66"
+    />
+  </div>
+
+  <script>
+    import Canvas from "../libs/canvas";
+    const canvas = new Canvas();
+
+    canvas.resize();
+    canvas.registerListeners();
+
+    const render = () =>
+      requestAnimationFrame(() => {
+        canvas.update();
+        render();
+      });
+
+    window.addEventListener("resize", () => {
+      canvas.resize();
+    });
+
+    render();
+  </script>
+</div>
+
+<style is:inline>
+  .canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .images-holder {
+    position: absolute;
+    z-index: 3;
+    opacity: 1;
+    visibility: hidden;
+  }
+
+  .images-holder .gl-image {
+    position: absolute;
+    max-width: 300px;
+    width: 300px;
+    object-fit: cover;
+    aspect-ratio: 1 / 1.5;
+  }
+
+  .images-holder .gl-image:nth-child(1) {
+    left: 24.5rem;
+    top: 12rem;
+  }
+
+  .images-holder .gl-image:nth-child(1) {
+    left: 2.5rem;
+    top: 4rem;
+    width: 200px;
+  }
+
+  .images-holder .gl-image:nth-child(2) {
+    left: 85.5rem;
+    top: 12rem;
+    aspect-ratio: 1/1;
+  }
+
+  .images-holder .gl-image:nth-child(3) {
+    left: 55.5rem;
+    top: 15.2rem;
+    width: 300px;
+  }
+
+  .images-holder .gl-image:nth-child(4) {
+    left: 24.5rem;
+    top: 25.2rem;
+    width: 300px;
+  }
+</style>

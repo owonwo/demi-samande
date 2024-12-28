@@ -22,7 +22,7 @@ export function BooksBlock({
             <span
               className={"w-2 h-2 bg-black animate animate-spin inline-block"}
             />
-            <span className={"text-black"}>NEW BOOK RELEASE PRE-ORDER NOW</span>
+            <span className={"text-black"}>NEW BOOK RELEASE</span>
           </span>
         </MarqueeContainer>
       </div>
