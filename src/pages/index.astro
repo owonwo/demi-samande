@@ -1,6 +1,6 @@
 ---
 import { BioContent } from "../components/bio-content.tsx";
-import { BooksBlock } from "../components/books-block.tsx";
+import { BooksBlock, NewBookBanner } from "../components/books-block.tsx";
 import { MainHero } from "../components/hero.tsx";
 import { PodcastBlock } from "../components/podcast-block.tsx";
 import { SpeakerBlock } from "../components/speaker-block.tsx";
@@ -25,6 +25,7 @@ const [hero, intro, speaker, podcast, testimonials, books] = await Promise.all([
 
 <Layout title="Demi Samande | Author | Founder | Podcaster | Speaker">
   <MainHero {...hero.data} client:load />
+  <NewBookBanner />
   <BioContent {...intro.data} client:only="react" />
   <BooksBlock list={books} />
   <SpeakerBlock data={speaker.data} client:load />

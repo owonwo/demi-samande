@@ -34,7 +34,7 @@ export default class Canvas {
     };
   }
 
-  // for determining the width and height in view.
+  // Just copy and paste this. for determining the width and height in view.
   calculateFOV(camera) {
     const fov = camera.fov * (Math.PI / 180);
     const height = 2 * Math.tan(fov / 2) * camera.position.z;

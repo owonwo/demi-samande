@@ -130,7 +130,7 @@ export function SmartAccordionItem(props: {
           <Title size={"h2"}>
             <h3 className={"font-heading text-black"}>{props.heading}</h3>
           </Title>
-          <p className={"text-sm leading-[2.5ex] md:text-[1.125rem] w-full"}>
+          <p className={"text-sm text-neutral-700 leading-[2.5ex] md:text-[1.125rem] w-full"}>
             {props.children}
           </p>
         </div>

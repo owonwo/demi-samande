@@ -263,7 +263,7 @@ function SlideLens({ index = 0, className, options }: SlideLensProps) {
       <motion.div
         className="flex flex-col"
         animate={{ y: `-${(index / options.length) * 100}%` }}
-        transition={{ duration: 0.4, delay: 0.4 }}
+        transition={{ duration: 0.4 }}
       >
         {options.map((e) => {
           return (

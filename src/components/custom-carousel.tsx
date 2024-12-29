@@ -112,6 +112,9 @@ function Figure(props: React.ComponentProps<"img">) {
         "absolute rounded-md pointer-events-none overflow-hidden",
         props.className,
       )}
+      style={{
+        filter: "blur(var(--filter-blur, 0))",
+      }}
     >
       <img
         src={src}

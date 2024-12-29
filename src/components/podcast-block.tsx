@@ -23,7 +23,7 @@ export function PodcastBlock({ list }: { list: PodcastInfo[] }) {
         className={"absolute z-10 inset-0"}
         style={{
           backgroundBlendMode: "soft-light",
-          backgroundColor: "rgba(0,0,0,0.25)",
+          backgroundColor: "rgba(0,0,0,0.78)",
           backgroundImage: `url(${current.coverImage})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",

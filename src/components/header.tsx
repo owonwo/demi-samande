@@ -119,7 +119,7 @@ export function MainHeader(props: {
         return animate(
           logoElement,
           {
-            scale: 1.5,
+            scale: 1.1,
           },
           {
             duration: 0.2,
@@ -136,7 +136,7 @@ export function MainHeader(props: {
       "scroll",
       () => {
         expandLogo();
-        complementSection();
+        // complementSection();
       },
       {
         signal: abortControl.signal,
