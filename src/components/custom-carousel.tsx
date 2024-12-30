@@ -109,11 +109,11 @@ function Figure(props: React.ComponentProps<"img">) {
     <figure
       {...PROPS}
       className={cn(
-        "absolute rounded-md pointer-events-none overflow-hidden",
+        "absolute filter data-[active=false]:grayscale rounded-md pointer-events-none overflow-hidden",
         props.className,
       )}
       style={{
-        filter: "blur(var(--filter-blur, 0))",
+        "--tw-blur": "blur(var(--filter-blur, 0))",
       }}
     >
       <img
