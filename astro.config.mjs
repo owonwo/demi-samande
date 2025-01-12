@@ -1,7 +1,7 @@
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
-import vercel from "@astrojs/vercel/serverless";
+import vercel from "@astrojs/vercel";
 import { imageService } from "@unpic/astro/service";
 // @ts-check
 import { defineConfig } from "astro/config";
@@ -24,7 +24,11 @@ export default defineConfig({
     service: imageService(),
   },
   output: "server",
-  adapter: vercel(),
+  adapter: vercel({
+    isr: {
+      expiration: 60 * 60 * 24,
+    },
+  }),
   vite: {
     plugins: [
       glsl(),
