@@ -78,7 +78,9 @@ export class CustomSlider {
     }
 
     type Sibling = HTMLElement | undefined | null;
-    let prevSibling: Sibling = element.previousElementSibling || null;
+    const resolve = (v: unknown): HTMLElement => v as unknown as HTMLElement;
+
+    let prevSibling: Sibling = resolve(element.previousElementSibling || null)
 
     let count = 0;
     const BASE_SCALE = 1;
@@ -114,7 +116,7 @@ export class CustomSlider {
         );
         prev_count++;
 
-        prevSibling = prevSibling?.previousElementSibling;
+        prevSibling = resolve(prevSibling?.previousElementSibling);
       }
     }
 
@@ -130,7 +132,7 @@ export class CustomSlider {
       shared,
     );
 
-    let nextSibling: Sibling = element.nextElementSibling || null;
+    let nextSibling: Sibling = resolve(element.nextElementSibling || null);
     while (nextSibling) {
       if (nextSibling)
         animate(
@@ -145,7 +147,7 @@ export class CustomSlider {
           shared,
         );
 
-      nextSibling = nextSibling?.nextElementSibling;
+      nextSibling = resolve(nextSibling?.nextElementSibling);
     }
 
     await this.delay(ANIMATION_DURATION);

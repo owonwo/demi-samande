@@ -101,7 +101,7 @@ export function NewsletterForm() {
             }
 
             await submit(formData)
-              .then((e) => {
+              .then(() => {
                 // delay an extra second
                 return new Promise((res) => setTimeout(res, 1000));
               })
