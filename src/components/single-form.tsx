@@ -1,7 +1,8 @@
 import React from "react";
+import throttle from "lodash/throttle";
 import * as R from "ramda";
 import { cn } from "../libs/utils";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader, Loader2 } from "lucide-react";
 
 // CSS VARIABLES
 // --ss-bg: white;
@@ -44,14 +45,19 @@ function useAnimation(className: string) {
     isAnimating: false,
     timeout_id: 0,
   });
+
   const [animation, setAnimation] = React.useState(className);
-  const _setAnimation = (name, timeout) => {
+  const _setAnimation = (name: string, timeout: number) => {
     clearTimeout(state.timeout_id);
     const t_id = setTimeout(() => {
       setState({ ...state, isAnimating: false });
       setAnimation("");
     }, timeout);
-    setState({ ...state, isAnimating: true, timeout_id: t_id });
+    setState({
+      ...state,
+      isAnimating: true,
+      timeout_id: t_id as unknown as number,
+    });
     setAnimation(name);
   };
 
@@ -62,7 +68,7 @@ function useAnimation(className: string) {
   };
 }
 
-const useDots = R.compose(
+const toDot = R.compose(
   // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
   (arr) =>
     arr.map((_, idx: number) => <span key={`dot/.${idx}`} className="dot" />),
@@ -73,10 +79,12 @@ const useDots = R.compose(
 export function SingleForm({
   form,
   onSubmit,
+  isLoading = false,
   message = "Success!",
 }: {
   form: FormProp[];
-  onSubmit: () => void;
+  onSubmit: (payload: Record<string, unknown>) => Promise<void>;
+  isLoading: boolean;
   message: React.ReactNode | (() => React.JSX.Element);
 }) {
   const rootRef = React.useRef<HTMLDivElement>(null);
@@ -91,34 +99,42 @@ export function SingleForm({
     finished: false,
   });
 
-  const currentField = () => fields[current];
-  const isLast = () => fields.length - 1 === current;
-
-  const calculate = React.useCallback(
-    () => (spanRef.current ? spanRef.current.offsetWidth : 0),
-    [],
-  );
+  const currentField = React.useMemo(() => fields[current], [fields, current]);
 
   const setValue = R.curry((field, evt) => {
     const { value } = evt.target;
     setValues({ ...values, [field]: value });
   });
 
-  const validate = R.curryN(2, (current: number, event: any) => {
+  const validate = R.curryN(2, (current: number, event: unknown) => {
     if (isAnimating) return;
-    const { regex, name } = currentField();
 
-    if (regex.test(values[name] || "")) {
-      if (isLast()) {
-        inputRef.current?.blur?.();
-        setValues({ ...values, finished: true });
-        return onSubmit(values);
-      }
-      inputRef.current.value = "";
+    const wiggleOnError = () => setAnimation("wiggle", 600);
+
+    const { validator: validateValue, name } = fields[current];
+    const isLast = () => fields.length - 1 === current;
+
+    const value = String(values[name] || "");
+
+    if (!validateValue(value)) return wiggleOnError();
+
+    if (!isLast()) {
+      if (inputRef.current) inputRef.current.value = "";
       setCurrent(current + 1);
-    } else {
-      setAnimation("wiggle", 600);
+      return;
     }
+
+    return onSubmit(values)
+      .then(() => {
+        inputRef.current?.blur?.();
+        if (spanRef.current) {
+          spanRef.current.textContent = "";
+        }
+
+        setValues({ ...values, finished: true });
+        return;
+      })
+      .catch(() => wiggleOnError());
   });
 
   const icons = React.useMemo(
@@ -134,6 +150,27 @@ export function SingleForm({
     if (rootRef.current) rootRef.current.removeAttribute("data-focused");
   }
 
+  const computeWidth = React.useMemo(
+    () =>
+      throttle(() => {
+        const root = rootRef.current;
+        const textBox = spanRef.current;
+
+        if (!(root && textBox)) return;
+
+        root.style.width = `calc(
+          calc(${textBox.offsetWidth}px + 2ch) +
+          calc( var(--ss-height) * 2 )
+        )`;
+      }, 400),
+    [],
+  );
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  React.useEffect(() => {
+    computeWidth();
+  }, [computeWidth, current, values.finished]);
+
   return (
     <div
       ref={rootRef}
@@ -142,9 +179,6 @@ export function SingleForm({
         wiggle: animation === "wiggle",
         "pointer-events-none finished": values.finished,
       })}
-      style={{
-        width: `calc( ${calculate() + 15}px + calc( var(--ss-height) * 2 ) )`,
-      }}
       onClick={() => {
         if (!values.finished) {
           inputRef.current?.focus?.();
@@ -157,28 +191,39 @@ export function SingleForm({
         <Icons current={current} icons={icons} />
 
         <div className="wg-ss__text_holder">
-          <label htmlFor="">{currentField().label}</label>
+          <label htmlFor="">{currentField.label}</label>
+
           <span id="enter" ref={spanRef}>
-            {currentField().type === "password"
-              ? useDots(values[fields[current].name] || "")
-              : values[fields[current].name]}
+            {currentField.type === "password"
+              ? toDot(values[fields[current].name] || "")
+              : String(values[currentField.name] ?? "")}
           </span>
+
           <input
             ref={inputRef}
-            onChange={setValue(currentField().name)}
-            onKeyUp={(evt) => evt.keyCode === 13 && validate(current, evt)}
+            onChange={(evt) => {
+              setValue(currentField.name)(evt);
+              setTimeout(() => computeWidth(), 50);
+            }}
+            onKeyUp={(evt) => evt.code === "Enter" && validate(current, evt)}
             onFocus={onFocus}
             onBlur={onBlur}
           />
         </div>
+
         <button
           type="button"
           className={cn("submit !inline-flex items-center justify-center", {
             "wg-shake-animation": animation === "shake",
+            "!bg-transparent": isLoading,
           })}
           onClick={(evt) => validate(current, evt)}
         >
-          <ArrowRight strokeWidth={1} size="2.5em" />
+          {isLoading ? (
+            <Loader className="animate-spin" strokeWidth={1} size="2.5rem" />
+          ) : (
+            <ArrowRight strokeWidth={1} size="2.5em" />
+          )}
         </button>
       </div>
 
@@ -196,7 +241,7 @@ export function SingleForm({
 type FormProp = {
   name: string;
   label: string;
-  regex: RegExp;
+  validator: (a: string) => boolean;
   icon: React.ReactNode;
   type: "password" | "text";
 };

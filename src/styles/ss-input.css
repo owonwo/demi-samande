@@ -171,6 +171,8 @@
   --submit-height: calc(var(--ss-height) - var(--arc-space));
   width: var(--submit-height);
   height: var(--submit-height);
+  border: solid 1px transparent;
+  box-sizing: border-box;
   flex-grow: 0;
   flex-shrink: 0;
   flex-basis: var(--submit-height);
@@ -209,8 +211,13 @@
 }
 
 .wg-ss__input .submit:focus {
+  outline: none;
+  background-color: transparent;
+  border: solid 1px theme("colors.accent.500");
+  color: theme("colors.accent.500");
   transform: scale(0.8);
 }
+
 .wg-ss__input .wg-ss__finished {
   z-index: 100;
   opacity: 0;

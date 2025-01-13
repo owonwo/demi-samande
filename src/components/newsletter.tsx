@@ -1,45 +1,34 @@
-import { useState } from "react";
-import type { FormEvent } from "react";
-import { Button } from "./button";
 import SingleForm from "./single-form";
-import {
-  ArrowBigRight,
-  ArrowDownLeft,
-  ArrowLeftRight,
-  ArrowRightToLine,
-  AtSignIcon,
-  CheckCheck,
-  CornerDownLeft,
-  CornerLeftDown,
-  CornerRightDown,
-  UserIcon,
-} from "lucide-react";
+import { AtSignIcon, CheckCheck, CornerDownLeft, UserIcon } from "lucide-react";
 import { Title } from "./heading";
 import { motion } from "framer-motion";
 import { cn } from "../libs/utils";
-import Balancer from "react-wrap-balancer";
+import { Container } from "./layouts/container";
+import { z } from "astro/zod";
+import React from "react";
 
 export function NewsletterForm() {
-  const [responseMessage, setResponseMessage] = useState("");
+  const [responseMessage, setResponseMessage] = React.useState("");
+  const [isLoading, setLoading] = React.useState(false);
 
-  async function submit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const response = await fetch("/api/feedback", {
-      method: "POST",
-      body: formData,
-    });
-    const data = await response.json();
-    if (data.message) {
-      setResponseMessage(data.message);
+  async function submit(formData: FormData) {
+    setLoading(true);
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      if (data.message) {
+        setResponseMessage(data.message);
+      }
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
-    <form
-      onSubmit={submit}
-      className="flex flex-col gap-[1rem] mx-auto items-center"
-    >
+    <div className="flex w-full flex-col gap-[1rem] mx-auto items-center">
       {/* <div className="flex gap-[1rem] *:flex-1">
         <label htmlFor="name" className="flex flex-col gap-1">
           First name
@@ -79,26 +68,36 @@ export function NewsletterForm() {
               label: "First Name",
               type: "text",
               icon: <UserIcon />,
-              regex: /\w+/,
+              validator: (v) => /\w+/.test(v),
             },
             {
               name: "lastname",
               label: "Last Name",
               type: "text",
               icon: <UserIcon />,
-              regex: /\w+/,
+              validator: (v) => /\w+/.test(v),
             },
             {
               name: "email",
               label: "Email address",
               type: "text",
               icon: <AtSignIcon />,
-              regex: /\w+/,
+              validator: (email) => z.string().email().safeParse(email).success,
             },
           ]}
           message={() => <SuccessContent />}
-          onSubmit={(data) => {
-            console.log(">>>>", data);
+          isLoading={isLoading}
+          onSubmit={async (data) => {
+            const formData = new FormData();
+
+            for (const prop in data) {
+              formData.set(prop, String(data[prop]));
+            }
+
+            await submit(formData).then((e) => {
+              // delay an extra second
+              return new Promise((res) => setTimeout(res, 1000));
+            });
           }}
         />
 
@@ -117,7 +116,7 @@ export function NewsletterForm() {
         </motion.div>
       </div>
       {responseMessage && <p>{responseMessage}</p>}
-    </form>
+    </div>
   );
 }
 
@@ -147,7 +146,7 @@ function SuccessContent() {
 
 export function Newsletter() {
   return (
-    <div className="flex flex-col pt-12 pb-32 gap-[4rem] items-center text-white">
+    <Container className="flex flex-col pt-12 pb-32 gap-[4rem] items-center text-white">
       <div className="flex flex-col gap-[1rem] items-center text-center">
         <Title size={"h2"}>
           <h1 className="text-balance font-body">Stay Inspired</h1>
@@ -157,6 +156,6 @@ export function Newsletter() {
       </div>
 
       <NewsletterForm />
-    </div>
+    </Container>
   );
 }
