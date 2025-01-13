@@ -19,7 +19,7 @@ export function CountdownBanner(props: {
     <div
       className={cn(
         "bg-white flex items-center py-2 min-h-12 border-b text-black",
-        props.className
+        props.className,
       )}
     >
       <Container className={"flex justify-between items-center"}>
@@ -41,7 +41,7 @@ type Timestamp = {
 
 function countdownToDate(
   targetDate: Date,
-  fn: (data: "DONE" | Timestamp) => void
+  fn: (data: "DONE" | Timestamp) => void,
 ) {
   const updateCountdown = () => {
     const now = new Date();
@@ -53,7 +53,7 @@ function countdownToDate(
 
     const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
     const hours = Math.floor(
-      (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
     );
     const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
@@ -78,7 +78,7 @@ export function Countdown(props: {
 
   const [, setState] = React.useState(0);
   const [timestamp, setRange] = React.useState<CounterViewProps["timestamp"]>(
-    []
+    [],
   );
 
   React.useEffect(() => {

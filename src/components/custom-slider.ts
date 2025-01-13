@@ -86,7 +86,7 @@ export class CustomSlider {
     const ANIMATION_DURATION = opts.duration ?? this.duration;
 
     const shared = {
-      type: "spring",
+      type: "tween",
       // ease: "easeOut",
       duration: ANIMATION_DURATION / 1000,
       delay: opts.initial ? 2 : 0,
@@ -98,7 +98,6 @@ export class CustomSlider {
 
     while (prevSibling) {
       if (prevSibling) {
-        // prevSibling.removeAttribute("data-active");
         prevSibling.style.setProperty(STYLE_BLUR_KEY, "10px");
         count++;
 

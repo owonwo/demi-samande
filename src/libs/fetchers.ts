@@ -42,7 +42,7 @@ export async function getTestimonies(params: {
     safeArray(response).map((v) => {
       const data = extractWithId(v);
       return TestimonySchema.parse(data);
-    })
+    }),
   );
 }
 
