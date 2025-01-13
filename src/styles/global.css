@@ -77,3 +77,22 @@ html {
   font-style: italic;
   font-display: swap;
 }
+
+.wiggle {
+  animation: wiggle 2s infinite forwards 5s;
+}
+
+@keyframes wiggle {
+  0% {
+    transform: translateX(0%);
+  }
+  5% {
+    transform: translateX(20%);
+  }
+  10% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}

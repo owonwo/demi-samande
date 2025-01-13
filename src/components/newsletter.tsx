@@ -6,22 +6,28 @@ import { cn } from "../libs/utils";
 import { Container } from "./layouts/container";
 import { z } from "astro/zod";
 import React from "react";
+import { fetch } from "ofetch";
 
 export function NewsletterForm() {
-  const [responseMessage, setResponseMessage] = React.useState("");
   const [isLoading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
   async function submit(formData: FormData) {
     setLoading(true);
     try {
+      setError(null);
       const response = await fetch("/api/subscribe", {
         method: "POST",
         body: formData,
       });
       const data = await response.json();
-      if (data.message) {
-        setResponseMessage(data.message);
+      if (!data.success) {
+        throw data.error;
       }
+    } catch (err) {
+      if (err instanceof Error) setError(err.message);
+      setError(String(err));
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -94,10 +100,12 @@ export function NewsletterForm() {
               formData.set(prop, String(data[prop]));
             }
 
-            await submit(formData).then((e) => {
-              // delay an extra second
-              return new Promise((res) => setTimeout(res, 1000));
-            });
+            await submit(formData)
+              .then((e) => {
+                // delay an extra second
+                return new Promise((res) => setTimeout(res, 1000));
+              })
+              .catch(console.info);
           }}
         />
 
@@ -114,8 +122,13 @@ export function NewsletterForm() {
           </span>
           to submit
         </motion.div>
+
+        {error && (
+          <p className="text-sm text-red-300 text-balance text-sm max-w-md text-center">
+            {error}
+          </p>
+        )}
       </div>
-      {responseMessage && <p>{responseMessage}</p>}
     </div>
   );
 }

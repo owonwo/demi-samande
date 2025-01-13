@@ -1,11 +1,13 @@
 ---
 import "../styles/global.css";
+import "../styles/ss-input.css";
 import { ContactBlock } from "../components/contact-block";
 import { MainFooter } from "../components/footer";
 import { MainHeader } from "../components/header.tsx";
 import { NavMenu } from "../components/nav-menu.tsx";
 import { getContent } from "../libs/fetchers";
 import { baseUrl } from "../libs/utils";
+import { Newsletter } from "../components/newsletter";
 
 const speakerContent = await getContent({ key: "speaker-content" });
 
@@ -78,6 +80,7 @@ const { title } = Astro.props;
     </MainHeader>
     <slot />
     <ContactBlock contactEmail={speakerContent?.data?.buttonAction} />
+    <Newsletter client:load />
     <MainFooter />
   </body>
 

@@ -8,22 +8,26 @@ const API_KEY = import.meta.env.FLODESK_API_KEY;
 const SEGMENT_ID = import.meta.env.FLODESK_SEGMENT_ID;
 
 const schema = z.object({
-  firstname: z.string({
-    required_error: "First name required"
-  }).min(1, { message: "Name should contain a minimum of 1 char"}),
-  lastname: z.string(
-    {required_error: "Last name required"}
-  ).min(1, { message: "Name should contain a minimum of 1 char"}),
-  email: z.string({
-    required_error: "Email address required"
-  }).email({ message: "Please provide a valid email address"}),
+  firstname: z
+    .string({
+      required_error: "First name required",
+    })
+    .min(1, { message: "Name should contain a minimum of 1 char" }),
+  lastname: z
+    .string({ required_error: "Last name required" })
+    .min(1, { message: "Name should contain a minimum of 1 char" }),
+  email: z
+    .string({
+      required_error: "Email address required",
+    })
+    .email({ message: "Please provide a valid email address" }),
 });
 
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.formData();
 
   try {
-    const payload = Object.fromEntries(data.entries())
+    const payload = Object.fromEntries(data.entries());
 
     const result = await schema.safeParseAsync(payload);
     if (!result.success) {
@@ -59,7 +63,9 @@ export const POST: APIRoute = async ({ request }) => {
       };
     }
 
-    return new Response(JSON.stringify(res), { status: 200 });
+    return new Response(JSON.stringify({ success: true, kind: "Success" }), {
+      status: 200,
+    });
   } catch (err) {
     const errObj = safeObj(err);
     let content: { success: boolean } & Record<string, unknown>;
