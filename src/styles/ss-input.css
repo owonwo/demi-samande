@@ -1,0 +1,246 @@
+.wg-ss__input {
+  font-family: var(--ss-font-family);
+  position: relative;
+  overflow: hidden;
+  align-items: center;
+  display: inline-flex;
+  animation-delay: 300ms;
+  box-sizing: border-box;
+  height: var(--ss-height);
+  min-width: calc(var(--ss-height) * 5);
+  border-radius: calc(var(--ss-height) / 2);
+  border: solid var(--ss-border-width) var(--ss-border-color, black);
+  transition: width 0.2s cubic-bezier(0.07, 0.27, 0.15, 0.95);
+}
+
+.wg-ss__input.wiggle {
+  animation-name: wg-ss-wiggle;
+  animation-iteration-count: 1;
+  animation-duration: 300ms;
+  animation-timing-function: cubic-bezier(0.01, 0.14, 0.56, 1.74);
+}
+
+@keyframes wg-ss-wiggle {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-15px);
+  }
+
+  50% {
+    transform: translateX(0px);
+  }
+
+  75% {
+    transform: translateX(15px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.wg-ss__input > input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+}
+.wg-ss__input .wg-ss__holder {
+  width: 100%;
+  display: flex;
+  position: relative;
+  transition-duration: 0.2s;
+  justify-content: space-between;
+}
+.wg-ss__input .wg-ss__icon_holder {
+  z-index: 3;
+  position: relative;
+  flex: 0 0 var(--ss-height);
+}
+.wg-ss__input .wg-ss__icon_holder > .wg-ss__icon {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.wg-ss__input .wg-ss__icon_holder > .wg-ss__icon.hide {
+  transform: translateX(100vw) rotateY(180deg);
+  opacity: 0;
+}
+
+.wg-ss__input .wg-ss__icon_holder .wg-ss__icon {
+  width: var(--ss-height);
+  height: var(--ss-height);
+  z-index: 4;
+  display: block;
+  box-sizing: border-box;
+  text-align: center;
+  flex: 0 0 var(--ss-height);
+  line-height: var(--ss-height);
+  border-radius: calc(var(--ss-height) / 2);
+  left: calc(var(--index) * 5px);
+  opacity: calc(1 / var(--index));
+  border: solid var(--ss-border-width) var(--ss-border-color, black);
+  background-color: var(--ss-icon-bg, #333);
+  transition: all 0.3s cubic-bezier(0.7, 0.1, 0.27, 0.99);
+}
+
+@keyframes wg-anim-blink {
+  to {
+    opacity: 0;
+  }
+  /* to {
+    opacity: 0;
+  } */
+}
+
+.wg-ss__input .wg-ss__text_holder {
+  flex: 0 0 calc(100% - calc(var(--ss-height) * 2));
+  display: grid;
+  white-space: nowrap;
+  justify-content: start;
+  height: var(--ss-height);
+  grid-template-rows: calc(var(--ss-height) * 0.3) calc(var(--ss-height) * 0.7);
+}
+
+.wg-ss__input .wg-ss__text_holder .dot {
+  width: 15px;
+  height: 15px;
+  margin-right: 3px;
+  border-radius: 50px;
+  display: inline-block;
+  background: var(--ss-text-color);
+}
+
+.wg-ss__input .wg-ss__text_holder .dot::selection {
+  color: pink;
+  background-color: blue;
+}
+
+.wg-ss__input .wg-ss__text_holder span#enter {
+  flex: 1 1 70%;
+  padding-left: 5px;
+  color: var(--ss-text-color);
+  font-size: calc(var(--ss-height) * 0.5);
+}
+
+.wg-ss__input:focus-within .wg-ss__text_holder span#enter::after {
+  content: "";
+  display: inline-block;
+  height: calc(var(--ss-height) * 0.45);
+  vertical-align: baseline;
+  transform: translateY(4px);
+  opacity: 1;
+  width: 2px;
+  background: var(--ss-cursor-color, rgba(255, 255, 255, 0.75));
+  animation: wg-anim-blink 1s steps(2) infinite;
+}
+
+.wg-ss__text_holder input {
+  z-index: 0;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  border: none;
+  top: 0;
+  right: 0;
+  position: absolute;
+  background-color: transparent;
+}
+
+.wg-ss__input .wg-ss__text_holder input:focus {
+  outline: none !important;
+}
+
+.wg-ss__input .wg-ss__text_holder label {
+  display: block;
+  opacity: 0.8;
+  color: var(--ss-text-color);
+  font-size: 0.87rem !important;
+  text-indent: 10px;
+  text-transform: uppercase;
+  font-size: calc(var(--ss-height) * 0.2);
+  line-height: calc(var(--ss-height) * 0.3);
+}
+
+.wg-ss__input .submit {
+  --arc-space: calc(var(--ss-height) * 0.2);
+  --submit-height: calc(var(--ss-height) - var(--arc-space));
+  width: var(--submit-height);
+  height: var(--submit-height);
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: var(--submit-height);
+  margin-right: calc(var(--arc-space) - calc(var(--ss-height) * 0.1));
+  align-self: center;
+  border: none;
+  display: block;
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: calc(var(--ss-height) / 2);
+  background-color: var(--ss-btn-bg);
+  color: var(--ss-btn-color);
+  transition: 0.3s;
+  animation-delay: 300ms;
+}
+
+.wg-shake-animation {
+  animation-name: hr-shaking;
+  animation-iteration-count: 1;
+  animation-duration: 300ms;
+  animation-timing-function: ease-out;
+}
+
+@keyframes hr-shaking {
+  0% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(-35deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.wg-ss__input .submit:focus {
+  transform: scale(0.8);
+}
+.wg-ss__input .wg-ss__finished {
+  z-index: 100;
+  opacity: 0;
+  inset: 0;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  pointer-events: none;
+  justify-content: center;
+  color: var(--ss-text-color);
+  font-size: calc(var(--ss-height) * 0.3);
+}
+
+@supports not (inset: 0) {
+  .wg-ss__input .wg-ss__finished {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.wg-ss__input.finishd,
+.wg-ss__input .wg-ss__finished {
+  transition: all 1s ease-out;
+}
+.wg-ss__input.finished .wg-ss__finished {
+  opacity: 1;
+}
+.wg-ss__input.finished .wg-ss__holder {
+  opacity: 0;
+  transform: translateY(-100%);
+}
